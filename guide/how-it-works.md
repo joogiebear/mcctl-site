@@ -4,7 +4,7 @@ A Minecraft server is an interactive foreground process. Launched from a normal 
 blocks forever, its stdin is unreachable, and its console output is lost. That makes the ordinary
 edit, restart, check loop painful to automate, and impossible to put a window around.
 
-mcctl puts a supervisor in front of each server so short-lived commands, and the panel, can start
+SpawnLoft puts a supervisor in front of each server so short-lived commands, and the panel, can start
 it, read what it printed, talk to it, and shut it down cleanly.
 
 ```
@@ -46,7 +46,7 @@ as `orphaned`, and `kill` cleans it up.
 
 The registry is the source of truth for ports and RCON. `start` pushes those values into
 `server.properties` before every launch, so hand-editing the file cannot silently desync a server
-from what mcctl believes about it.
+from what SpawnLoft believes about it.
 
 ## Backups
 
@@ -61,13 +61,13 @@ missing a locked world is caught the week it was taken rather than the day it is
 
 ## Scheduled work
 
-Windows Task Scheduler runs scheduled tasks, so they happen whether or not mcctl is open. They run
+Windows Task Scheduler runs scheduled tasks, so they happen whether or not SpawnLoft is open. They run
 while you are signed in, screen locked included, but not after you sign out. Running regardless
 would mean storing a Windows password in the task definition, which is not a thing to do quietly
 for a nightly backup.
 
-mcctl keeps the task definitions in its own file and gives Windows only a trigger that calls back
-into `mcctl task run <id>`. What a task *does* stays inside mcctl, constrained to the handful of
+SpawnLoft keeps the task definitions in its own file and gives Windows only a trigger that calls back
+into `mcctl task run <id>`. What a task *does* stays inside SpawnLoft, constrained to the handful of
 things a task is allowed to be, rather than an arbitrary command line.
 
 ## Zero dependencies

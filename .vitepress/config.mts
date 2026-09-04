@@ -15,11 +15,11 @@ const guide = [
   { text: 'Questions', link: '/guide/faq' },
 ]
 
-// Until a domain is attached, the Vercel address is the canonical one. Change it here only.
-const SITE = 'https://mcctl-site.vercel.app'
+// The canonical address. spawnloft.app and spawnloft.dev redirect here. Change it here only.
+const SITE = 'https://spawnloft.com'
 
 export default defineConfig({
-  title: 'mcctl',
+  title: 'SpawnLoft',
   description: 'Minecraft servers on your own PC, without the terminal. Free, open source, Windows.',
   lang: 'en',
   cleanUrls: true,
@@ -33,14 +33,19 @@ export default defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'mcctl — Minecraft servers on your own PC' }],
+    ['meta', { property: 'og:title', content: 'SpawnLoft — Minecraft servers on your own PC' }],
+    ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
+    ['meta', { property: 'og:url', content: SITE }],
     ['meta', { property: 'og:description', content: 'Start a Paper, Fabric or NeoForge server on your machine, keep its console in front of you, install plugins, take backups that verify. No cloud, no accounts.' }],
     ['meta', { property: 'og:image', content: `${SITE}/img/console.png` }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'SpawnLoft — Minecraft servers on your own PC' }],
+    ['meta', { name: 'twitter:image', content: `${SITE}/img/console.png` }],
     ['meta', { name: 'theme-color', content: '#0c0e14' }],
   ],
   themeConfig: {
     logo: '/img/icon.svg',
+    siteTitle: 'SpawnLoft',
     nav: [
       { text: 'Guide', link: '/guide/getting-started', activeMatch: '^/guide/' },
       { text: 'Commands', link: '/reference/commands', activeMatch: '^/reference/' },

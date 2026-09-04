@@ -1,7 +1,11 @@
-# mcctl-site
+# SpawnLoft site
 
-The project site for [mcctl](https://github.com/joogiebear/mcctl): a landing page and the docs,
-built with [VitePress](https://vitepress.dev) and deployed by Vercel on every push to `main`.
+The project site for [SpawnLoft](https://github.com/joogiebear/mcctl) (the `mcctl` repository), served at
+[spawnloft.com](https://spawnloft.com): a landing page and the docs, built with
+[VitePress](https://vitepress.dev) and deployed by Vercel on every push to `main`.
+
+The product is SpawnLoft. The command-line tool inside it is still `mcctl`, so command snippets,
+file names and GitHub links keep that name on purpose.
 
 ```bash
 npm install

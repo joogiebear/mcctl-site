@@ -4,7 +4,7 @@ title: Roadmap
 
 # Roadmap
 
-What mcctl is for shapes what goes on this list: one person's Windows machine, running servers for
+What SpawnLoft is for shapes what goes on this list: one person's Windows machine, running servers for
 friends, family or plugin testing, with no accounts, no cloud, no Docker, and nothing exposed to a
 network without a deliberate decision. Features that serve that person go on the list. Features
 that turn this into a smaller Pterodactyl, with multiple nodes, user accounts and a remote web

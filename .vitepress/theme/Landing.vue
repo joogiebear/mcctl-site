@@ -11,7 +11,7 @@ import Showcase from './Showcase.vue'
         <span class="kicker">Free and open source · Windows</span>
         <h1>Minecraft servers on your own PC, <span>without the terminal.</span></h1>
         <p class="lede">
-          mcctl starts a Paper, Fabric or NeoForge server on your machine, keeps its console in front of
+          SpawnLoft starts a Paper, Fabric or NeoForge server on your machine, keeps its console in front of
           you, installs plugins from Modrinth and Hangar, takes backups that verify, and brings a crashed
           server back on its own. No cloud, no Docker, no accounts.
         </p>
@@ -51,7 +51,7 @@ import Showcase from './Showcase.vue'
           <div class="card">
             <div class="mark"><svg viewBox="0 0 16 16"><path d="M3 3h10v10H3z"/><path d="M8 5.5V8h2.5"/></svg></div>
             <h3>Scheduled, even when the window is closed</h3>
-            <p>Nightly backups, a restart at 5am that warns the players first, a command on the hour. Runs through Windows Task Scheduler, so it happens whether or not mcctl is open.</p>
+            <p>Nightly backups, a restart at 5am that warns the players first, a command on the hour. Runs through Windows Task Scheduler, so it happens whether or not SpawnLoft is open.</p>
           </div>
           <div class="card">
             <div class="mark"><svg viewBox="0 0 16 16"><path d="M2 3h12v4H2zM2 9h12v4H2z"/><path d="M4.5 5h.5M4.5 11h.5"/></svg></div>
@@ -80,7 +80,7 @@ import Showcase from './Showcase.vue'
         <div class="cmp" v-reveal>
           <table>
             <thead>
-              <tr><th></th><th>mcctl</th><th>A paid host</th><th>By hand</th></tr>
+              <tr><th></th><th>SpawnLoft</th><th>A paid host</th><th>By hand</th></tr>
             </thead>
             <tbody>
               <tr><td>Cost</td><td class="y">Free, MIT licensed</td><td>Monthly, per server, for RAM you already own</td><td class="y">Free</td></tr>
@@ -101,11 +101,11 @@ import Showcase from './Showcase.vue'
       <div class="wrap two">
         <div>
           <h2 v-reveal>Made for testing plugins</h2>
-          <p class="sub">mcctl began as the fastest way to reproduce a plugin bug: a clean server, on the right version, with only the plugin in question, in under a minute.</p>
+          <p class="sub">SpawnLoft began as the fastest way to reproduce a plugin bug: a clean server, on the right version, with only the plugin in question, in under a minute.</p>
           <ul class="checks">
             <li><b>Clone a server</b> into a disposable copy on its own port, with fresh worlds, so you can try something without touching the real one.</li>
             <li><b>Online mode on by default</b>, so players get real UUIDs and the log has no <code>OFFLINE/INSECURE</code> banner for an author to refuse a bug report over.</li>
-            <li><b>Each server picks its Java.</b> 1.20.4 on 17 beside 26.x on 25. mcctl finds what is installed and warns before a download that the version cannot run.</li>
+            <li><b>Each server picks its Java.</b> 1.20.4 on 17 beside 26.x on 25. SpawnLoft finds what is installed and warns before a download that the version cannot run.</li>
             <li><b>Log intelligence.</b> Port taken, wrong Java, missing dependency, out of memory, corrupt world: named in words under the vitals, with the fix.</li>
             <li><b>Share the log.</b> Export the console to a file, or upload it to mclo.gs with your account name already taken out of the paths.</li>
           </ul>
@@ -117,7 +117,7 @@ import Showcase from './Showcase.vue'
     <section id="local">
       <div class="wrap">
         <h2 v-reveal>Stays on your machine</h2>
-        <p class="sub">mcctl is a tool for one person's PC, running servers for friends, family or plugin testing. That is a design, not a limitation.</p>
+        <p class="sub">SpawnLoft is a tool for one person's PC, running servers for friends, family or plugin testing. That is a design, not a limitation.</p>
         <div class="grid" v-reveal>
           <div class="card"><h3>No accounts, no cloud</h3><p>Nothing to sign up for. Your servers, worlds and backups are folders on your disk, and stay there.</p></div>
           <div class="card"><h3>Nothing opened to the internet</h3><p>The panel answers only this machine. Nothing touches your router. Exposing a server is a decision you make, not one made for you.</p></div>
@@ -132,8 +132,8 @@ import Showcase from './Showcase.vue'
         <h2 v-reveal>Up in three steps</h2>
         <p class="sub">The installer is a normal Windows setup. Servers you already have can be added in place; nothing is moved or rewritten.</p>
         <div class="steps" v-reveal>
-          <div class="step"><h3>Install mcctl</h3><p>Download the setup, run it, and let it check for Java. If Java is missing it says so and links the download.</p></div>
-          <div class="step"><h3>Add a server</h3><p>Create one: pick the software and the Minecraft version, and the jar downloads. Or point mcctl at a server folder you already run.</p></div>
+          <div class="step"><h3>Install SpawnLoft</h3><p>Download the setup, run it, and let it check for Java. If Java is missing it says so and links the download.</p></div>
+          <div class="step"><h3>Add a server</h3><p>Create one: pick the software and the Minecraft version, and the jar downloads. Or point SpawnLoft at a server folder you already run.</p></div>
           <div class="step"><h3>Press Start</h3><p>Watch it come up in the console. Send <code>list</code>. Open the Plugins tab and install something. Take a backup.</p></div>
         </div>
         <div class="cta" style="margin-top:28px">

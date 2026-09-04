@@ -37,6 +37,6 @@ newer jar.
 
 ## Java per server
 
-Each server picks its Java. 1.20.4 on Java 17 can sit beside 26.x on Java 25. mcctl finds what is
+Each server picks its Java. 1.20.4 on Java 17 can sit beside 26.x on Java 25. SpawnLoft finds what is
 installed, picks the newest that fits when a server is created, and refuses a version nothing
 installed can run before the download, with the link. `--force` goes ahead anyway.

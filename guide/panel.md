@@ -1,6 +1,6 @@
 # The panel
 
-The panel is what the desktop app shows. It is one HTML page served by mcctl itself, so it works
+The panel is what the desktop app shows. It is one HTML page served by SpawnLoft itself, so it works
 offline and runs equally well in a browser tab:
 
 ```bash
@@ -11,7 +11,7 @@ node mcctl.mjs ui        # opens http://127.0.0.1:8770 in your browser
 
 - **A card each**, with a status lamp, the port, the memory and a live uptime that ticks.
 - **Adding a server** either creates one, which downloads the server jar and reports real
-  progress, or points mcctl at a folder you already have. Nothing is moved; existing ports and the
+  progress, or points SpawnLoft at a folder you already have. Nothing is moved; existing ports and the
   RCON password are read from that folder's own `server.properties`.
 - **Renaming, resetting and deleting** ask for the server's name. That friction is deliberate: a
   dialog that only says "are you sure" gets answered reflexively. The name shown can be clicked to
@@ -35,7 +35,7 @@ or checked against this server's version, with checksum-verified downloads, an u
 one-click updates with a plugins-scope snapshot taken first. Hangar projects that host their
 downloads elsewhere are linked to rather than pretended at.
 
-The page manages **only what mcctl installed**. A custom or premium plugin dropped in by hand is
+The page manages **only what SpawnLoft installed**. A custom or premium plugin dropped in by hand is
 never listed there, never offered a meaningless update, and never has its hash sent to anyone.
 `mcctl plugins <name>` lists the full inventory, manual jars included. Enable and disable rename
 the jar in place, so a disabled plugin keeps its spot and its config.
@@ -65,7 +65,7 @@ every ordinary server as a flat line on the floor.
 ## Scheduler
 
 Nightly backups, a restart at 5am that warns the players first, a command on the hour. These run
-through Windows Task Scheduler, so they happen whether or not mcctl is open. See
+through Windows Task Scheduler, so they happen whether or not SpawnLoft is open. See
 [Scheduled work](/reference/commands#scheduled-work) for what a task can be.
 
 ## Settings
@@ -85,7 +85,7 @@ Three doors in the header. **Something broke** opens a GitHub bug report with th
 server status and panel log already in it. **A question** opens a new post in the project's
 [Q&A](https://github.com/joogiebear/mcctl/discussions/categories/q-a), and **An idea** one in
 [Ideas](https://github.com/joogiebear/mcctl/discussions/categories/ideas). Nothing is sent from
-mcctl on its own; the browser hop is the consent.
+SpawnLoft on its own; the browser hop is the consent.
 
 **Settings → Copy diagnostics** puts a bug report's worth of facts on the clipboard. It never
 includes an RCON password or a webhook URL.

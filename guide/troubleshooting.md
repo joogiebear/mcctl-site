@@ -1,6 +1,6 @@
 # Troubleshooting
 
-When a server fails, mcctl reads the console and names the cause wherever the failure surfaces:
+When a server fails, SpawnLoft reads the console and names the cause wherever the failure surfaces:
 a strip under the server's vitals in the panel, advice under a failed `mcctl start`,
 `mcctl why <name>` from a terminal, and the Discord webhook message for a crash. Anything it does not
 recognise stays a stack trace, honestly, rather than being guessed at.
@@ -15,7 +15,7 @@ this one. `mcctl list` shows who. Change the port under **Manage** if both shoul
 ## The EULA is not accepted
 
 Set `eula=true` in the server folder's `eula.txt` (see [Minecraft's EULA](https://aka.ms/MinecraftEULA))
-and start again. Servers mcctl creates ask at creation time.
+and start again. Servers SpawnLoft creates ask at creation time.
 
 ## Java is too old for this server
 
@@ -78,7 +78,7 @@ choosing a jar again under **Manage**, or restore the folder from a snapshot.
 **Windows protected your PC.** SmartScreen, not a problem with the installer. **More info**, then
 **Run anyway**. See [Questions](/guide/faq#windows-says-windows-protected-your-pc).
 
-**The server says `stale`.** Its supervisor died, usually because the machine restarted. mcctl
+**The server says `stale`.** Its supervisor died, usually because the machine restarted. SpawnLoft
 cleans it up on the next read; press Start.
 
 **The server says `orphaned`.** A Java process outlived its supervisor. **Kill** cleans it up,
@@ -88,7 +88,7 @@ then Start.
 crashes in ten minutes and it stays down saying why, so a broken plugin cannot grind the machine
 all night. The diagnosis under the vitals says what to fix.
 
-**A plugin feature that silently does nothing.** Usually not mcctl. Filter the console to
+**A plugin feature that silently does nothing.** Usually not SpawnLoft. Filter the console to
 **Warnings** as well as Errors; several plugins only ever report a misconfiguration at WARN, and
 a clean-looking log at ERROR is not a clean log.
 

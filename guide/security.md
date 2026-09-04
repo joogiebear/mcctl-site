@@ -1,6 +1,6 @@
 # Security
 
-mcctl is built for **one machine, and the LAN around it**. That is a design, not a limitation.
+SpawnLoft is built for **one machine, and the LAN around it**. That is a design, not a limitation.
 
 ## Nothing is opened to the internet
 
@@ -28,14 +28,14 @@ console, so "local" has to mean local rather than merely reachable.
 
 ## Two things leave the machine, both on a click
 
-- **Feedback** opens GitHub in your browser with a report drafted. Nothing is sent by mcctl.
+- **Feedback** opens GitHub in your browser with a report drafted. Nothing is sent by SpawnLoft.
 - **Console → Export → Upload to mclo.gs** posts the console log to [mclo.gs](https://mclo.gs),
-  the log-sharing service plugin developers ask for, after a dialog that says what is in it. mcctl
+  the log-sharing service plugin developers ask for, after a dialog that says what is in it. SpawnLoft
   replaces your account name in file paths first; mclo.gs removes IP addresses on its side, best
   effort by its own policy, and deletes the log 90 days after it was last opened. Everything else,
   player names and plugin output included, goes as is. The delete token is kept locally.
 
-Everything else mcctl does stays on this machine.
+Everything else SpawnLoft does stays on this machine.
 
 ## Online mode is on by default
 
@@ -52,7 +52,7 @@ The panel badges any server running that way.
 
 Scheduled tasks are code that runs on a timer, so what a task may be is an allowlist rather than a
 command string: back up, send a console command, restart, stop, start. Windows holds only a trigger
-calling `mcctl task run <id>`; what that id means lives in mcctl's own file, and a value it does
+calling `mcctl task run <id>`; what that id means lives in SpawnLoft's own file, and a value it does
 not recognise is refused rather than executed. Tasks run as the signed-in user, with no stored
 password and no elevation.
 

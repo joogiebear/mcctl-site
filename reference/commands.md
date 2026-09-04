@@ -1,6 +1,6 @@
 # Commands
 
-Everything the panel does, from a terminal. Run from the mcctl folder as `node mcctl.mjs <command>`,
+Everything the panel does, from a terminal. Run from the SpawnLoft folder as `node mcctl.mjs <command>`,
 or as `mcctl <command>` once that folder is on your PATH.
 
 ## Lifecycle

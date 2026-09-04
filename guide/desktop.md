@@ -31,6 +31,6 @@ can name a build rather than a version several builds could share.
 
 ## Where things live
 
-The data folder holds the registry of servers, the servers mcctl created, the jar store, backups
+The data folder holds the registry of servers, the servers SpawnLoft created, the jar store, backups
 and per-server runtime state. **Settings** can move it. Servers you added from a folder you already
 had keep living wherever they are; only their runtime state lands in the data folder.
