@@ -1,0 +1,46 @@
+/*
+  The same tokens the app uses, so the site and the panel read as one thing. Change them in the
+  app's src/ui.html first; this block follows.
+*/
+:root {
+  --void: #0c0e14; --surface: #141823; --raised: #1c2130; --sunken: #0a0c12; --recess: #11151f;
+  --line: #252b3b; --edge: #354056;
+  --ink: #e9ecf4; --ink-2: #9aa4ba; --ink-3: #6b7488;
+  --lapis: #5b84ff; --lapis-dim: #2c3f8f; --lapis-wash: rgba(91, 132, 255, .12);
+  --live: #4ade80; --warn: #f0b64d;
+  --ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+  --r: 10px; --r-sm: 6px;
+  --lift: inset 0 1px 0 rgba(255, 255, 255, .045);
+
+  /* VitePress's own variables, pointed at the palette above. */
+  --vp-font-family-base: var(--ui);
+  --vp-font-family-mono: var(--mono);
+  --vp-c-brand-1: var(--lapis);
+  --vp-c-brand-2: #4a63d9;
+  --vp-c-brand-3: var(--lapis-dim);
+  --vp-c-brand-soft: var(--lapis-wash);
+  --vp-c-bg: var(--void);
+  --vp-c-bg-alt: var(--surface);
+  --vp-c-bg-elv: var(--raised);
+  --vp-c-bg-soft: var(--surface);
+  --vp-c-text-1: var(--ink);
+  --vp-c-text-2: var(--ink-2);
+  --vp-c-text-3: var(--ink-3);
+  --vp-c-divider: var(--line);
+  --vp-c-border: var(--edge);
+  --vp-c-gutter: var(--line);
+  --vp-code-bg: var(--recess);
+  --vp-code-block-bg: var(--recess);
+  --vp-c-green-1: var(--live);
+  --vp-c-yellow-1: var(--warn);
+  --vp-nav-bg-color: rgba(12, 14, 20, .85);
+  --vp-sidebar-bg-color: var(--void);
+  --vp-button-brand-bg: var(--lapis-dim);
+  --vp-button-brand-border: var(--lapis);
+  --vp-button-brand-hover-bg: #4a63d9;
+  --vp-button-brand-hover-border: var(--lapis);
+}
+.VPNav { backdrop-filter: blur(10px); }
+.VPNavBarTitle .title { font: 700 17px var(--mono); }
+.vp-doc code { border: 1px solid var(--line); }
