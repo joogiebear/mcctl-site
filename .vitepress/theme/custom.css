@@ -9,7 +9,9 @@
   --lapis: #5b84ff; --lapis-dim: #2c3f8f; --lapis-wash: rgba(91, 132, 255, .12);
   --live: #4ade80; --warn: #f0b64d;
   --ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --mono: ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+  /* The voice of the page. Headings only; the body stays in the app's own face. */
+  --display: "Bricolage Grotesque", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
   --r: 10px; --r-sm: 6px;
   --lift: inset 0 1px 0 rgba(255, 255, 255, .045);
 
@@ -44,3 +46,10 @@
 .VPNav { backdrop-filter: blur(10px); }
 .VPNavBarTitle .title { font: 700 17px var(--mono); }
 .vp-doc code { border: 1px solid var(--line); }
+
+.vp-doc h1, .vp-doc h2, .vp-doc h3 { font-family: var(--display); letter-spacing: -.015em; }
+.vp-doc h1 { font-weight: 700; font-size: 38px; }
+
+/* v-reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }

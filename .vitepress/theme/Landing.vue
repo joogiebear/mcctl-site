@@ -1,30 +1,33 @@
 <script setup lang="ts">
 import Download from './Download.vue'
-import Tour from './Tour.vue'
+import BootConsole from './BootConsole.vue'
+import Showcase from './Showcase.vue'
 </script>
 
 <template>
   <main class="landing">
     <div class="wrap hero">
-      <span class="kicker">Free and open source · Windows</span>
-      <h1>Minecraft servers on your own PC, <span>without the terminal.</span></h1>
-      <p class="lede">
-        mcctl starts a Paper, Fabric or NeoForge server on your machine, keeps its console in front of
-        you, installs plugins from Modrinth and Hangar, takes backups that verify, and brings a crashed
-        server back on its own. No cloud, no Docker, no accounts.
-      </p>
-      <div class="cta">
-        <Download size="lg" fine />
-        <a class="btn lg" href="https://github.com/joogiebear/mcctl">View on GitHub</a>
+      <div class="copy">
+        <span class="kicker">Free and open source · Windows</span>
+        <h1>Minecraft servers on your own PC, <span>without the terminal.</span></h1>
+        <p class="lede">
+          mcctl starts a Paper, Fabric or NeoForge server on your machine, keeps its console in front of
+          you, installs plugins from Modrinth and Hangar, takes backups that verify, and brings a crashed
+          server back on its own. No cloud, no Docker, no accounts.
+        </p>
+        <div class="cta">
+          <Download size="lg" fine />
+          <a class="btn lg" href="https://github.com/joogiebear/mcctl">View on GitHub</a>
+        </div>
       </div>
-      <div class="shot"><img src="/img/console.png" alt="The mcctl panel: a running server, its live console, and the tabs for plugins, worlds, backups, players, performance, scheduler and settings" width="2558" height="1392"></div>
+      <div class="demo"><BootConsole /></div>
     </div>
 
     <section id="features">
       <div class="wrap">
-        <h2>Everything a server needs, in one window</h2>
+        <h2 v-reveal>Everything a server needs, in one window</h2>
         <p class="sub">Each server gets a card, a status lamp, a console and eight tabs. The command line is there too, for anyone who wants it.</p>
-        <div class="grid">
+        <div class="grid" v-reveal>
           <div class="card">
             <div class="mark"><svg viewBox="0 0 16 16"><path d="M2 3h12v10H2z"/><path d="M5 7l2 1.5L5 10"/><path d="M8.5 10.5H11"/></svg></div>
             <h3>A console you can read</h3>
@@ -64,17 +67,17 @@ import Tour from './Tour.vue'
 
     <section id="tour">
       <div class="wrap">
-        <h2>Have a look around</h2>
-        <p class="sub">Real captures of the panel, not mockups. What the page promises is what installs.</p>
-        <Tour />
+        <h2 v-reveal>Have a look around</h2>
+        <p class="sub" v-reveal>Real captures of the panel, not mockups. Scroll, and the panel follows.</p>
+        <Showcase />
       </div>
     </section>
 
     <section id="compare">
       <div class="wrap">
-        <h2>How it compares</h2>
+        <h2 v-reveal>How it compares</h2>
         <p class="sub">Three ways to run a server for your friends. Only one of them is free, private and does not need a terminal.</p>
-        <div class="cmp">
+        <div class="cmp" v-reveal>
           <table>
             <thead>
               <tr><th></th><th>mcctl</th><th>A paid host</th><th>By hand</th></tr>
@@ -97,7 +100,7 @@ import Tour from './Tour.vue'
     <section id="testing">
       <div class="wrap two">
         <div>
-          <h2>Made for testing plugins</h2>
+          <h2 v-reveal>Made for testing plugins</h2>
           <p class="sub">mcctl began as the fastest way to reproduce a plugin bug: a clean server, on the right version, with only the plugin in question, in under a minute.</p>
           <ul class="checks">
             <li><b>Clone a server</b> into a disposable copy on its own port, with fresh worlds, so you can try something without touching the real one.</li>
@@ -113,9 +116,9 @@ import Tour from './Tour.vue'
 
     <section id="local">
       <div class="wrap">
-        <h2>Stays on your machine</h2>
+        <h2 v-reveal>Stays on your machine</h2>
         <p class="sub">mcctl is a tool for one person's PC, running servers for friends, family or plugin testing. That is a design, not a limitation.</p>
-        <div class="grid">
+        <div class="grid" v-reveal>
           <div class="card"><h3>No accounts, no cloud</h3><p>Nothing to sign up for. Your servers, worlds and backups are folders on your disk, and stay there.</p></div>
           <div class="card"><h3>Nothing opened to the internet</h3><p>The panel answers only this machine. Nothing touches your router. Exposing a server is a decision you make, not one made for you.</p></div>
           <div class="card"><h3>Two things leave, both on a click</h3><p>A bug report opens GitHub in your browser with the facts drafted. A log goes to mclo.gs only after a dialog says what is in it.</p></div>
@@ -126,9 +129,9 @@ import Tour from './Tour.vue'
 
     <section id="start">
       <div class="wrap">
-        <h2>Up in three steps</h2>
+        <h2 v-reveal>Up in three steps</h2>
         <p class="sub">The installer is a normal Windows setup. Servers you already have can be added in place; nothing is moved or rewritten.</p>
-        <div class="steps">
+        <div class="steps" v-reveal>
           <div class="step"><h3>Install mcctl</h3><p>Download the setup, run it, and let it check for Java. If Java is missing it says so and links the download.</p></div>
           <div class="step"><h3>Add a server</h3><p>Create one: pick the software and the Minecraft version, and the jar downloads. Or point mcctl at a server folder you already run.</p></div>
           <div class="step"><h3>Press Start</h3><p>Watch it come up in the console. Send <code>list</code>. Open the Plugins tab and install something. Take a backup.</p></div>
@@ -153,9 +156,22 @@ code { font-family: var(--mono); font-size: .92em; background: var(--recess); bo
 .btn:hover { border-color: var(--lapis); text-decoration: none !important; }
 .btn.lg { padding: 13px 20px; font-size: 15px; }
 
-.hero { padding: 72px 0 40px; display: grid; gap: 28px; }
-.hero h1 { margin: 0; font-size: clamp(32px, 5vw, 52px); line-height: 1.08; letter-spacing: -.02em; max-width: 760px; font-weight: 700; }
+.landing { position: relative; }
+/* A faint grid and one lapis glow behind the hero: the panel's own dark, with depth. */
+.landing::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 760px; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(600px 360px at 18% 12%, rgba(91, 132, 255, .16), transparent 70%),
+    radial-gradient(500px 300px at 82% 30%, rgba(74, 222, 128, .07), transparent 70%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 48px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 100%;
+  -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); opacity: .55; }
+.hero { padding: 64px 0 56px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.copy { display: grid; gap: 22px; }
+.demo { min-width: 0; align-self: stretch; animation: settle .8s ease-out both; }
+@keyframes settle { from { opacity: 0; transform: translateY(14px); } }
+.hero h1 { margin: 0; font-family: var(--display); font-size: clamp(34px, 4.6vw, 56px); line-height: 1.02; letter-spacing: -.025em; font-weight: 700; }
 .hero h1 span { color: var(--lapis); }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 28px; } .demo { min-height: 340px; } }
 .hero p.lede { margin: 0; font-size: 18px; color: var(--ink-2); max-width: 660px; }
 .cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .kicker { display: inline-flex; align-items: center; gap: 8px; font: 600 12px var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
@@ -165,10 +181,12 @@ code { font-family: var(--mono); font-size: .92em; background: var(--recess); bo
 
 section { padding: 64px 0; }
 section + section { border-top: 1px solid var(--line); }
-h2 { margin: 0 0 8px; font-size: 28px; letter-spacing: -.01em; font-weight: 700; }
+h2 { margin: 0 0 8px; font-family: var(--display); font-size: 30px; letter-spacing: -.02em; font-weight: 700; }
 .sub { margin: 0 0 32px; color: var(--ink-2); max-width: 640px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 16px; box-shadow: var(--lift); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 16px; box-shadow: var(--lift); transition: transform .25s ease, border-color .25s ease; }
+.card:hover { transform: translateY(-2px); border-color: var(--edge); }
+@media (prefers-reduced-motion: reduce) { .card, .demo { transition: none; animation: none; } }
 .card .mark { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: var(--lapis-wash); border: 1px solid rgba(91, 132, 255, .35); color: var(--lapis); margin-bottom: 12px; }
 .card svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
@@ -196,5 +214,5 @@ ul.checks b { color: var(--ink); font-weight: 600; }
 .step::before { counter-increment: step; content: counter(step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--lapis); color: #fff; font: 700 13px var(--ui); margin-bottom: 10px; }
 .step h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
 .step p { margin: 0; color: var(--ink-2); font-size: 14px; }
-@media (max-width: 720px) { .hero { padding-top: 40px; } }
+@media (max-width: 720px) { .hero { padding-top: 36px; } }
 </style>
