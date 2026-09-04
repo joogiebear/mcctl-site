@@ -11,7 +11,12 @@ const guide = [
   { text: 'The desktop app', link: '/guide/desktop' },
   { text: 'How it works', link: '/guide/how-it-works' },
   { text: 'Security', link: '/guide/security' },
+  { text: 'Troubleshooting', link: '/guide/troubleshooting' },
+  { text: 'Questions', link: '/guide/faq' },
 ]
+
+// Until a domain is attached, the Vercel address is the canonical one. Change it here only.
+const SITE = 'https://mcctl-site.vercel.app'
 
 export default defineConfig({
   title: 'mcctl',
@@ -19,12 +24,16 @@ export default defineConfig({
   lang: 'en',
   cleanUrls: true,
   lastUpdated: true,
+  srcExclude: ['README.md'],
   appearance: 'force-dark',
+  sitemap: { hostname: SITE },
   head: [
     ['link', { rel: 'icon', href: '/img/icon.svg', type: 'image/svg+xml' }],
+    ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'mcctl — Minecraft servers on your own PC' }],
     ['meta', { property: 'og:description', content: 'Start a Paper, Fabric or NeoForge server on your machine, keep its console in front of you, install plugins, take backups that verify. No cloud, no accounts.' }],
-    ['meta', { property: 'og:image', content: '/img/console.png' }],
+    ['meta', { property: 'og:image', content: `${SITE}/img/console.png` }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'theme-color', content: '#0c0e14' }],
   ],
   themeConfig: {
@@ -32,6 +41,8 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/getting-started', activeMatch: '^/guide/' },
       { text: 'Commands', link: '/reference/commands', activeMatch: '^/reference/' },
+      { text: 'Changelog', link: '/changelog' },
+      { text: 'Roadmap', link: '/roadmap' },
       { text: 'Discussions', link: 'https://github.com/joogiebear/mcctl/discussions' },
     ],
     sidebar: {

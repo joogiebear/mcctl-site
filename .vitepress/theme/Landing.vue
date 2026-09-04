@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Download from './Download.vue'
+import Tour from './Tour.vue'
 </script>
 
 <template>
@@ -16,7 +17,7 @@ import Download from './Download.vue'
         <Download size="lg" fine />
         <a class="btn lg" href="https://github.com/joogiebear/mcctl">View on GitHub</a>
       </div>
-      <div class="shot"><img src="/img/console.png" alt="The mcctl panel: a running server, its live console, and the tabs for plugins, worlds, backups, players, performance, scheduler and settings" width="2720" height="1720"></div>
+      <div class="shot"><img src="/img/console.png" alt="The mcctl panel: a running server, its live console, and the tabs for plugins, worlds, backups, players, performance, scheduler and settings" width="2558" height="1392"></div>
     </div>
 
     <section id="features">
@@ -61,6 +62,38 @@ import Download from './Download.vue'
       </div>
     </section>
 
+    <section id="tour">
+      <div class="wrap">
+        <h2>Have a look around</h2>
+        <p class="sub">Real captures of the panel, not mockups. What the page promises is what installs.</p>
+        <Tour />
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="wrap">
+        <h2>How it compares</h2>
+        <p class="sub">Three ways to run a server for your friends. Only one of them is free, private and does not need a terminal.</p>
+        <div class="cmp">
+          <table>
+            <thead>
+              <tr><th></th><th>mcctl</th><th>A paid host</th><th>By hand</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Cost</td><td class="y">Free, MIT licensed</td><td>Monthly, per server, for RAM you already own</td><td class="y">Free</td></tr>
+              <tr><td>Where your world lives</td><td class="y">Folders on your disk</td><td>Their machine, on their terms</td><td class="y">Your disk</td></tr>
+              <tr><td>Console, plugins, backups</td><td class="y">One window, eight tabs</td><td class="y">A web panel</td><td>A terminal, a browser and a zip tool</td></tr>
+              <tr><td>Plugins from Modrinth and Hangar</td><td class="y">Searched together, checked against your version</td><td>Sometimes, from one source</td><td>Download the jar, guess the build</td></tr>
+              <tr><td>Backups that are proven to restore</td><td class="y">Every snapshot verified, on a schedule</td><td>A backup button, rarely tested</td><td>Whatever you remembered to copy</td></tr>
+              <tr><td>Comes back after a crash</td><td class="y">Restarts itself, with a limit, and tells you why</td><td class="y">Usually</td><td>When you notice</td></tr>
+              <tr><td>Accounts and cloud</td><td class="y">None</td><td>An account, a card, their uptime</td><td class="y">None</td></tr>
+              <tr><td>Friends outside your network</td><td>Your decision, not made for you</td><td class="y">Built in</td><td>Your router's settings page</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <section id="testing">
       <div class="wrap two">
         <div>
@@ -74,7 +107,7 @@ import Download from './Download.vue'
             <li><b>Share the log.</b> Export the console to a file, or upload it to mclo.gs with your account name already taken out of the paths.</li>
           </ul>
         </div>
-        <div class="shot"><img src="/img/plugins.png" alt="The Plugins tab: search Modrinth and Hangar together, install and update" width="2720" height="1720"></div>
+        <div class="shot"><img src="/img/plugins.png" alt="The Plugins tab: search Modrinth and Hangar together, install and update" width="2558" height="1392"></div>
       </div>
     </section>
 
@@ -103,6 +136,7 @@ import Download from './Download.vue'
         <div class="cta" style="margin-top:28px">
           <Download size="lg" />
           <a class="btn lg" href="/guide/getting-started">Read the guide</a>
+          <a class="btn lg" href="/changelog">What's new</a>
         </div>
       </div>
     </section>
@@ -148,6 +182,15 @@ ul.checks li::before { content: ''; position: absolute; left: 2px; top: 9px; wid
 ul.checks b { color: var(--ink); font-weight: 600; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .chip { font: 600 12px var(--mono); padding: 5px 10px; border-radius: 999px; background: var(--recess); border: 1px solid var(--line); color: var(--ink-2); }
+.cmp { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); box-shadow: var(--lift); }
+.cmp table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px; }
+.cmp th, .cmp td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.cmp th { font: 600 12px var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); background: var(--recess); }
+.cmp th:nth-child(2) { color: var(--lapis); }
+.cmp td:first-child { color: var(--ink); font-weight: 600; width: 26%; }
+.cmp td.y { color: var(--ink); }
+.cmp td.y::before { content: ''; display: inline-block; width: 9px; height: 5px; margin: 0 8px 3px 0; border-left: 2px solid var(--live); border-bottom: 2px solid var(--live); transform: rotate(-45deg); }
+.cmp tr:last-child td { border-bottom: 0; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; counter-reset: step; }
 .step { background: var(--recess); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
 .step::before { counter-increment: step; content: counter(step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--lapis); color: #fff; font: 700 13px var(--ui); margin-bottom: 10px; }
