@@ -47,6 +47,18 @@
    for fixed descendants, and the hamburger's full-screen menu is one. On .VPNav it collapsed to 0px. */
 .VPNavBar { backdrop-filter: blur(10px); }
 .VPNavBarTitle .title { font: 700 17px var(--mono); }
+
+/* The header stays put on phones as it does on desktop. VitePress lets it scroll away below 960px
+   and pins a second bar (Menu, On this page, Return to top) in its place; that bar now sits under
+   the header instead, and its Return to top is gone in favour of the floating button (BackToTop.vue). */
+@media (max-width: 959px) {
+  /* !important because VitePress's scoped component styles outrank a plain class selector. */
+  .VPNav { position: fixed !important; }
+  .VPContent { padding-top: var(--vp-nav-height) !important; }
+  .VPLocalNav { top: var(--vp-nav-height) !important; }
+  .VPLocalNav.fixed { display: none !important; }          /* held nothing but Return to top */
+  .VPLocalNav.empty .VPLocalNavOutlineDropdown { display: none !important; }
+}
 .vp-doc code { border: 1px solid var(--line); }
 
 .vp-doc h1, .vp-doc h2, .vp-doc h3 { font-family: var(--display); letter-spacing: -.015em; }

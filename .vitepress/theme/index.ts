@@ -1,5 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
+import { h } from 'vue'
+import BackToTop from './BackToTop.vue'
 import Landing from './Landing.vue'
 import Download from './Download.vue'
 import Changelog from './Changelog.vue'
@@ -9,6 +11,7 @@ import './custom.css'
 
 export default {
   extends: DefaultTheme,
+  Layout: () => h(DefaultTheme.Layout, null, { 'layout-bottom': () => h(BackToTop) }),
   enhanceApp({ app }) {
     app.component('Landing', Landing)
     app.component('Download', Download)
