@@ -34,7 +34,7 @@ const html = (r: Release) => {
 
 onMounted(async () => {
   try {
-    const r = await fetch('https://api.github.com/repos/joogiebear/mcctl/releases?per_page=100', {
+    const r = await fetch('https://api.github.com/repos/joogiebear/spawnloft/releases?per_page=100', {
       headers: { accept: 'application/vnd.github+json' },
     })
     if (!r.ok) throw new Error(String(r.status))
@@ -51,7 +51,7 @@ onMounted(async () => {
     <p v-if="state === 'loading'" class="note">Loading releases from GitHub…</p>
     <p v-else-if="state === 'failed'" class="note">
       GitHub did not answer. The releases are at
-      <a href="https://github.com/joogiebear/mcctl/releases">github.com/joogiebear/mcctl/releases</a>.
+      <a href="https://github.com/joogiebear/spawnloft/releases">github.com/joogiebear/spawnloft/releases</a>.
     </p>
     <template v-else>
       <article v-for="r in releases" :key="r.tag_name" :id="r.tag_name" class="release">

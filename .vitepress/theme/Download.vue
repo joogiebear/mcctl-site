@@ -5,13 +5,13 @@ import { onMounted, ref } from 'vue'
 
 withDefaults(defineProps<{ size?: 'lg' | 'md'; fine?: boolean }>(), { size: 'md', fine: false })
 
-const href = ref('https://github.com/joogiebear/mcctl/releases/latest')
+const href = ref('https://github.com/joogiebear/spawnloft/releases/latest')
 const label = ref('Download for Windows')
 const mb = ref<number | null>(null)
 
 onMounted(async () => {
   try {
-    const r = await fetch('https://api.github.com/repos/joogiebear/mcctl/releases/latest', {
+    const r = await fetch('https://api.github.com/repos/joogiebear/spawnloft/releases/latest', {
       headers: { accept: 'application/vnd.github+json' },
     })
     if (!r.ok) return

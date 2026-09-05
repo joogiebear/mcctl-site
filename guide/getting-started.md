@@ -41,7 +41,7 @@ and a new publisher earns that through real installs. Until then Windows may sho
 ## From the command line
 
 The same engine is a plain Node program with no dependencies. Clone the
-[repository](https://github.com/joogiebear/mcctl) and run it from its folder:
+[repository](https://github.com/joogiebear/spawnloft) and run it from its folder:
 
 ```bash
 node mcctl.mjs list

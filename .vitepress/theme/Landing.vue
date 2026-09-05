@@ -17,7 +17,7 @@ import Showcase from './Showcase.vue'
         </p>
         <div class="cta">
           <Download size="lg" fine />
-          <a class="btn lg" href="https://github.com/joogiebear/mcctl">View on GitHub</a>
+          <a class="btn lg" href="https://github.com/joogiebear/spawnloft">View on GitHub</a>
         </div>
       </div>
       <div class="demo"><BootConsole /></div>

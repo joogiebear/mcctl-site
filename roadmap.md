@@ -10,8 +10,8 @@ network without a deliberate decision. Features that serve that person go on the
 that turn this into a smaller Pterodactyl, with multiple nodes, user accounts and a remote web
 panel, stay off it on purpose.
 
-The living version is [ROADMAP.md](https://github.com/joogiebear/mcctl/blob/main/ROADMAP.md) in
-the repository. Ideas go in [Discussions](https://github.com/joogiebear/mcctl/discussions/categories/ideas).
+The living version is [ROADMAP.md](https://github.com/joogiebear/spawnloft/blob/main/ROADMAP.md) in
+the repository. Ideas go in [Discussions](https://github.com/joogiebear/spawnloft/discussions/categories/ideas).
 
 ## Done
 

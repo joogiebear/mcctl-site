@@ -96,6 +96,6 @@ a clean-looking log at ERROR is not a clean log.
 
 **Feedback → Something broke** in the panel opens a GitHub issue with the version, Java, server
 status and panel log already filled in. For a question rather than a bug,
-[Q&A](https://github.com/joogiebear/mcctl/discussions/categories/q-a) is the place. **Console →
+[Q&A](https://github.com/joogiebear/spawnloft/discussions/categories/q-a) is the place. **Console →
 Export → Upload to mclo.gs** shares the log with your account name already taken out of the
 paths, which is what a plugin author will ask for.

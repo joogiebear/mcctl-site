@@ -83,8 +83,8 @@ are affected before you decide.
 
 Three doors in the header. **Something broke** opens a GitHub bug report with the version, Java,
 server status and panel log already in it. **A question** opens a new post in the project's
-[Q&A](https://github.com/joogiebear/mcctl/discussions/categories/q-a), and **An idea** one in
-[Ideas](https://github.com/joogiebear/mcctl/discussions/categories/ideas). Nothing is sent from
+[Q&A](https://github.com/joogiebear/spawnloft/discussions/categories/q-a), and **An idea** one in
+[Ideas](https://github.com/joogiebear/spawnloft/discussions/categories/ideas). Nothing is sent from
 SpawnLoft on its own; the browser hop is the consent.
 
 **Settings → Copy diagnostics** puts a bug report's worth of facts on the clipboard. It never

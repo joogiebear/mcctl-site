@@ -51,18 +51,18 @@ export default defineConfig({
       { text: 'Commands', link: '/reference/commands', activeMatch: '^/reference/' },
       { text: 'Changelog', link: '/changelog' },
       { text: 'Roadmap', link: '/roadmap' },
-      { text: 'Discussions', link: 'https://github.com/joogiebear/mcctl/discussions' },
+      { text: 'Discussions', link: 'https://github.com/joogiebear/spawnloft/discussions' },
     ],
     sidebar: {
       '/guide/': [{ text: 'Guide', items: guide }, { text: 'Reference', items: reference }],
       '/reference/': [{ text: 'Reference', items: reference }, { text: 'Guide', items: guide }],
     },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/mcctl' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/spawnloft' }],
     editLink: { pattern: 'https://github.com/joogiebear/mcctl-site/edit/main/:path', text: 'Edit this page' },
     search: { provider: 'local' },
     footer: {
-      message: 'MIT licensed. Built by <a href="https://github.com/joogiebear">joogiebear</a> and <a href="https://github.com/joogiebear/mcctl/graphs/contributors">contributors</a>.',
-      copyright: '<a href="https://github.com/joogiebear/mcctl/releases">Releases</a> · <a href="https://github.com/joogiebear/mcctl/issues">Issues</a> · <a href="https://github.com/sponsors/joogiebear">Sponsor</a>',
+      message: 'MIT licensed. Built by <a href="https://github.com/joogiebear">joogiebear</a> and <a href="https://github.com/joogiebear/spawnloft/graphs/contributors">contributors</a>.',
+      copyright: '<a href="https://github.com/joogiebear/spawnloft/releases">Releases</a> · <a href="https://github.com/joogiebear/spawnloft/issues">Issues</a> · <a href="https://github.com/sponsors/joogiebear">Sponsor</a>',
     },
   },
 })
