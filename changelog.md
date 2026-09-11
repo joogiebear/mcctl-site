@@ -1,12 +1,14 @@
 ---
 title: Changelog
+description: New features, fixes, and improvements, directly from the SpawnLoft releases that shipped.
+layout: page
+search: false
 sidebar: false
 aside: false
 ---
 
-# Changelog
-
-Every release, in the words it shipped with. The app offers each of these as an update under
-**Settings**, and a stable install never sees the pre-releases.
+<script setup>
+import Changelog from './.vitepress/theme/Changelog.vue'
+</script>
 
 <Changelog />

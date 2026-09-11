@@ -7,6 +7,8 @@ offline and runs equally well in a browser tab:
 node mcctl.mjs ui        # opens http://127.0.0.1:8770 in your browser
 ```
 
+![The SpawnLoft console with server controls and live logs.](/img/tabs/console.webp)
+
 ## Servers
 
 - **A card each**, with a status lamp, the port, the memory and a live uptime that ticks.

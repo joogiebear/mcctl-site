@@ -10,10 +10,16 @@ later, and they are still running with their consoles intact.
 
 ## Updates
 
-Checking, downloading and installing are three separate presses under **Settings**. Nothing
-downloads or installs on its own. This app sits beside long-lived servers, and an update that
-restarts the window unannounced is a surprise rather than a feature. Installing warns that running
-servers survive it, because the honest answer is that only the window restarts.
+From **v0.14.0**, SpawnLoft checks for new releases after startup and every six hours while it
+is open. New versions download in the background. When one is ready, the header button reads
+**Restart to update**.
+
+The app waits for you to restart before replacing the running version. Closing the app with an
+update waiting also applies it on exit. Running servers survive either way: only the app window
+restarts.
+
+If you are on **v0.13.0 or earlier**, press **Check for updates** in the header to get the release
+that enables automatic checking. See the [v0.14.0 release notes](/changelog#v0.14.0) for the details.
 
 ## Signed builds and SmartScreen
 

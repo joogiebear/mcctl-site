@@ -1,10 +1,17 @@
 # Getting started
 
-SpawnLoft runs Minecraft servers on your own PC. The desktop app is a window around a panel that
-starts and stops servers, keeps their consoles in front of you, installs plugins, takes backups
-and schedules the boring parts. There is a command line underneath for anyone who wants it.
+Set up SpawnLoft, create or import a Minecraft server, and bring your world online. Everything runs on your own PC.
 
 <Download fine />
+
+## Three steps
+
+1. **Install SpawnLoft.** Download the setup, run it, and let it check for Java.
+2. **Add a server.** Create one, picking the software and the Minecraft version, and the jar
+   downloads. Or point SpawnLoft at a server folder you already run: nothing is moved or rewritten,
+   and its ports and RCON password are read from its own `server.properties`.
+3. **Press Start.** Watch it come up in the console. Send `list`. Open the Plugins tab and install
+   something. Take a backup.
 
 ## What you need
 
@@ -22,15 +29,6 @@ pointed at a specific Java.
 SpawnLoft knows which Java each Minecraft version needs (17 for 1.18 to 1.20.4, 21 for 1.20.5 and
 1.21, 25 for 26.x) and picks the newest installed one that fits when a server is created. A version
 nothing installed can run is refused before the download, with a link to the Java it needs.
-
-## Three steps
-
-1. **Install SpawnLoft.** Download the setup, run it, and let it check for Java.
-2. **Add a server.** Create one, picking the software and the Minecraft version, and the jar
-   downloads. Or point SpawnLoft at a server folder you already run: nothing is moved or rewritten,
-   and its ports and RCON password are read from its own `server.properties`.
-3. **Press Start.** Watch it come up in the console. Send `list`. Open the Plugins tab and install
-   something. Take a backup.
 
 ## SmartScreen
 

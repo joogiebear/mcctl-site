@@ -5,8 +5,9 @@ import { useData } from 'vitepress'
 import BackToTop from './BackToTop.vue'
 import Landing from './Landing.vue'
 import Download from './Download.vue'
-import Changelog from './Changelog.vue'
+import DocsChrome from './DocsChrome.vue'
 import './custom.css'
+import './docs.css'
 
 export default {
   extends: DefaultTheme,
@@ -14,12 +15,17 @@ export default {
     const { frontmatter } = useData()
     return () => frontmatter.value.layout === 'showcase'
       ? h(Landing)
-      : h(DefaultTheme.Layout, null, { 'layout-bottom': () => h(BackToTop) })
+      : h('div', { class: ['secondary-site', frontmatter.value.layout === 'page' ? 'editorial-site' : 'docs-site'] }, [h(DefaultTheme.Layout, null, {
+        'layout-bottom': () => h(BackToTop),
+        'doc-before': () => h(DocsChrome, { placement: 'before' }),
+        'doc-after': () => h(DocsChrome, { placement: 'after' }),
+        'sidebar-nav-before': () => h(DocsChrome, { placement: 'sidebar' }),
+        'nav-bar-content-after': () => h('a', { href: '/#download', class: 'docs-download' }, 'Get SpawnLoft ↗'),
+      })])
   } }),
   enhanceApp({ app }) {
     app.component('Landing', Landing)
     app.component('Download', Download)
-    app.component('Changelog', Changelog)
     // v-reveal: the element fades up the first time it scrolls into view. One observer, no
     // library, and nothing happens at all when the person has asked for reduced motion.
     app.directive('reveal', {
