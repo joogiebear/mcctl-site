@@ -21,6 +21,57 @@ const questions = [
   { q:'Is the desktop app free?', a:'The current desktop app is a free download and open source under the MIT license. You can get started without creating an account.' },
 ]
 let stop = ()=>{}
+let stopPortalTrip = ()=>{}
+function enterPortal(event: MouseEvent) {
+  if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button!==0) return
+  const product=document.getElementById('product')
+  if(!hero.value || !product) return
+  event.preventDefault()
+  event.stopPropagation()
+  stopPortalTrip()
+  const headerHeight=innerWidth<=600 ? 64 : 72
+  const productTop=product.getBoundingClientRect().top+scrollY-headerHeight
+  const arrive=()=>{
+    if(location.hash!=='#product') history.pushState(history.state,'','#product')
+    product.setAttribute('tabindex','-1')
+    product.focus({preventScroll:true})
+  }
+  if(reduced.value) {
+    window.scrollTo({top:productTop,behavior:'instant'})
+    arrive()
+    return
+  }
+  const start=scrollY
+  const portalEnd=hero.value.getBoundingClientRect().bottom+scrollY-innerHeight
+  const through=Math.max(start,portalEnd)
+  const passageDuration=through>start ? Math.max(500,1450*(1-heroProgress.value)) : 0
+  const departureDuration=650
+  const started=performance.now()
+  let frame=0
+  const cancel=()=>{
+    cancelAnimationFrame(frame)
+    for(const type of ['wheel','touchstart','pointerdown','keydown','resize']) window.removeEventListener(type,cancel)
+    document.removeEventListener('visibilitychange',cancel)
+    stopPortalTrip=()=>{}
+  }
+  // Real page scrolling drives the existing camera. Finish the passage while
+  // the hero is pinned, then carry the visitor into the app section.
+  const ease=(t:number)=>t*t*(3-2*t)
+  const tick=(now:number)=>{
+    const elapsed=now-started
+    const passing=elapsed<passageDuration
+    const fraction=Math.min(1,passing ? elapsed/passageDuration : (elapsed-passageDuration)/departureDuration)
+    const from=passing ? start : through
+    const to=passing ? through : productTop
+    window.scrollTo({top:from+(to-from)*ease(fraction),behavior:'instant'})
+    if(!passing && fraction===1) { cancel(); arrive() }
+    else frame=requestAnimationFrame(tick)
+  }
+  for(const type of ['wheel','touchstart','pointerdown','keydown','resize']) window.addEventListener(type,cancel,{passive:true})
+  document.addEventListener('visibilitychange',cancel)
+  stopPortalTrip=cancel
+  frame=requestAnimationFrame(tick)
+}
 function focusLayer(index:number) {
   if(window.innerWidth<851 || reduced.value) { insideProgress.value=index/2; return }
   const el=inside.value!; const top=el.getBoundingClientRect().top+window.scrollY-72
@@ -39,7 +90,7 @@ onMounted(()=>{
     if(inside.value && innerWidth>850 && !media.matches) { const r=inside.value.getBoundingClientRect(); insideProgress.value=clamp((72-r.top)/Math.max(1,r.height-(innerHeight-72))) }
   }
   const scroll=()=>{ if(!frame) frame=requestAnimationFrame(update) }
-  const change=()=>{ reduced.value=media.matches; update() }
+  const change=()=>{ stopPortalTrip(); reduced.value=media.matches; update() }
   const key=(event:KeyboardEvent)=>{ if(event.key==='Escape') menu.value=false }
   window.addEventListener('scroll',scroll,{passive:true}); window.addEventListener('resize',scroll); window.addEventListener('keydown',key); media.addEventListener('change',change)
   const observer=new IntersectionObserver(entries=>{for(const e of entries) if(e.isIntersecting){e.target.classList.add('revealed');observer.unobserve(e.target)}},{threshold:.12})
@@ -47,7 +98,7 @@ onMounted(()=>{
   update()
   stop=()=>{cancelAnimationFrame(frame);window.removeEventListener('scroll',scroll);window.removeEventListener('resize',scroll);window.removeEventListener('keydown',key);media.removeEventListener('change',change);observer.disconnect()}
 })
-onBeforeUnmount(()=>stop())
+onBeforeUnmount(()=>{ stopPortalTrip(); stop() })
 </script>
 <template>
   <div class="showcase-site">
@@ -66,7 +117,7 @@ onBeforeUnmount(()=>stop())
           <div class="hero-halo" aria-hidden="true"></div>
           <div class="hero-world"><PortalScene :progress="heroProgress" /></div>
           <div class="world-coordinate" aria-hidden="true"><span>THE SPAWN GATE</span><span>A WAY INTO WHAT’S NEXT</span></div>
-          <a href="#product" class="world-turn"><BrandIcon name="arrow" :size="17" /> {{heroProgress < .7 ? 'STEP INSIDE' : 'EXPLORE THE APP'}}</a>
+          <a href="#product" class="world-turn" @click="enterPortal"><BrandIcon name="arrow" :size="17" /> {{heroProgress < .7 ? 'STEP INSIDE' : 'EXPLORE THE APP'}}</a>
           <div class="hero-arrival" :class="{'is-visible':heroProgress>.72}" aria-hidden="true"><span class="eyebrow">WELCOME TO YOUR CONTROL ROOM</span><p>Your world.<br><span>Within reach.</span></p></div>
           <div class="hero-bottom">
             <div class="hero-promise"><span class="eyebrow">YOUR NEXT GREAT WORLD</span><h2 v-if="heroProgress<.55">Starts here.<br> Runs on your PC.</h2><h2 v-else>More playing.<br> Less maintaining.</h2></div>
