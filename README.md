@@ -14,6 +14,8 @@ npm run build    # .vitepress/dist
 ```
 
 - `index.md` is the landing page, rendered by `.vitepress/theme/Landing.vue`.
+- `WorldTour.vue` drives the three-panel scroll tour; `IslandScene.vue` renders the Blender model.
+- `art/spawnloft-island.blend` is the editable island. See [art/README.md](art/README.md) for rebuilding and exporting it.
 - `guide/` and `reference/` are the docs, plain Markdown.
 - `.vitepress/theme/custom.css` carries the app's colour tokens. Change them in the app's
   `src/ui.html` first; this file follows.

@@ -1,218 +1,87 @@
 <script setup lang="ts">
 import Download from './Download.vue'
-import BootConsole from './BootConsole.vue'
-import Showcase from './Showcase.vue'
+import IslandScene from './IslandScene.vue'
+import WorldTour from './WorldTour.vue'
 </script>
-
 <template>
   <main class="landing">
-    <div class="wrap hero">
-      <div class="copy">
-        <span class="kicker">Free and open source · Windows</span>
-        <h1>Minecraft servers on your own PC, <span>without the terminal.</span></h1>
-        <p class="lede">
-          SpawnLoft starts a Paper, Fabric or NeoForge server on your machine, keeps its console in front of
-          you, installs plugins from Modrinth and Hangar, takes backups that verify, and brings a crashed
-          server back on its own. No cloud, no Docker, no accounts.
-        </p>
-        <div class="cta">
-          <Download size="lg" fine />
-          <a class="btn lg" href="https://github.com/joogiebear/spawnloft">View on GitHub</a>
-        </div>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-art"><IslandScene /></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><i></i> A LITTLE SPACE. A WORLD OF POSSIBILITIES.</div>
+        <div class="wordmark">SpawnLoft</div>
+        <h1 id="hero-title">Your world.<br>Your rules.<br><em>Your own PC.</em></h1>
+        <p>Minecraft servers, without the terminal.<br>Build a place for your people. We’ll handle the server.</p>
+        <div class="hero-actions"><Download size="lg" /><a class="text-link" href="#tour">Take a look <span aria-hidden="true">↗</span></a></div>
+        <span class="requirements">Free & open source · Windows 10/11 · Requires Java</span>
       </div>
-      <div class="demo"><BootConsole /></div>
-    </div>
-
-    <section id="features">
-      <div class="wrap">
-        <h2 v-reveal>Everything a server needs, in one window</h2>
-        <p class="sub">Each server gets a card, a status lamp, a console and eight tabs. The command line is there too, for anyone who wants it.</p>
-        <div class="grid" v-reveal>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M2 3h12v10H2z"/><path d="M5 7l2 1.5L5 10"/><path d="M8.5 10.5H11"/></svg></div>
-            <h3>A console you can read</h3>
-            <p>Search, filter to warnings or errors, pause, copy. Stack traces stay with the error that caused them. Send commands over RCON and get the reply back.</p>
-          </div>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M5 2v3.5M11 2v3.5"/><path d="M3.5 5.5h9V9a4.5 4.5 0 0 1-9 0z"/><path d="M8 13.5V15"/></svg></div>
-            <h3>Plugins from Modrinth and Hangar</h3>
-            <p>Search both at once, install builds that match your version, check for updates and apply them with a snapshot taken first. Plugins you dropped in by hand are left alone.</p>
-          </div>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M2 3h12v3H2z"/><path d="M3 6v7h10V6"/><path d="M6.5 9h3"/></svg></div>
-            <h3>Backups that verify</h3>
-            <p>Snapshots of plugins, worlds and config, taken hot with the world flushed first. Every one can be read back end to end, on a schedule, so you find out the week it broke.</p>
-          </div>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.8-3.85"/><path d="M13 2v3h-3"/></svg></div>
-            <h3>Comes back after a crash</h3>
-            <p>A crashed server restarts on its own, with a limit so a broken plugin cannot grind all night. A Discord webhook tells you what happened. The likely cause is named from the log.</p>
-          </div>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M3 3h10v10H3z"/><path d="M8 5.5V8h2.5"/></svg></div>
-            <h3>Scheduled, even when the window is closed</h3>
-            <p>Nightly backups, a restart at 5am that warns the players first, a command on the hour. Runs through Windows Task Scheduler, so it happens whether or not SpawnLoft is open.</p>
-          </div>
-          <div class="card">
-            <div class="mark"><svg viewBox="0 0 16 16"><path d="M2 3h12v4H2zM2 9h12v4H2z"/><path d="M4.5 5h.5M4.5 11h.5"/></svg></div>
-            <h3>Every kind of server</h3>
-            <p>Paper, Purpur, Folia, Advanced Slime Paper, vanilla, Spigot, CraftBukkit, Fabric and NeoForge, or a whole modpack from Modrinth. Worlds you download drop straight in.</p>
-          </div>
-        </div>
-        <div class="chips">
-          <span class="chip">Paper</span><span class="chip">Purpur</span><span class="chip">Folia</span><span class="chip">ASP</span><span class="chip">Vanilla</span><span class="chip">Spigot</span><span class="chip">CraftBukkit</span><span class="chip">Fabric</span><span class="chip">NeoForge</span><span class="chip">Modrinth modpacks</span>
-        </div>
+      <div class="world-label" aria-hidden="true"><span class="live-dot"></span> YOUR NEXT ADVENTURE STARTS HERE <span>001 / OVERWORLD</span></div>
+      <div class="hero-footer"><a href="#tour">SCROLL TO DISCOVER <span aria-hidden="true">↓</span></a><span>NO CLOUD. NO ACCOUNTS. JUST YOUR WORLD.</span></div>
+    </section>
+    <div class="compatibility"><span>FEELS LIKE HOME.<br>WORKS WITH YOUR FAVORITES.</span><div>Paper <i>/</i> Fabric <i>/</i> NeoForge <i>/</i> Modrinth <i>/</i> Hangar</div></div>
+    <WorldTour />
+    <section class="ownership">
+      <div class="ownership-intro"><span class="eyebrow">STAYS CLOSE TO HOME</span><h2>Yours, all the<br>way down.</h2><p>For friends, family, and the server you’ve always wanted to make.</p><a class="text-link" href="/guide/how-it-works">How SpawnLoft works <span aria-hidden="true">↗</span></a></div>
+      <div class="principles">
+        <article><span>01</span><div><h3>Your machine. Your files.</h3><p>Worlds and backups live in folders on your disk. No account to create. No hosting subscription.</p></div></article>
+        <article><span>02</span><div><h3>A little less babysitting.</h3><p>Schedule backups and restarts. Bring a crashed server back automatically, with a limit to stop crash loops.</p></div></article>
+        <article><span>03</span><div><h3>Open from the start.</h3><p>Free, MIT licensed, and built in the open. Read the code, report a bug, or help shape what comes next.</p><a href="https://github.com/joogiebear/spawnloft">Find us on GitHub ↗</a></div></article>
       </div>
     </section>
-
-    <section id="tour">
-      <div class="wrap">
-        <h2 v-reveal>Have a look around</h2>
-        <p class="sub" v-reveal>Real captures of the panel, not mockups. Scroll, and the panel follows.</p>
-        <Showcase />
-      </div>
-    </section>
-
-    <section id="compare">
-      <div class="wrap">
-        <h2 v-reveal>How it compares</h2>
-        <p class="sub">Three ways to run a server for your friends. Only one of them is free, private and does not need a terminal.</p>
-        <div class="cmp" v-reveal>
-          <table>
-            <thead>
-              <tr><th></th><th>SpawnLoft</th><th>A paid host</th><th>By hand</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Cost</td><td class="y">Free, MIT licensed</td><td>Monthly, per server, for RAM you already own</td><td class="y">Free</td></tr>
-              <tr><td>Where your world lives</td><td class="y">Folders on your disk</td><td>Their machine, on their terms</td><td class="y">Your disk</td></tr>
-              <tr><td>Console, plugins, backups</td><td class="y">One window, eight tabs</td><td class="y">A web panel</td><td>A terminal, a browser and a zip tool</td></tr>
-              <tr><td>Plugins from Modrinth and Hangar</td><td class="y">Searched together, checked against your version</td><td>Sometimes, from one source</td><td>Download the jar, guess the build</td></tr>
-              <tr><td>Backups that are proven to restore</td><td class="y">Every snapshot verified, on a schedule</td><td>A backup button, rarely tested</td><td>Whatever you remembered to copy</td></tr>
-              <tr><td>Comes back after a crash</td><td class="y">Restarts itself, with a limit, and tells you why</td><td class="y">Usually</td><td>When you notice</td></tr>
-              <tr><td>Accounts and cloud</td><td class="y">None</td><td>An account, a card, their uptime</td><td class="y">None</td></tr>
-              <tr><td>Friends outside your network</td><td>Your decision, not made for you</td><td class="y">Built in</td><td>Your router's settings page</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="testing">
-      <div class="wrap two">
-        <div>
-          <h2 v-reveal>Made for testing plugins</h2>
-          <p class="sub">SpawnLoft began as the fastest way to reproduce a plugin bug: a clean server, on the right version, with only the plugin in question, in under a minute.</p>
-          <ul class="checks">
-            <li><b>Clone a server</b> into a disposable copy on its own port, with fresh worlds, so you can try something without touching the real one.</li>
-            <li><b>Online mode on by default</b>, so players get real UUIDs and the log has no <code>OFFLINE/INSECURE</code> banner for an author to refuse a bug report over.</li>
-            <li><b>Each server picks its Java.</b> 1.20.4 on 17 beside 26.x on 25. SpawnLoft finds what is installed and warns before a download that the version cannot run.</li>
-            <li><b>Log intelligence.</b> Port taken, wrong Java, missing dependency, out of memory, corrupt world: named in words under the vitals, with the fix.</li>
-            <li><b>Share the log.</b> Export the console to a file, or upload it to mclo.gs with your account name already taken out of the paths.</li>
-          </ul>
-        </div>
-        <div class="shot"><img src="/img/plugins.png" alt="The Plugins tab: search Modrinth and Hangar together, install and update" width="2558" height="1392"></div>
-      </div>
-    </section>
-
-    <section id="local">
-      <div class="wrap">
-        <h2 v-reveal>Stays on your machine</h2>
-        <p class="sub">SpawnLoft is a tool for one person's PC, running servers for friends, family or plugin testing. That is a design, not a limitation.</p>
-        <div class="grid" v-reveal>
-          <div class="card"><h3>No accounts, no cloud</h3><p>Nothing to sign up for. Your servers, worlds and backups are folders on your disk, and stay there.</p></div>
-          <div class="card"><h3>Nothing opened to the internet</h3><p>The panel answers only this machine. Nothing touches your router. Exposing a server is a decision you make, not one made for you.</p></div>
-          <div class="card"><h3>Two things leave, both on a click</h3><p>A bug report opens GitHub in your browser with the facts drafted. A log goes to mclo.gs only after a dialog says what is in it.</p></div>
-          <div class="card"><h3>Zero dependencies</h3><p>Plain Node and the tar Windows already ships. No framework, no build step, no package that rots. Read the source: it is one folder.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="start">
-      <div class="wrap">
-        <h2 v-reveal>Up in three steps</h2>
-        <p class="sub">The installer is a normal Windows setup. Servers you already have can be added in place; nothing is moved or rewritten.</p>
-        <div class="steps" v-reveal>
-          <div class="step"><h3>Install SpawnLoft</h3><p>Download the setup, run it, and let it check for Java. If Java is missing it says so and links the download.</p></div>
-          <div class="step"><h3>Add a server</h3><p>Create one: pick the software and the Minecraft version, and the jar downloads. Or point SpawnLoft at a server folder you already run.</p></div>
-          <div class="step"><h3>Press Start</h3><p>Watch it come up in the console. Send <code>list</code>. Open the Plugins tab and install something. Take a backup.</p></div>
-        </div>
-        <div class="cta" style="margin-top:28px">
-          <Download size="lg" />
-          <a class="btn lg" href="/guide/getting-started">Read the guide</a>
-          <a class="btn lg" href="/changelog">What's new</a>
-        </div>
-      </div>
-    </section>
+    <section class="start-section" id="start"><span class="eyebrow">GOOD THINGS START SMALL</span><h2>Make room for<br>your next adventure<span>.</span></h2><p>Install SpawnLoft. Add a server. Press Start.</p><Download size="lg" fine /><a class="guide-link" href="/guide/getting-started">Need a hand? Read the getting started guide ↗</a></section>
   </main>
 </template>
-
 <style scoped>
-.landing { color: var(--ink); font: 16px/1.55 var(--ui); -webkit-font-smoothing: antialiased; }
-.landing a { color: var(--lapis); text-decoration: none; }
-.landing a:hover { text-decoration: underline; }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-code { font-family: var(--mono); font-size: .92em; background: var(--recess); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--r-sm); border: 1px solid var(--edge); background: var(--raised); color: var(--ink) !important; font: 600 14px var(--ui); box-shadow: var(--lift); cursor: pointer; }
-.btn:hover { border-color: var(--lapis); text-decoration: none !important; }
-.btn.lg { padding: 13px 20px; font-size: 15px; }
-
-.landing { position: relative; }
-/* A faint grid and one lapis glow behind the hero: the panel's own dark, with depth. */
-.landing::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 760px; pointer-events: none; z-index: -1;
-  background:
-    radial-gradient(600px 360px at 18% 12%, rgba(91, 132, 255, .16), transparent 70%),
-    radial-gradient(500px 300px at 82% 30%, rgba(74, 222, 128, .07), transparent 70%),
-    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 48px,
-    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 100%;
-  -webkit-mask-image: linear-gradient(#000 40%, transparent); mask-image: linear-gradient(#000 40%, transparent); opacity: .55; }
-.hero { padding: 64px 0 56px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: center; }
-.copy { display: grid; gap: 22px; }
-.demo { min-width: 0; align-self: stretch; animation: settle .8s ease-out both; }
-@keyframes settle { from { opacity: 0; transform: translateY(14px); } }
-.hero h1 { margin: 0; font-family: var(--display); font-size: clamp(34px, 4.6vw, 56px); line-height: 1.02; letter-spacing: -.025em; font-weight: 700; }
-.hero h1 span { color: var(--lapis); }
-@media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 28px; } .demo { min-height: 340px; } }
-.hero p.lede { margin: 0; font-size: 18px; color: var(--ink-2); max-width: 660px; }
-.cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.kicker { display: inline-flex; align-items: center; gap: 8px; font: 600 12px var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-.kicker::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 8px var(--live); }
-.shot { border: 1px solid var(--edge); border-radius: var(--r); overflow: hidden; background: var(--surface); box-shadow: var(--lift), 0 30px 80px rgba(0, 0, 0, .55); }
-.shot img { display: block; width: 100%; height: auto; }
-
-section { padding: 64px 0; }
-section + section { border-top: 1px solid var(--line); }
-h2 { margin: 0 0 8px; font-family: var(--display); font-size: 30px; letter-spacing: -.02em; font-weight: 700; }
-.sub { margin: 0 0 32px; color: var(--ink-2); max-width: 640px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 16px; box-shadow: var(--lift); transition: transform .25s ease, border-color .25s ease; }
-.card:hover { transform: translateY(-2px); border-color: var(--edge); }
-@media (prefers-reduced-motion: reduce) { .card, .demo { transition: none; animation: none; } }
-.card .mark { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: var(--lapis-wash); border: 1px solid rgba(91, 132, 255, .35); color: var(--lapis); margin-bottom: 12px; }
-.card svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
-.card p { margin: 0; color: var(--ink-2); font-size: 14px; }
-.two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
-.two .shot { min-width: 0; }
-@media (max-width: 820px) { .two { grid-template-columns: 1fr; } }
-ul.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; color: var(--ink-2); }
-ul.checks li { padding-left: 26px; position: relative; }
-ul.checks li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 10px; height: 6px; border-left: 2px solid var(--live); border-bottom: 2px solid var(--live); transform: rotate(-45deg); }
-ul.checks b { color: var(--ink); font-weight: 600; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-.chip { font: 600 12px var(--mono); padding: 5px 10px; border-radius: 999px; background: var(--recess); border: 1px solid var(--line); color: var(--ink-2); }
-.cmp { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); box-shadow: var(--lift); }
-.cmp table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px; }
-.cmp th, .cmp td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
-.cmp th { font: 600 12px var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); background: var(--recess); }
-.cmp th:nth-child(2) { color: var(--lapis); }
-.cmp td:first-child { color: var(--ink); font-weight: 600; width: 26%; }
-.cmp td.y { color: var(--ink); }
-.cmp td.y::before { content: ''; display: inline-block; width: 9px; height: 5px; margin: 0 8px 3px 0; border-left: 2px solid var(--live); border-bottom: 2px solid var(--live); transform: rotate(-45deg); }
-.cmp tr:last-child td { border-bottom: 0; }
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; counter-reset: step; }
-.step { background: var(--recess); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
-.step::before { counter-increment: step; content: counter(step); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--lapis); color: #fff; font: 700 13px var(--ui); margin-bottom: 10px; }
-.step h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
-.step p { margin: 0; color: var(--ink-2); font-size: 14px; }
-@media (max-width: 720px) { .hero { padding-top: 36px; } }
+.landing { color:var(--ink); font:16px/1.6 var(--ui); overflow:clip; }
+.hero { min-height:560px; height:calc(100svh - 64px); max-height:1050px; position:relative; isolation:isolate; background:radial-gradient(ellipse at 74% 45%,#172635 0%,#101722 34%,#0c0e14 68%); }
+.hero-copy { position:relative; z-index:2; width:56%; padding:clamp(38px,6vh,75px) 0 90px 7vw; pointer-events:none; }
+.hero-copy a { pointer-events:auto; }
+.eyebrow { font:10px/1.5 var(--mono); letter-spacing:.13em; color:#9cabc5; display:flex; align-items:center; gap:10px; }
+.eyebrow i,.live-dot { width:5px; height:5px; border-radius:50%; background:#9ad2ac; box-shadow:0 0 9px #77bc9860; display:inline-block; }
+.wordmark { font:650 clamp(40px,4.5vw,68px)/1 var(--display); letter-spacing:-.05em; margin:30px 0 18px; }
+h1 { font:500 clamp(38px,4.2vw,62px)/1.02 var(--display); letter-spacing:-.045em; margin:0; }
+h1 em { color:#91aeff; font-style:normal; }
+.hero-copy p { color:#a8b4cb; font-size:15px; line-height:1.8; margin:25px 0; }
+.hero-actions { display:flex; align-items:center; gap:25px; }
+.text-link { color:#d9e2f2; text-decoration:none; font-size:13px; white-space:nowrap; }
+.text-link span { color:#91aeff; margin-left:10px; display:inline-block; transition:transform .25s; }
+.text-link:hover span { transform:translate(3px,-3px); }
+.requirements { display:block; color:#8c9ab3; font:10px/1.6 var(--mono); margin-top:18px; }
+.hero-art { position:absolute; z-index:1; top:1%; right:-4%; width:64%; height:90%; animation:arrive 1.1s ease-out both; }
+.hero-orbit { position:absolute; width:48vw; height:48vw; border:1px solid #819dc412; border-radius:50%; top:50%; left:72%; transform:translate(-50%,-50%) rotateX(55deg); }
+.hero-orbit::after { content:''; position:absolute; inset:35px; border:1px solid #819dc40a; border-radius:50%; }
+.world-label { position:absolute; right:8%; bottom:16%; display:flex; align-items:center; gap:9px; color:#99aac4; font:8px var(--mono); letter-spacing:.09em; }
+.world-label>span:last-child { margin-left:15px; color:#64738d; }
+.hero-footer { position:absolute; bottom:0; left:7%; right:7%; height:66px; border-top:1px solid #8aa4d021; display:flex; justify-content:space-between; align-items:center; color:#8190a9; font:9px var(--mono); letter-spacing:.13em; }
+.hero-footer a { text-decoration:none; color:#d7e1f0; }.hero-footer a span { padding-left:25px; }
+.compatibility { padding:31px 7vw; display:flex; align-items:center; justify-content:space-between; gap:30px; border-top:1px solid var(--line); background:#10131b; }
+.compatibility>span { font:9px/1.7 var(--mono); letter-spacing:.1em; color:#8290a7; }
+.compatibility>div { font:500 clamp(14px,1.5vw,20px) var(--display); color:#b2bdd0; display:flex; gap:30px; align-items:center; }
+.compatibility i { font:12px var(--mono); color:#3f4b61; }
+.ownership { max-width:1440px; margin:auto; padding:110px 7vw; display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.ownership h2 { font:500 clamp(40px,4vw,58px)/1.08 var(--display); letter-spacing:-.04em; margin:22px 0; }
+.ownership-intro p { color:var(--ink-2); max-width:300px; margin-bottom:30px; }
+.principles article { display:flex; gap:25px; padding:24px 0; border-top:1px solid var(--line); }
+.principles article>span { font:10px var(--mono); color:#8195ba; padding-top:6px; }
+.principles h3 { font:500 21px var(--display); margin:0 0 10px; }.principles p { color:var(--ink-2); font-size:14px; line-height:1.8; margin:0; }
+.principles a { color:#a6bbf4; font-size:12px; display:inline-block; margin-top:15px; }
+.start-section { padding:90px 24px 100px; text-align:center; border-top:1px solid var(--line); background:radial-gradient(ellipse at 50% 110%,#22365a50,transparent 70%); }
+.start-section .eyebrow { justify-content:center; }.start-section h2 { font:500 clamp(40px,5.5vw,76px)/1.05 var(--display); letter-spacing:-.05em; margin:26px 0; }
+.start-section h2 span { color:var(--lapis); }.start-section p { color:var(--ink-2); margin-bottom:30px; }.start-section :deep(.dl) { flex-direction:column; }
+.guide-link { display:block; color:#aebdda; font-size:12px; margin-top:24px; }:deep(a:focus-visible) { outline:2px solid #a6bcff; outline-offset:6px; }
+@keyframes arrive { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:none; } }
+@media(min-width:1600px) { .hero-copy { padding-left:max(7vw,calc((100vw - 1440px)/2)); } }
+@media(max-width:1050px) { .hero-actions { gap:15px; flex-wrap:wrap; }.hero-copy { width:59%; }.compatibility>div { gap:18px; }.world-label>span:last-child { display:none; } }
+@media(max-width:700px) {
+  .hero { height:auto; min-height:0; padding-bottom:55px; display:flex; flex-direction:column; }.hero-copy { padding:28px 24px 0; width:100%; order:0; }.eyebrow { font-size:8px; }
+  .wordmark { font-size:44px; margin:19px 0 12px; } h1 { font-size:38px; }.hero-copy p { font-size:13px; margin:17px 0; }.hero-actions { gap:18px; }
+  .hero-copy :deep(.btn.lg) { font-size:12px; padding:12px 13px; }.requirements { font-size:8px; }
+  .hero-art { position:relative; width:100%; right:auto; height:260px; margin:-5px 0 -5px; order:1; }.world-label { display:none; }
+  .hero-footer { left:24px; right:24px; height:55px; font-size:8px; }.hero-footer>span { display:none; }
+  .compatibility { padding:25px 24px; flex-direction:column; align-items:flex-start; gap:17px; }.compatibility>span br { display:none; }
+  .compatibility>div { gap:12px; font-size:14px; flex-wrap:wrap; }.ownership { padding:65px 24px; grid-template-columns:1fr; gap:40px; }.start-section { padding:65px 24px; }
+}
+@media(prefers-reduced-motion:reduce) { .hero-art { animation:none; }.text-link span { transition:none; } }
+@media(min-width:701px) and (max-height:740px) { .hero-copy { padding-top:25px; }.wordmark { margin:20px 0 12px; font-size:46px; } h1 { font-size:44px; }.hero-copy p { margin:19px 0; font-size:14px; }.hero-footer { height:48px; }.world-label { bottom:13%; } }
 </style>

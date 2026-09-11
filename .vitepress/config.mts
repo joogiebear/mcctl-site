@@ -24,7 +24,7 @@ export default defineConfig({
   lang: 'en',
   cleanUrls: true,
   lastUpdated: true,
-  srcExclude: ['README.md'],
+  srcExclude: ['README.md', 'art/**'],
   appearance: 'force-dark',
   sitemap: { hostname: SITE },
   head: [
