@@ -37,7 +37,7 @@ onMounted(async () => {
 
 <style scoped>
 .dl { display: inline-flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--r-sm); border: 1px solid var(--lapis); background: linear-gradient(180deg, #4a63d9, var(--lapis-dim)); color: #fff; font: 600 14px var(--ui); box-shadow: var(--lift); text-decoration: none; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 2px; border: 1px solid var(--lapis); background: var(--lapis); color: #090d0d; font: 600 14px var(--ui); text-decoration: none; }
 .btn:hover { filter: brightness(1.1); text-decoration: none; }
 .btn.lg { padding: 13px 20px; font-size: 15px; }
 .fine { font-size: 13px; color: var(--ink-3); }

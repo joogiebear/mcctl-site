@@ -28,7 +28,7 @@ export default defineConfig({
   appearance: 'force-dark',
   sitemap: { hostname: SITE },
   head: [
-    ['link', { rel: 'icon', href: '/img/icon.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
@@ -37,14 +37,14 @@ export default defineConfig({
     ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
     ['meta', { property: 'og:url', content: SITE }],
     ['meta', { property: 'og:description', content: 'Start a Paper, Fabric or NeoForge server on your machine, keep its console in front of you, install plugins, take backups that verify. No cloud, no accounts.' }],
-    ['meta', { property: 'og:image', content: `${SITE}/img/console.png` }],
+    ['meta', { property: 'og:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'SpawnLoft — Minecraft servers on your own PC' }],
-    ['meta', { name: 'twitter:image', content: `${SITE}/img/console.png` }],
-    ['meta', { name: 'theme-color', content: '#0c0e14' }],
+    ['meta', { name: 'twitter:image', content: `${SITE}/brand/social-card.png` }],
+    ['meta', { name: 'theme-color', content: '#090d0d' }],
   ],
   themeConfig: {
-    logo: '/img/icon.svg',
+    logo: '/brand/mark.svg',
     siteTitle: 'SpawnLoft',
     nav: [
       { text: 'Guide', link: '/guide/getting-started', activeMatch: '^/guide/' },

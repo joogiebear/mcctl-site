@@ -1,5 +1,8 @@
 # SpawnLoft island prototype
 
+This is the archived first concept. The current showcase uses [spawnloft-world.blend](spawnloft-world.blend),
+documented in [WORLD.md](WORLD.md), and `WorldScene.vue`. The original renderer has been retired.
+
 Original procedural artwork for SpawnLoft. The editable scene is `spawnloft-island.blend`.
 The website loads `public/models/spawnloft-island.glb`; the matching WebP poster is the loading,
 reduced-motion, and unavailable-WebGL fallback.

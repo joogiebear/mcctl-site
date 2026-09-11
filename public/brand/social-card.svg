@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#090c0d"/>
+  <path d="M790 152 990 42l200 110v225L990 489 790 377Z" stroke="#c4f566" stroke-width="2"/>
+  <path d="m790 152 200 113 200-113M990 265v224" stroke="#c4f566" stroke-width="2"/>
+  <path d="m830 240 160 90 160-90v80l-160 90-160-90Z" fill="#c4f566"/>
+  <path d="m875 337 115 65 115-65v80l-115 65-115-65Z" fill="#627c35"/>
+  <g transform="translate(70 60)"><path d="M20 8H56V20H24V26H44L56 38V56H8V44H40V38H20L8 26V20Z" fill="#c4f566"/><text x="80" y="48" fill="#f0eee7" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" letter-spacing="-1.2">SpawnLoft</text></g>
+  <text x="70" y="263" fill="#f0eee7" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="-4">Your world.</text>
+  <text x="70" y="354" fill="#c4f566" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="-4">Your rules.</text>
+  <text x="74" y="418" fill="#b5b8ae" font-family="Arial, Helvetica, sans-serif" font-size="23">Minecraft server control, on your terms.</text>
+  <path d="M70 541h1060" stroke="#30372c"/>
+  <text x="74" y="583" fill="#f0eee7" font-family="Arial, Helvetica, sans-serif" font-size="17" letter-spacing="3">SPAWNLOFT.COM</text>
+</svg>

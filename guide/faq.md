@@ -2,8 +2,8 @@
 
 ## Is it free?
 
-Yes. SpawnLoft is open source under the MIT licence, and the desktop app is a free download. There
-is no paid tier, no account and nothing to unlock. If it earns its keep, there is a
+The current desktop app is a free download, and SpawnLoft is open source under the MIT licence.
+You can get started without an account. If it earns its keep, there is a
 [Sponsor](https://github.com/sponsors/joogiebear) button.
 
 ## Can my friends join?

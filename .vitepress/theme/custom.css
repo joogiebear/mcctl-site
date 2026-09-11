@@ -1,12 +1,11 @@
 /*
-  The same tokens the app uses, so the site and the panel read as one thing. Change them in the
-  app's src/ui.html first; this block follows.
+  SpawnLoft website identity. Existing token names are retained for documentation components.
 */
 :root {
-  --void: #0c0e14; --surface: #141823; --raised: #1c2130; --sunken: #0a0c12; --recess: #11151f;
-  --line: #252b3b; --edge: #354056;
-  --ink: #e9ecf4; --ink-2: #9aa4ba; --ink-3: #6b7488;
-  --lapis: #5b84ff; --lapis-dim: #2c3f8f; --lapis-wash: rgba(91, 132, 255, .12);
+  --void: #090d0d; --surface: #141b15; --raised: #202b1e; --sunken: #070b08; --recess: #10170f;
+  --line: #293323; --edge: #435239;
+  --ink: #efeee6; --ink-2: #a0ab98; --ink-3: #7f8d75;
+  --lapis: #c4f566; --lapis-dim: #a4d551; --lapis-wash: rgba(196,245,102,.12);
   --live: #4ade80; --warn: #f0b64d;
   --ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
@@ -19,7 +18,7 @@
   --vp-font-family-base: var(--ui);
   --vp-font-family-mono: var(--mono);
   --vp-c-brand-1: var(--lapis);
-  --vp-c-brand-2: #4a63d9;
+  --vp-c-brand-2: #d9ffa1;
   --vp-c-brand-3: var(--lapis-dim);
   --vp-c-brand-soft: var(--lapis-wash);
   --vp-c-bg: var(--void);
@@ -36,11 +35,13 @@
   --vp-code-block-bg: var(--recess);
   --vp-c-green-1: var(--live);
   --vp-c-yellow-1: var(--warn);
-  --vp-nav-bg-color: rgba(12, 14, 20, .85);
+  --vp-nav-bg-color: rgba(9,13,13,.9);
   --vp-sidebar-bg-color: var(--void);
   --vp-button-brand-bg: var(--lapis-dim);
   --vp-button-brand-border: var(--lapis);
-  --vp-button-brand-hover-bg: #4a63d9;
+  --vp-button-brand-hover-bg: #d9ffa1;
+  --vp-button-brand-text: #090d0d;
+  --vp-button-brand-hover-text: #090d0d;
   --vp-button-brand-hover-border: var(--lapis);
 }
 /* The blur goes on the bar, not .VPNav: a backdrop-filter makes its element the containing block
