@@ -26,7 +26,7 @@ Log level shows as a coloured rail in the gutter rather than by recolouring the 
 stands out without becoming harder to read. A stack trace inherits the level of the line above it,
 which is what makes "filter to errors" show the whole failure instead of its first line.
 
-In the [development preview](/guide/beta), ANSI escapes are stripped into clean, searchable
+In [1.0](/guide/beta), ANSI escapes are stripped into clean, searchable
 text. Long lines scroll horizontally by default; turn on **Wrap** to fit them to the panel.
 
 **Export** saves the console to a `.log` file beside the server's snapshots, or uploads it to
@@ -53,8 +53,7 @@ live server holds open corrupts a world rather than replacing it. Automatic back
 schedule with a retention limit, and the limit only ever removes snapshots its own schedule
 produced, never one taken by hand or before a reset.
 
-Scheduled automatic backups are Windows-only for now. Manual backup/restore is available on
-Mac. In the preview, history refreshes every four seconds while visible and when reopened,
+Scheduled automatic backups and manual backup/restore are available on Windows and Mac. History refreshes every four seconds while visible and when reopened,
 including backups made with the CLI. An archive appears only after it and its manifest are complete.
 
 ## Players
@@ -71,7 +70,7 @@ Processor and memory over the last minute, five minutes, half hour, hour or four
 every ten seconds. Both scales follow the data, because a fixed 0 to 100% processor axis draws
 every ordinary server as a flat line on the floor.
 
-The preview adds the same collection on Apple Silicon and Intel Mac. CPU represents a share
+The same collection runs on Windows, Apple Silicon and Intel Mac. CPU represents a share
 of all cores; memory is resident process memory, not just the Java heap. History remains after
 stopping and resets for a new server run. [Export readings as JSON or CSV](/reference/commands#performance-and-export-preview)
 to compare test runs.
@@ -79,10 +78,10 @@ to compare test runs.
 ## Scheduler
 
 Nightly backups, a restart at 5am that warns the players first, a command on the hour. These run
-through Windows Task Scheduler, so they happen whether or not SpawnLoft is open. See
+through Windows Task Scheduler or macOS launchd, so they happen whether or not SpawnLoft is open. See
 [Scheduled work](/reference/commands#scheduled-work) for what a task can be.
 
-The Scheduler and automatic backups are not available in the Mac beta yet.
+Keep the computer awake and your user session logged in for scheduled tasks.
 
 ## Settings
 
@@ -95,13 +94,13 @@ offline UUID from the player's name and uses the real Mojang one otherwise, so f
 everybody a different identity. The panel reads the world's player data and says how many players
 are affected before you decide.
 
-## Databases in the preview
+## Databases
 
 **Server → Settings → Create a database** creates a managed database and provides scoped
-credentials. Windows uses MariaDB; Mac uses MySQL 8.4 LTS and requires macOS 15+.
+credentials. Windows and Mac offer MySQL 8.4 LTS and Redis-compatible Garnet. Managed MySQL on Mac requires macOS 15+.
 Plugin configuration is always manual. See [Databases](/guide/databases) for setup and existing services.
 
-## Appearance in the preview
+## Appearance
 
 App **Settings → Appearance** lets you switch between the original **Classic** colors and the
 website-inspired **SpawnLoft** theme, on both Windows and Mac.

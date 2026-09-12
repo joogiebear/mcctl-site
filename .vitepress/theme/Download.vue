@@ -1,57 +1,69 @@
 <script setup lang="ts">
-// The Download button points at the releases page until GitHub says what the newest installer
-// is; then it points at the .exe itself and says its version. A failed lookup changes nothing.
 import { onMounted, ref } from 'vue'
 
-withDefaults(defineProps<{ size?: 'lg' | 'md'; fine?: boolean }>(), { size: 'md', fine: false })
-
-const href = ref('https://github.com/joogiebear/spawnloft/releases/latest')
-const label = ref('Download for Windows')
-const mb = ref<number | null>(null)
+const props = withDefaults(defineProps<{ size?: 'lg' | 'md'; fine?: boolean }>(), { size: 'md', fine: false })
+const release = 'https://github.com/joogiebear/spawnloft/releases/download/'
+const version = ref('v1.0.0')
+const platforms = ref([
+  { id: 'windows', title: 'Windows', detail: '10 / 11 · x64', file: 'SpawnLoft-Setup-1.0.0.exe', match: /^SpawnLoft-Setup-[\d.]+\.exe$/ },
+  { id: 'arm64', title: 'macOS', detail: 'Apple Silicon', file: 'SpawnLoft-1.0.0-mac-arm64.dmg', match: /^SpawnLoft-[\d.]+-mac-arm64\.dmg$/ },
+  { id: 'x64', title: 'macOS', detail: 'Intel', file: 'SpawnLoft-1.0.0-mac-x64.dmg', match: /^SpawnLoft-[\d.]+-mac-x64\.dmg$/ },
+])
 
 onMounted(async () => {
+  if (!props.fine) return
   try {
-    const r = await fetch('https://api.github.com/repos/joogiebear/spawnloft/releases/latest', {
-      headers: { accept: 'application/vnd.github+json' },
-    })
-    if (!r.ok) return
-    const rel = await r.json()
-    const exe = (rel.assets || []).find((a: any) => /\.exe$/i.test(a.name))
-    if (!exe) return
-    href.value = exe.browser_download_url
-    label.value = 'Download ' + rel.tag_name + ' for Windows'
-    mb.value = Math.round(exe.size / 1048576) || null
-  } catch {}
+    const response = await fetch('https://api.github.com/repos/joogiebear/spawnloft/releases/latest', { headers: { accept: 'application/vnd.github+json' }, signal: AbortSignal.timeout(8000) })
+    if (!response.ok) return
+    const latest = await response.json()
+    if (latest.draft || latest.prerelease || !/^v\d+\.\d+\.\d+$/.test(latest.tag_name)) return
+    const assets = platforms.value.map(platform => latest.assets?.find((asset: { name: string }) => platform.match.test(asset.name)))
+    // Keep the known complete release if the API is unavailable or a release is incomplete.
+    if (assets.some(asset => !asset)) return
+    platforms.value = platforms.value.map((platform, index) => ({ ...platform, file: assets[index].name }))
+    version.value = latest.tag_name
+  } catch { /* The verified 1.0 links work without a GitHub API response. */ }
 })
 </script>
 
 <template>
-  <span class="dl">
-    <a class="btn primary" :class="size" :href="href">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13h11"/></svg>
-      <span>{{ label }}</span>
+  <div class="dl" :class="{ 'dl-full': fine }">
+    <a v-if="!fine" class="btn primary" :class="size" href="/#download">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13h11"/></svg>
+      Get SpawnLoft
     </a>
-    <span v-if="fine" class="coming-platforms" role="group" aria-label="Upcoming desktop downloads">
-      <button class="coming-platform" type="button" disabled><span>macOS</span><small>Coming soon</small></button>
-      <button class="coming-platform" type="button" disabled><span>Linux</span><small>Coming soon</small></button>
-    </span>
-    <span v-if="fine" class="preview-note">macOS is in beta. <a href="/guide/beta">Explore the development preview →</a></span>
-    <span v-if="fine" class="fine"><template v-if="mb">{{ mb }} MB installer · </template>MIT licence · Windows 10/11 · needs <b>Java 25</b> for current Minecraft</span>
-  </span>
+    <template v-else>
+      <span class="release-label">{{ version }} · FREE DESKTOP APP</span>
+      <div class="platforms" role="group" aria-label="Download SpawnLoft for your computer">
+        <a v-for="platform in platforms" :key="platform.id" class="platform" :href="release + version + '/' + platform.file" :aria-label="'Download for ' + platform.title + ', ' + platform.detail">
+          <span class="platform-title">{{ platform.title }}<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13h11"/></svg></span>
+          <small>{{ platform.detail }}</small>
+        </a>
+        <button class="platform coming" type="button" disabled><span class="platform-title">Linux</span><small>Coming soon</small></button>
+      </div>
+      <span class="fine">Signed installers · macOS 13+ · MIT licence<br>Managed MySQL on Mac needs macOS 15+. Minecraft needs Java.</span>
+      <a class="setup-link" href="/guide/getting-started">First time here? Read the setup guide →</a>
+    </template>
+  </div>
 </template>
 
 <style scoped>
-.dl { display: inline-flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.dl { display: inline-flex; align-items: center; }
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 2px; border: 1px solid var(--lapis); background: var(--lapis); color: #090d0d; font: 600 14px var(--ui); text-decoration: none; }
 .btn:hover { filter: brightness(1.1); text-decoration: none; }
 .btn.lg { padding: 13px 20px; font-size: 15px; }
-.fine { font-size: 13px; color: var(--ink-3); }
-.fine b { color: var(--ink-2); font-weight: 600; }
-.coming-platforms { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; }
-.coming-platform { display: flex; flex: 1; min-width: 130px; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid currentColor; padding: 13px 16px; color: inherit; background: transparent; font: 600 13px var(--ui); opacity: .75; cursor: not-allowed; }
-.coming-platform small { font: 10px var(--mono); white-space: nowrap; }
-.preview-note { width: 100%; font-size: 12px; line-height: 1.8; }
-.preview-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.preview-note a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
-@media (max-width: 400px) { .coming-platform { min-width: 100%; } }
+.dl-full { display: flex; flex-direction: column; align-items: stretch; gap: 18px; width: 100%; max-width: 760px; margin-inline: auto; }
+.release-label { font: 10px var(--mono); letter-spacing: .08em; }
+.platforms { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.platform { display: flex; flex-direction: column; gap: 12px; text-align: left; padding: 20px 16px; border: 1px solid currentColor; border-radius: 2px; background: transparent; color: inherit; text-decoration: none; transition: background .15s, color .15s; }
+.platform-title { display: flex; justify-content: space-between; align-items: center; gap: 16px; font: 600 18px var(--ui); }
+.platform small { font: 10px/1.6 var(--mono); }
+a.platform:hover { background: #090d0d; color: #c4f566; text-decoration: none; }
+.coming { opacity: .5; cursor: not-allowed; }
+.fine { font: 12px/1.8 var(--ui); opacity: .75; }
+.setup-link { font: 12px var(--ui); color: inherit; text-underline-offset: 4px; }
+a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+@media(max-width:700px) { .platforms { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:360px) { .platform { padding: 16px 12px; }.platform-title { font-size: 16px; gap: 8px; } }
+@media(prefers-reduced-motion:reduce) { .platform { transition: none; } }
 </style>

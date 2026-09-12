@@ -9,7 +9,7 @@ const guide = [
   { text: 'Getting started', link: '/guide/getting-started' },
   { text: 'The panel', link: '/guide/panel' },
   { text: 'The desktop app', link: '/guide/desktop' },
-  { text: 'Windows & Mac beta', link: '/guide/beta' },
+  { text: 'Windows & Mac releases', link: '/guide/beta' },
   { text: 'Databases', link: '/guide/databases' },
   { text: 'How it works', link: '/guide/how-it-works' },
   { text: 'Security', link: '/guide/security' },
@@ -22,7 +22,7 @@ const SITE = 'https://spawnloft.com'
 
 export default defineConfig({
   title: 'SpawnLoft',
-  description: 'Minecraft servers on your own PC, without the terminal. Free, open source, Windows.',
+  description: 'Minecraft servers on your own PC, without the terminal. Free, open source, Windows and macOS.',
   lang: 'en',
   cleanUrls: true,
   scrollOffset: 120,
