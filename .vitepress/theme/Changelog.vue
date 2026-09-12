@@ -19,7 +19,6 @@ const title = (release: Release) => {
   return match ? match[1] : release.name || release.tag_name
 }
 const when = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
-const installer = (release: Release) => release.assets?.find(asset => /\.exe$/i.test(asset.name))
 const escape = (text: string) => text.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]!))
 const safeUrl = (href: string) => {
   try {
@@ -100,7 +99,7 @@ onBeforeUnmount(() => request?.abort())
       <section class="latest-band">
         <article :id="featured.tag_name" class="featured-release journal-wrap">
           <aside class="release-index"><p class="journal-eyebrow"><span class="release-dot"></span> LATEST PUBLISHED</p><a class="featured-version" :href="'#' + featured.tag_name">{{ featured.tag_name }}</a><time :datetime="featured.published_at">{{ when(featured.published_at) }}</time><span class="release-channel">{{ featured.prerelease ? 'Pre-release' : 'Stable release' }}</span></aside>
-          <div class="release-story"><h2>{{ title(featured) }}</h2><div v-if="featured.body?.trim()" class="release-prose" v-html="html(featured)"></div><p v-else class="no-notes">No release notes were included with this version.</p><div class="release-actions"><a v-if="installer(featured)" class="journal-button" :href="installer(featured)!.browser_download_url"><BrandIcon name="download" :size="17" /> Download {{ featured.tag_name }}</a><a class="text-link" :href="featured.html_url">Read on GitHub <BrandIcon name="external" :size="16" /></a></div><p v-if="featured.prerelease" class="channel-note">This is a pre-release. Stable installations are not offered pre-release updates.</p></div>
+          <div class="release-story"><h2>{{ title(featured) }}</h2><div v-if="featured.body?.trim()" class="release-prose" v-html="html(featured)"></div><p v-else class="no-notes">No release notes were included with this version.</p><div class="release-actions"><a v-if="featured.assets?.length" class="journal-button" :href="featured.html_url"><BrandIcon name="download" :size="17" /> Choose your download</a><a class="text-link" :href="featured.html_url">Read on GitHub <BrandIcon name="external" :size="16" /></a></div><p v-if="featured.prerelease" class="channel-note">This is a pre-release. Stable installations are not offered pre-release updates.</p></div>
         </article>
       </section>
       <section class="journal-archive journal-wrap" aria-labelledby="archive-title">
