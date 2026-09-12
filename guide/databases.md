@@ -8,9 +8,8 @@ description: Create or attach a database for your Minecraft server while keeping
 SpawnLoft can create a database for a Minecraft server or connect it to a database you
 already run. It provides connection details; **you configure your plugins yourself**.
 
-::: info Development preview
-This page describes [beta.21](/guide/beta). Managed Mac installation and the removal of
-plugin config-writing helpers belong to the development preview, not the current stable release.
+::: info Available in 1.0
+New managed services use **MySQL or Redis** on Windows and macOS. Redis is provided by Microsoft Garnet. Plugin configuration stays manual.
 :::
 
 ## Create a database
@@ -21,13 +20,13 @@ the server its own database and user credentials.
 
 | Platform | Managed engine |
 | --- | --- |
-| Windows | MariaDB for SQL; Garnet for a Redis-compatible service |
-| macOS 15+ | MySQL 8.4 LTS for SQL, on Apple Silicon and Intel |
-| macOS 13–14 | Use an existing external database; managed MySQL requires macOS 15+ |
+| Windows | MySQL 8.4 LTS; Redis-compatible Garnet |
+| macOS 15+ | MySQL 8.4 LTS and Redis-compatible Garnet, on Apple Silicon and Intel |
+| macOS 13–14 | Redis-compatible Garnet, or an external SQL database; managed MySQL requires macOS 15+ |
 
-The Mac download is checksum-verified and stored in SpawnLoft's engine store. You do not
+Engine downloads are checksum-verified and stored in SpawnLoft's engine store. You do not
 need Homebrew, a system service, or a separate MySQL installation. Existing databases are
-not silently moved to another engine or version. Managed Garnet is not available on Mac yet.
+not silently moved to another engine or version. Garnet includes a private .NET runtime on both platforms; no separate runtime installation is needed.
 
 ## Configure each plugin manually
 
@@ -36,13 +35,13 @@ the plugin's own config using that plugin's documentation. Restart or reload the
 as its author instructs, then check the server console for connection errors.
 
 SpawnLoft does not detect plugins and inject database credentials into their configs.
-The preview removes `db apply` and the panel's config-writing controls. Existing plugin
+`db apply` and the panel's config-writing controls have been removed. Existing plugin
 files are left unchanged. A created database is not proof that a plugin is using it;
 verify the plugin's behavior after configuring it.
 
 ## Use the command line
 
-After [setting up the preview launcher](/reference/commands#preview-cli-setup):
+After [setting up the launcher](/reference/commands#preview-cli-setup):
 
 ```sh
 # Create, start, and attach a database for this server.
@@ -57,12 +56,12 @@ spawnloft db attach testdb survival
 spawnloft db creds testdb survival
 ```
 
-Choose one creation route. `db create` defaults to MariaDB on Windows and MySQL on Mac.
+Choose one creation route. `db create` defaults to MySQL on Windows and Mac. Use `--engine garnet` for a Redis-compatible service.
 Credential output contains passwords: keep it private and out of shared logs.
 
 ## Connect to an existing database
 
-Existing external MariaDB, MySQL, and Redis connections remain available. External services
+You can attach an external MySQL or Redis service. MariaDB is no longer offered for new connections. External services
 keep their own installation and lifecycle; SpawnLoft does not start or stop them.
 
 For SQL operations, Mac tool discovery checks the managed engine store, Homebrew install

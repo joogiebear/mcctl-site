@@ -70,8 +70,7 @@ SpawnLoft keeps the task definitions in its own file and gives Windows only a tr
 into `mcctl task run <id>`. What a task *does* stays inside SpawnLoft, constrained to the handful of
 things a task is allowed to be, rather than an arbitrary command line.
 
-Scheduled tasks and automatic backups currently require Windows. They are not yet available
-in the Mac development preview.
+On macOS, launchd runs the same task actions as per-user LaunchAgents, including automatic backups. Keep the Mac awake and your user session logged in. Closing SpawnLoft does not disable these tasks.
 
 ## Zero dependencies
 

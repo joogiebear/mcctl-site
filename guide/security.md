@@ -39,9 +39,9 @@ webhooks also send lifecycle alerts. The app is local, but these features need n
   effort by its own policy, and deletes the log 90 days after it was last opened. Everything else,
   player names and plugin output included, goes as is. The delete token is kept locally.
 
-Worlds and backups remain in the folders you choose. The Mac preview downloads checksum-verified
+Worlds and backups remain in the folders you choose. SpawnLoft downloads checksum-verified
 MySQL binaries into its engine store. [Database credentials](/guide/databases) are provided for
-manual plugin setup; the preview does not write them into plugin configs.
+manual plugin setup; SpawnLoft does not write them into plugin configs.
 
 ## Online mode is on by default
 

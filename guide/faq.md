@@ -16,19 +16,16 @@ A Share screen that lays those options out honestly is on the [roadmap](/roadmap
 
 ## Does it work on Mac or Linux?
 
-Windows is the stable desktop release. Apple Silicon and Intel Mac builds are available in the
-[development preview](/guide/beta), with macOS 13+ required for the app and macOS 15+ for managed
-MySQL. Public macOS and Linux downloads are coming soon; there is no Linux desktop package yet.
-Mac scheduling, automatic backups, and managed Garnet remain unavailable.
+Yes: SpawnLoft 1.0 supports Windows and both Apple Silicon and Intel Macs. The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Schedules, automatic backups, managed Redis and automatic app updates are available on both platforms. Linux desktop downloads are coming soon. See [platform support](/guide/beta).
 
 ## Can I match the app to the website?
 
-In the development preview, **Settings → Appearance** offers **Classic** and **SpawnLoft**.
+In 1.0, **Settings → Appearance** offers **Classic** and **SpawnLoft**.
 Classic keeps the original palette; SpawnLoft follows the website's look.
 
 ## Will SpawnLoft fill in my plugin's database config?
 
-No. In the preview, database creation and attachment provide connection details for you to
+No. database creation and attachment provide connection details for you to
 copy yourself. The old config-writing helpers have been removed. Follow the plugin author's
 instructions and verify the plugin connects. See [Databases](/guide/databases).
 
@@ -67,8 +64,7 @@ The stable installer is signed, but SmartScreen judges by reputation, and a new 
 through real installs. Click **More info**, then **Run anyway**. It goes away on its own as the
 reputation builds.
 
-Windows development previews are unsigned. See [beta installation notes](/guide/beta#install-on-windows)
-for the distinction between production and test builds.
+Version 1.0 uses signed Windows installers and Developer ID signed, Apple-notarized Mac installers. See [release details](/guide/beta).
 
 ## Is it safe to leave the panel open?
 

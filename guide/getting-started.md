@@ -4,9 +4,8 @@ Set up SpawnLoft, create or import a Minecraft server, and bring your world onli
 
 <Download fine />
 
-::: info Testing on a Mac?
-The main download is Windows stable. The [development preview](/guide/beta) includes
-separate Apple Silicon and Intel Mac installers, plus a matching Windows beta.
+::: info Windows and Mac are available now
+SpawnLoft 1.0 includes signed Windows, Apple Silicon and Intel Mac installers.
 The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Linux desktop is coming soon.
 :::
 
@@ -25,8 +24,8 @@ The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Linux desktop is com
   SpawnLoft cannot supply: Minecraft servers *are* Java processes.
   [Temurin 25](https://adoptium.net/temurin/releases/?version=25) is a good default, and a JDK
   rather than a JRE if you want Spigot or CraftBukkit built on your machine.
-- **Windows 10 or 11** for the stable desktop app, or **macOS 13+** for the beta.
-  Source CLI usage requires Node 20+; platform-specific capabilities are listed in the [beta guide](/guide/beta#platform-support-in-beta-21).
+- **Windows 10 or 11 (x64)** or **macOS 13+** for the desktop app.
+  Source CLI usage requires Node 20+; platform-specific capabilities are listed in the [platform guide](/guide/beta#platform-support).
 
 The app checks for Java on first run, and the panel shows a banner if it is missing. SpawnLoft looks
 on PATH **and** in the usual install folders (Program Files, the per-user Programs folder,
@@ -36,6 +35,12 @@ pointed at a specific Java.
 SpawnLoft knows which Java each Minecraft version needs (17 for 1.18 to 1.20.4, 21 for 1.20.5 and
 1.21, 25 for 26.x) and picks the newest installed one that fits when a server is created. A version
 nothing installed can run is refused before the download, with a link to the Java it needs.
+
+## Install on Mac
+
+Check **Apple menu → About This Mac**. Choose Apple Silicon for an M-series chip, or Intel for an Intel processor. Open the DMG and drag SpawnLoft into **Applications**, then launch it and follow the Java check. Both Mac installers are Developer ID signed and Apple-notarized.
+
+The app updates automatically after installation. Existing updater-enabled Mac betas can upgrade to 1.0 automatically; older manual-only previews need one manual replacement in Applications. Your application data lives outside the app bundle.
 
 ## SmartScreen
 
@@ -80,6 +85,6 @@ node mcctl.mjs clone survival ecotest && node mcctl.mjs start ecotest
 On Windows `mcctl.cmd` wraps the above, so `mcctl list` works once the folder is on your PATH.
 The full list is in the [command reference](/reference/commands).
 
-In the development preview, `spawnloft` is the preferred command and `mcctl` remains compatible.
-Both installed launchers use the bundled runtime. See [preview CLI setup](/reference/commands#preview-cli-setup)
+In 1.0, `spawnloft` is the preferred command and `mcctl` remains compatible.
+Both installed launchers use the bundled runtime. See [CLI setup](/reference/commands#preview-cli-setup)
 for Mac and Windows paths, JSON output, and metrics export.

@@ -3,13 +3,13 @@
 Everything the panel does, from a terminal. Run from the SpawnLoft folder as `node mcctl.mjs <command>`,
 or as `mcctl <command>` once that folder is on your PATH.
 
-In the [development preview](/guide/beta), **`spawnloft` is the preferred command** and
+In [SpawnLoft 1.0](/guide/beta), **`spawnloft` is the preferred command** and
 `mcctl` remains compatible. Existing stable examples below still work. JSON output, metrics,
-and the installed launchers described here require the preview.
+and the installed launchers described here are included in 1.0.
 
-## Preview CLI setup
+## CLI setup {#preview-cli-setup}
 
-Installed preview packages include both launchers and use their bundled runtime. No separate
+Installed packages include both launchers and use their bundled runtime. No separate
 Node installation is needed. On Mac, after installing into Applications:
 
 ```sh
@@ -26,9 +26,9 @@ to itself, so symlinking the launcher alone is not supported.
 
 On Windows, run `resources\bin\spawnloft.cmd` inside your installed SpawnLoft directory,
 or add that `resources\bin` directory to your user PATH. `mcctl.cmd` remains alongside it.
-From a preview source checkout, use `node spawnloft.mjs ...` with Node 20+.
+From a source checkout, use `node spawnloft.mjs ...` with Node 20+.
 
-## JSON output (preview)
+## JSON output {#json-output-preview}
 
 ```sh
 spawnloft list --json
@@ -68,7 +68,7 @@ excerpts, so review them before sharing. A historical diagnostic is not a plugin
 Backup exit `0` means the archive was created. Inspect warnings, skipped database dumps,
 mirror errors, and pruning results before treating every optional backup operation as successful.
 
-## Performance and export (preview)
+## Performance and export {#performance-and-export-preview}
 
 ```sh
 spawnloft metrics survival --json
@@ -91,11 +91,11 @@ CSV columns are `instance,run_id,timestamp,cpu_percent,rss_mib,cores`, with UTC 
 `--output` creates a new file and refuses to overwrite an existing one. It is for finite CSV
 snapshots; stream a continuous capture to stdout instead. JSON and CSV are mutually exclusive.
 
-## Databases (preview)
+## Databases {#databases-preview}
 
-See [Databases](/guide/databases) for managed Mac MySQL, Windows MariaDB/Garnet, and existing
+See [Databases](/guide/databases) for managed MySQL and Redis on Windows and Mac, and existing
 connections. Creation and attachment provide credentials for **manual plugin configuration**.
-There is no `db apply` config-writing command in the preview.
+There is no `db apply` config-writing command in 1.0.
 
 ## Lifecycle
 
@@ -177,15 +177,14 @@ whatever runs it.
 
 ## Scheduled work
 
-Scheduled tasks and automatic backups currently require Windows. The Mac beta does not
-support them yet; manual backup/restore remains available.
+Scheduled tasks and automatic backups work on Windows through Task Scheduler and on macOS through launchd. Keep the computer awake and your user session logged in for scheduled work.
 
 | Command | Does |
 | --- | --- |
 | `task list` | Every scheduled task, with its next run and last result |
 | `task add <server> --do <what> [when]` | Create one |
 | `task rm <id>` / `task enable\|disable <id>` | Remove or pause one |
-| `task run <id>` | Run it now. This is also what Windows calls |
+| `task run <id>` | Run it now. This is also what the system scheduler calls |
 
 `--do` is one of `backup`, `command` (with `--line "<what to send>"`), `restart`, `stop`, `start`.
 When: `--daily 03:00`, `--hourly <n>`, `--minutes <n>`, `--weekly SUN --at 03:00`, or `--on-logon`.
