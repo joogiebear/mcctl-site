@@ -14,7 +14,7 @@ mcctl (short-lived CLI, or the panel)
    │                        │
    │                        ├─ owns the java child process
    │                        ├─ mirrors stdout/stderr ──▶ run/<name>/console.log
-   │                        └─ listens on a named pipe
+   │                        └─ listens on a local pipe / Unix socket
    │                              ops: ping | send | stop | kill
    │
    ├─ reads run/<name>/state.json  (pids, ports, start time)
@@ -70,9 +70,15 @@ SpawnLoft keeps the task definitions in its own file and gives Windows only a tr
 into `mcctl task run <id>`. What a task *does* stays inside SpawnLoft, constrained to the handful of
 things a task is allowed to be, rather than an arbitrary command line.
 
+Scheduled tasks and automatic backups currently require Windows. They are not yet available
+in the Mac development preview.
+
 ## Zero dependencies
 
-The engine is plain Node and the `tar` Windows already ships. No framework, no build step, no
+The engine is plain Node and the operating system's `tar`. No framework, no build step, no
 package that rots. The panel is one HTML file served by Node's own http module. The desktop app
 runs the engine inside the Electron process, so there is one process, no second Node to ship, and
 no orphaned child if the window dies.
+
+Preview packages also include terminal launchers that use the bundled runtime, so installed
+CLI use does not require a separate Node installation. `spawnloft` and `mcctl` run the same commands.

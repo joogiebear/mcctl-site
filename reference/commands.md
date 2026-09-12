@@ -3,6 +3,100 @@
 Everything the panel does, from a terminal. Run from the SpawnLoft folder as `node mcctl.mjs <command>`,
 or as `mcctl <command>` once that folder is on your PATH.
 
+In the [development preview](/guide/beta), **`spawnloft` is the preferred command** and
+`mcctl` remains compatible. Existing stable examples below still work. JSON output, metrics,
+and the installed launchers described here require the preview.
+
+## Preview CLI setup
+
+Installed preview packages include both launchers and use their bundled runtime. No separate
+Node installation is needed. On Mac, after installing into Applications:
+
+```sh
+"/Applications/SpawnLoft.app/Contents/Resources/bin/spawnloft" status survival --json
+
+# Optional: enable the short commands in this terminal session.
+export PATH="/Applications/SpawnLoft.app/Contents/Resources/bin:$PATH"
+spawnloft status survival --json
+```
+
+Add that export to your shell configuration if you want it to persist. The app does not edit
+PATH automatically. Keep the launcher in its bundled directory; it finds the runtime relative
+to itself, so symlinking the launcher alone is not supported.
+
+On Windows, run `resources\bin\spawnloft.cmd` inside your installed SpawnLoft directory,
+or add that `resources\bin` directory to your user PATH. `mcctl.cmd` remains alongside it.
+From a preview source checkout, use `node spawnloft.mjs ...` with Node 20+.
+
+## JSON output (preview)
+
+```sh
+spawnloft list --json
+spawnloft status survival --json
+spawnloft plugins survival --json
+spawnloft backups survival --json
+spawnloft diagnostics survival --json
+spawnloft doctor --json
+spawnloft backup survival --scope plugins --json
+```
+
+Each command writes one JSON object and a newline to stdout, with no progress text or ANSI
+colors mixed in. The envelope includes `schemaVersion`, `command`, `ok`, and `data` on success:
+
+```json
+{"schemaVersion":1,"command":"status","ok":true,"data":{"name":"survival","status":"stopped"}}
+```
+
+This abbreviated example omits other status fields. Accept additional fields and check the
+schema version. On failure, inspect `error.code`, `error.message`, and the process exit code.
+
+| Exit | Meaning for structured commands and metrics |
+| --- | --- |
+| `0` | Completed; a stopped server or empty inventory is valid data |
+| `1` | Operation failed, or `doctor` found environment problems |
+| `2` | Invalid usage or unsupported JSON operation; no command action ran |
+| `130` / `143` | Metrics follower interrupted by Ctrl+C / SIGTERM |
+
+Other existing commands retain their exit behavior. JSON on unsupported operations is
+rejected before acting; for example, `plugins ... enable --json` does not modify a JAR.
+`snapshots` remains an alias for `backups`, and `why` for `diagnostics`.
+
+Structured status omits configured credentials and webhook URLs. Diagnostics include console
+excerpts, so review them before sharing. A historical diagnostic is not a plugin-health check.
+`doctor --json` is read-only; plain-text `doctor` retains its stale-state repair behavior.
+
+Backup exit `0` means the archive was created. Inspect warnings, skipped database dumps,
+mirror errors, and pruning results before treating every optional backup operation as successful.
+
+## Performance and export (preview)
+
+```sh
+spawnloft metrics survival --json
+spawnloft metrics survival --seconds 1800 --json
+spawnloft metrics survival --follow --json
+spawnloft metrics survival --csv --output survival-run.csv
+spawnloft metrics survival --follow --csv
+```
+
+These are the Performance tab's ten-second CPU and resident-memory samples, collected on
+Windows and Mac. CPU is a percentage of the whole machine; `rssMiB` includes memory outside
+the Java heap. A snapshot defaults to retained history for the current or last server run.
+An empty sample list is valid before the first reading or outside the selected time range.
+
+`--follow --json` uses **JSON Lines**: a `snapshot` envelope first, then new `sample` envelopes.
+A restart or clock rollback emits `reset`; use `runId` to separate runs. It waits while the
+server is stopped and follows the next start. Press Ctrl+C to stop.
+
+CSV columns are `instance,run_id,timestamp,cpu_percent,rss_mib,cores`, with UTC timestamps.
+`--output` creates a new file and refuses to overwrite an existing one. It is for finite CSV
+snapshots; stream a continuous capture to stdout instead. JSON and CSV are mutually exclusive.
+
+## Databases (preview)
+
+See [Databases](/guide/databases) for managed Mac MySQL, Windows MariaDB/Garnet, and existing
+connections. Creation and attachment provide credentials for **manual plugin configuration**.
+There is no `db apply` config-writing command in the preview.
+
 ## Lifecycle
 
 | Command | Does |
@@ -82,6 +176,9 @@ in place and deletes nothing, so a file added after the snapshot was taken survi
 whatever runs it.
 
 ## Scheduled work
+
+Scheduled tasks and automatic backups currently require Windows. The Mac beta does not
+support them yet; manual backup/restore remains available.
 
 | Command | Does |
 | --- | --- |

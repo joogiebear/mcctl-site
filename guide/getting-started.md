@@ -4,6 +4,12 @@ Set up SpawnLoft, create or import a Minecraft server, and bring your world onli
 
 <Download fine />
 
+::: info Testing on a Mac?
+The main download is Windows stable. The [development preview](/guide/beta) includes
+separate Apple Silicon and Intel Mac installers, plus a matching Windows beta.
+The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Linux desktop is coming soon.
+:::
+
 ## Three steps
 
 1. **Install SpawnLoft.** Download the setup, run it, and let it check for Java.
@@ -19,7 +25,8 @@ Set up SpawnLoft, create or import a Minecraft server, and bring your world onli
   SpawnLoft cannot supply: Minecraft servers *are* Java processes.
   [Temurin 25](https://adoptium.net/temurin/releases/?version=25) is a good default, and a JDK
   rather than a JRE if you want Spigot or CraftBukkit built on your machine.
-- **Windows 10 or 11** for the desktop app. The command line runs anywhere Node 20+ does.
+- **Windows 10 or 11** for the stable desktop app, or **macOS 13+** for the beta.
+  Source CLI usage requires Node 20+; platform-specific capabilities are listed in the [beta guide](/guide/beta#platform-support-in-beta-21).
 
 The app checks for Java on first run, and the panel shows a banner if it is missing. SpawnLoft looks
 on PATH **and** in the usual install folders (Program Files, the per-user Programs folder,
@@ -72,3 +79,7 @@ node mcctl.mjs clone survival ecotest && node mcctl.mjs start ecotest
 
 On Windows `mcctl.cmd` wraps the above, so `mcctl list` works once the folder is on your PATH.
 The full list is in the [command reference](/reference/commands).
+
+In the development preview, `spawnloft` is the preferred command and `mcctl` remains compatible.
+Both installed launchers use the bundled runtime. See [preview CLI setup](/reference/commands#preview-cli-setup)
+for Mac and Windows paths, JSON output, and metrics export.

@@ -26,7 +26,11 @@ console, so "local" has to mean local rather than merely reachable.
 - The page never receives an RCON password. Every route that returns a server strips it first, so
   it cannot end up in a browser cache, a screenshot, or a pasted bug report.
 
-## Two things leave the machine, both on a click
+## Downloads and optional sharing
+
+SpawnLoft makes network requests for app updates, server software, plugin searches/downloads,
+and managed database engines when those features are used. Optional configured Discord
+webhooks also send lifecycle alerts. The app is local, but these features need network access.
 
 - **Feedback** opens GitHub in your browser with a report drafted. Nothing is sent by SpawnLoft.
 - **Console → Export → Upload to mclo.gs** posts the console log to [mclo.gs](https://mclo.gs),
@@ -35,7 +39,9 @@ console, so "local" has to mean local rather than merely reachable.
   effort by its own policy, and deletes the log 90 days after it was last opened. Everything else,
   player names and plugin output included, goes as is. The delete token is kept locally.
 
-Everything else SpawnLoft does stays on this machine.
+Worlds and backups remain in the folders you choose. The Mac preview downloads checksum-verified
+MySQL binaries into its engine store. [Database credentials](/guide/databases) are provided for
+manual plugin setup; the preview does not write them into plugin configs.
 
 ## Online mode is on by default
 
@@ -60,3 +66,7 @@ password and no elevation.
 
 The registry stores RCON passwords in plaintext, in your data folder. Servers, worlds, backups and
 jars are ordinary folders there too, and stay there.
+
+Database connection credentials are also stored locally. Protect the data folder and avoid
+sharing credential output. Structured status output omits configured credentials, but diagnostic
+console excerpts can contain plugin output; review them before sharing.

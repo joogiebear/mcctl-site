@@ -16,9 +16,21 @@ A Share screen that lays those options out honestly is on the [roadmap](/roadmap
 
 ## Does it work on Mac or Linux?
 
-The desktop app is Windows only for now. The command line underneath runs anywhere Node does,
-apart from the scheduler, which speaks to Windows Task Scheduler. Other platforms are on the
-[roadmap](/roadmap).
+Windows is the stable desktop release. Apple Silicon and Intel Mac builds are available in the
+[development preview](/guide/beta), with macOS 13+ required for the app and macOS 15+ for managed
+MySQL. Public macOS and Linux downloads are coming soon; there is no Linux desktop package yet.
+Mac scheduling, automatic backups, and managed Garnet remain unavailable.
+
+## Can I match the app to the website?
+
+In the development preview, **Settings → Appearance** offers **Classic** and **SpawnLoft**.
+Classic keeps the original palette; SpawnLoft follows the website's look.
+
+## Will SpawnLoft fill in my plugin's database config?
+
+No. In the preview, database creation and attachment provide connection details for you to
+copy yourself. The old config-writing helpers have been removed. Follow the plugin author's
+instructions and verify the plugin connects. See [Databases](/guide/databases).
 
 ## Do I need to install Java?
 
@@ -51,16 +63,18 @@ which **Settings** can move. Nothing is uploaded anywhere.
 
 ## Windows says "Windows protected your PC"
 
-The installer is signed, but SmartScreen judges by reputation, and a new publisher earns that
+The stable installer is signed, but SmartScreen judges by reputation, and a new publisher earns that
 through real installs. Click **More info**, then **Run anyway**. It goes away on its own as the
 reputation builds.
+
+Windows development previews are unsigned. See [beta installation notes](/guide/beta#install-on-windows)
+for the distinction between production and test builds.
 
 ## Is it safe to leave the panel open?
 
 The panel only answers the machine it runs on, and refuses requests from any page that is not
 itself, port included. There is no way to bind it to another address. See
-[Security](/guide/security) for exactly what leaves the machine, which is two things, both on a
-click.
+[Security](/guide/security) for local access controls, downloads, and optional sharing.
 
 ## Something broke. Where do I report it?
 

@@ -31,6 +31,11 @@ onMounted(async () => {
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13h11"/></svg>
       <span>{{ label }}</span>
     </a>
+    <span v-if="fine" class="coming-platforms" role="group" aria-label="Upcoming desktop downloads">
+      <button class="coming-platform" type="button" disabled><span>macOS</span><small>Coming soon</small></button>
+      <button class="coming-platform" type="button" disabled><span>Linux</span><small>Coming soon</small></button>
+    </span>
+    <span v-if="fine" class="preview-note">macOS is in beta. <a href="/guide/beta">Explore the development preview →</a></span>
     <span v-if="fine" class="fine"><template v-if="mb">{{ mb }} MB installer · </template>MIT licence · Windows 10/11 · needs <b>Java 25</b> for current Minecraft</span>
   </span>
 </template>
@@ -42,4 +47,11 @@ onMounted(async () => {
 .btn.lg { padding: 13px 20px; font-size: 15px; }
 .fine { font-size: 13px; color: var(--ink-3); }
 .fine b { color: var(--ink-2); font-weight: 600; }
+.coming-platforms { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; }
+.coming-platform { display: flex; flex: 1; min-width: 130px; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid currentColor; padding: 13px 16px; color: inherit; background: transparent; font: 600 13px var(--ui); opacity: .75; cursor: not-allowed; }
+.coming-platform small { font: 10px var(--mono); white-space: nowrap; }
+.preview-note { width: 100%; font-size: 12px; line-height: 1.8; }
+.preview-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.preview-note a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 400px) { .coming-platform { min-width: 100%; } }
 </style>

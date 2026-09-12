@@ -94,6 +94,24 @@ a clean-looking log at ERROR is not a clean log.
 
 ## Still stuck
 
+### Mac preview checks
+
+- **The app will not open:** follow the [Mac beta installation notes](/guide/beta#install-on-mac).
+  The preview is not Apple-notarized. Include the exact message, macOS version, and Mac architecture in a report.
+- **Managed database setup is unavailable:** the app runs on macOS 13+, but managed MySQL
+  requires macOS 15+. Older Macs can use an existing external database. See [Databases](/guide/databases).
+- **MySQL tools are missing:** the preview checks managed binaries, Homebrew locations,
+  `/usr/local/mysql`, and PATH. For an external connection, supply the tools folder with `--tools` if needed.
+- **Scheduler or automatic backups are unavailable:** these are known Mac limitations,
+  not a failed installation. Manual backups and restore are available.
+- **Performance is empty:** start the server and allow time for the first ten-second sample.
+  Select a range containing the run. A restart starts a new graph.
+- **A CLI backup is missing from the panel:** on beta.21, the visible history refreshes every
+  four seconds and on reopening. Wait for the archive to finish and confirm the CLI and app
+  use the same data folder. Report it if the completed backup still does not appear.
+
+### Report a problem
+
 **Feedback → Something broke** in the panel opens a GitHub issue with the version, Java, server
 status and panel log already filled in. For a question rather than a bug,
 [Q&A](https://github.com/joogiebear/spawnloft/discussions/categories/q-a) is the place. **Console →
