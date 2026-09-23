@@ -4,7 +4,7 @@ const sections = [
   { title:'Get up and running.', icon:'play', label:'START HERE', links:[
     { title:'Getting started', text:'Install the app, check Java, and start a server.', href:'/guide/getting-started' },
     { title:'The desktop app', text:'Updates, data folders, and life outside the window.', href:'/guide/desktop' },
-    { title:'Windows & Mac releases', text:'Choose your installer and check platform support.', href:'/guide/beta' },
+    { title:'Downloads & platforms', text:'Windows, Mac and Linux installers, and what each supports.', href:'/guide/beta' },
     { title:'Server software', text:'Understand the loaders and choose your setup.', href:'/reference/servers' },
   ] },
   { title:'Find your way around.', icon:'terminal', label:'MAKE IT YOURS', links:[
@@ -17,6 +17,7 @@ const sections = [
     { title:'Troubleshooting', text:'Recognize the error. Find the next step.', href:'/guide/troubleshooting' },
     { title:'Security & connections', text:'What stays local, and how friends can join.', href:'/guide/security' },
     { title:'Common questions', text:'Straight answers to the things people ask.', href:'/guide/faq' },
+    { title:'AI assistants', text:'Let an AI app you choose check on and run your servers.', href:'/guide/ai-assistants' },
   ] },
 ]
 </script>

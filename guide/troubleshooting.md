@@ -97,7 +97,7 @@ a clean-looking log at ERROR is not a clean log.
 ### Mac checks
 
 - **The app will not open:** follow the [Mac installation notes](/guide/getting-started#install-on-mac).
-  Version 1.0 is Developer ID signed and Apple-notarized. Include the exact message, macOS version, and Mac architecture in a report.
+  Mac builds are Developer ID signed and Apple-notarized. Include the exact message, macOS version, and Mac architecture in a report.
 - **Managed database setup is unavailable:** the app runs on macOS 13+, but managed MySQL
   requires macOS 15+. Older Macs can use an existing external database. See [Databases](/guide/databases).
 - **MySQL tools are missing:** SpawnLoft checks managed binaries, Homebrew locations,

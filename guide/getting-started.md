@@ -4,9 +4,9 @@ Set up SpawnLoft, create or import a Minecraft server, and bring your world onli
 
 <Download fine />
 
-::: info Windows and Mac are available now
-SpawnLoft 1.0 includes signed Windows, Apple Silicon and Intel Mac installers.
-The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Linux desktop is coming soon.
+::: info Windows, Mac and Linux
+Signed Windows, Apple Silicon and Intel Mac installers, and Linux packages for x64 and arm64.
+The Mac app needs macOS 13+; managed MySQL needs macOS 15+ on a Mac and x64 on Linux.
 :::
 
 ## Three steps
@@ -24,7 +24,7 @@ The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Linux desktop is com
   SpawnLoft cannot supply: Minecraft servers *are* Java processes.
   [Temurin 25](https://adoptium.net/temurin/releases/?version=25) is a good default, and a JDK
   rather than a JRE if you want Spigot or CraftBukkit built on your machine.
-- **Windows 10 or 11 (x64)** or **macOS 13+** for the desktop app.
+- **Windows 10 or 11 (x64)**, **macOS 13+**, or **Linux** (Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 family; x64 or arm64) for the desktop app.
   Source CLI usage requires Node 20+; platform-specific capabilities are listed in the [platform guide](/guide/beta#platform-support).
 
 The app checks for Java on first run, and the panel shows a banner if it is missing. SpawnLoft looks
@@ -40,7 +40,11 @@ nothing installed can run is refused before the download, with a link to the Jav
 
 Check **Apple menu → About This Mac**. Choose Apple Silicon for an M-series chip, or Intel for an Intel processor. Open the DMG and drag SpawnLoft into **Applications**, then launch it and follow the Java check. Both Mac installers are Developer ID signed and Apple-notarized.
 
-The app updates automatically after installation. Existing updater-enabled Mac betas can upgrade to 1.0 automatically; older manual-only previews need one manual replacement in Applications. Your application data lives outside the app bundle.
+The app updates automatically after installation. Your application data lives outside the app bundle.
+
+## Install on Linux
+
+Download the `.deb` (Ubuntu, Debian) or `.rpm` (Fedora, RHEL, openSUSE) for your processor and install it with `sudo apt install ./<file>` or `sudo dnf install ./<file>`. Open **SpawnLoft** from your applications menu or run `spawnloft-desktop`; `spawnloft` is the command line. Install Java from your distribution: `sudo apt install openjdk-25-jre-headless` on Ubuntu and Debian. See [Install on Linux](/guide/beta#install-on-linux) for schedules after logout and for servers with no screen.
 
 ## SmartScreen
 

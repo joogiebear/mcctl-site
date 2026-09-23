@@ -9,8 +9,9 @@ const guide = [
   { text: 'Getting started', link: '/guide/getting-started' },
   { text: 'The panel', link: '/guide/panel' },
   { text: 'The desktop app', link: '/guide/desktop' },
-  { text: 'Windows & Mac releases', link: '/guide/beta' },
+  { text: 'Downloads & platforms', link: '/guide/beta' },
   { text: 'Databases', link: '/guide/databases' },
+  { text: 'AI assistants', link: '/guide/ai-assistants' },
   { text: 'How it works', link: '/guide/how-it-works' },
   { text: 'Security', link: '/guide/security' },
   { text: 'Troubleshooting', link: '/guide/troubleshooting' },
@@ -22,7 +23,7 @@ const SITE = 'https://spawnloft.com'
 
 export default defineConfig({
   title: 'SpawnLoft',
-  description: 'Minecraft servers on your own PC, without the terminal. Free, open source, Windows and macOS.',
+  description: 'Minecraft servers on your own PC, without the terminal. Free, open source, for Windows, macOS and Linux.',
   lang: 'en',
   cleanUrls: true,
   scrollOffset: 120,
@@ -55,8 +56,8 @@ export default defineConfig({
       { text: 'Roadmap', link: '/roadmap' },
     ],
     sidebar: {
-      '/guide/': [{ text: 'Start here', items: guide.slice(0,5) }, { text: 'Understand & troubleshoot', items: guide.slice(5) }, { text: 'Reference', items: reference }],
-      '/reference/': [{ text: 'Start here', items: guide.slice(0,5) }, { text: 'Understand & troubleshoot', items: guide.slice(5) }, { text: 'Reference', items: reference }],
+      '/guide/': [{ text: 'Start here', items: guide.slice(0,6) }, { text: 'Understand & troubleshoot', items: guide.slice(6) }, { text: 'Reference', items: reference }],
+      '/reference/': [{ text: 'Start here', items: guide.slice(0,6) }, { text: 'Understand & troubleshoot', items: guide.slice(6) }, { text: 'Reference', items: reference }],
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/spawnloft' }],
     editLink: { pattern: 'https://github.com/joogiebear/mcctl-site/edit/main/:path', text: 'Edit this page' },

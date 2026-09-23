@@ -18,7 +18,7 @@ const questions = [
   { q:'Can I bring my existing server?', a:'Yes. Point SpawnLoft at the server folder you already use. It adds the server in place without moving your world or rewriting its files.' },
   { q:'Can my friends join?', a:'Friends on your home network can use your local address. Friends elsewhere need a port forward or a tunnel you choose to set up. SpawnLoft does not automatically open your machine to the internet.', link:'/guide/security', label:'Read the connection and security guide' },
   { q:'What do I need to get started?', a:'Windows 10 or 11, or macOS 13+, Java, and enough memory for the server you want to run. The app checks for Java and helps you find the right version. Current Minecraft needs Java 25.', link:'/guide/getting-started', label:'See the setup guide' },
-  { q:'What about Mac and Linux?', a:'SpawnLoft 1.0 is available for Windows, Apple Silicon and Intel Mac, with signed installers and automatic updates. Linux is coming soon.', link:'/guide/getting-started', label:'Choose your download' },
+  { q:'What about Mac and Linux?', a:'Yes. SpawnLoft runs on Windows, Apple Silicon and Intel Mac, and Linux (.deb and .rpm, x64 and arm64), with automatic updates everywhere. There is also a command-line package for Linux servers with no screen.', link:'/guide/beta', label:'Choose your download' },
   { q:'Is the desktop app free?', a:'The current desktop app is a free download and open source under the MIT license. You can get started without creating an account.' },
 ]
 let stop = ()=>{}

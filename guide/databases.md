@@ -8,8 +8,8 @@ description: Create or attach a database for your Minecraft server while keeping
 SpawnLoft can create a database for a Minecraft server or connect it to a database you
 already run. It provides connection details; **you configure your plugins yourself**.
 
-::: info Available in 1.0
-New managed services use **MySQL or Redis** on Windows and macOS. Redis is provided by Microsoft Garnet. Plugin configuration stays manual.
+::: info Windows, Mac and Linux
+New managed services use **MySQL or Redis** on Windows, macOS and Linux. Redis is provided by Microsoft Garnet. Plugin configuration stays manual.
 :::
 
 ## Create a database
@@ -23,6 +23,8 @@ the server its own database and user credentials.
 | Windows | MySQL 8.4 LTS; Redis-compatible Garnet |
 | macOS 15+ | MySQL 8.4 LTS and Redis-compatible Garnet, on Apple Silicon and Intel |
 | macOS 13–14 | Redis-compatible Garnet, or an external SQL database; managed MySQL requires macOS 15+ |
+| Linux x64 | MySQL 8.4 LTS and Redis-compatible Garnet; the libraries MySQL needs are fetched from your distribution without sudo |
+| Linux arm64 | Redis-compatible Garnet, or an external SQL database; Oracle publishes no small arm64 MySQL build |
 
 Engine downloads are checksum-verified and stored in SpawnLoft's engine store. You do not
 need Homebrew, a system service, or a separate MySQL installation. Existing databases are
@@ -56,7 +58,7 @@ spawnloft db attach testdb survival
 spawnloft db creds testdb survival
 ```
 
-Choose one creation route. `db create` defaults to MySQL on Windows and Mac. Use `--engine garnet` for a Redis-compatible service.
+Choose one creation route. `db create` defaults to MySQL on Windows, Mac and Linux x64. Use `--engine garnet` for a Redis-compatible service.
 Credential output contains passwords: keep it private and out of shared logs.
 
 ## Connect to an existing database
