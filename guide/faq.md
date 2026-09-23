@@ -16,11 +16,11 @@ A Share screen that lays those options out honestly is on the [roadmap](/roadmap
 
 ## Does it work on Mac or Linux?
 
-Yes: SpawnLoft 1.0 supports Windows and both Apple Silicon and Intel Macs. The Mac app needs macOS 13+; managed MySQL needs macOS 15+. Schedules, automatic backups, managed Redis and automatic app updates are available on both platforms. Linux desktop downloads are coming soon. See [platform support](/guide/beta).
+Yes. SpawnLoft runs on Windows, Apple Silicon and Intel Macs, and Linux: a `.deb` for Ubuntu and Debian and an `.rpm` for Fedora and the RHEL family, each for x64 and arm64. The Mac app needs macOS 13+; managed MySQL needs macOS 15+ on a Mac and x64 on Linux. Schedules, automatic backups, managed Redis and automatic app updates work everywhere. For a Linux server with no screen there is `spawnloft-cli`, the command line on its own. See [downloads and platform support](/guide/beta).
 
 ## Can I match the app to the website?
 
-In 1.0, **Settings → Appearance** offers **Classic** and **SpawnLoft**.
+**Settings → Appearance** offers **Classic** and **SpawnLoft**.
 Classic keeps the original palette; SpawnLoft follows the website's look.
 
 ## Will SpawnLoft fill in my plugin's database config?

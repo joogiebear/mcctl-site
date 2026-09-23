@@ -3,12 +3,12 @@
 A window around the [panel](/guide/panel), plus a native folder picker, first-run setup and
 update checking.
 
-SpawnLoft 1.0 is available for Windows, Apple Silicon and Intel Mac. See [downloads and platform support](/guide/beta). Linux is coming soon.
+SpawnLoft runs on Windows, Apple Silicon and Intel Mac, and Linux. See [downloads and platform support](/guide/beta).
 
 ## Appearance
 
 Open **Settings → Appearance** to choose **Classic**, the original app palette, or **SpawnLoft**,
-inspired by the website. Both are available on Windows and Mac in 1.0.
+inspired by the website.
 
 ## Closing the window does not stop your servers
 
@@ -17,7 +17,7 @@ later, and they are still running with their consoles intact.
 
 ## Updates
 
-On Windows and macOS, SpawnLoft 1.0 checks for new releases after startup and every six hours while it
+SpawnLoft checks for new releases after startup and every six hours while it
 is open. New versions download in the background. When one is ready, the header button reads
 **Restart to update**.
 
@@ -28,14 +28,14 @@ restarts.
 If you are on **v0.13.0 or earlier**, press **Check for updates** in the header to get the release
 that enables automatic checking. See the [v0.14.0 release notes](/changelog#v0.14.0) for the details.
 
-Current Windows and Mac beta installs can update automatically to 1.0, then follow stable releases. Older manual-only Mac previews need one manual installation. See the [Mac installation steps](/guide/getting-started#install-on-mac).
+On Linux the update installs through a system password prompt. To follow the betas between releases, turn on **Settings → Updates → Get beta builds**; see [automatic updates and beta builds](/guide/beta#automatic-updates-and-beta-builds).
 
 ## Signed builds and SmartScreen
 
 Windows production releases are signed under a validated publisher identity, which is what turns "Unknown
 publisher" into a name in the install prompt.
 
-Mac 1.0 builds are Developer ID signed with hardened runtime, Apple notarization and a stapled ticket. Download the DMG matching your Mac architecture.
+Mac builds are Developer ID signed with hardened runtime, Apple notarization and a stapled ticket. Download the DMG matching your Mac architecture.
 
 It does not make SmartScreen go away immediately. SmartScreen is a reputation system, not a
 signature check, and reputation accrues through real installs, so a new publisher still gets
