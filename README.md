@@ -1,7 +1,7 @@
 # SpawnLoft site
 
 The project site for [SpawnLoft](https://github.com/joogiebear/spawnloft), served at
-[spawnloft.com](https://spawnloft.com): a landing page and the docs, built with
+[spawnloft.com](https://www.spawnloft.com): a landing page and the docs, built with
 [VitePress](https://vitepress.dev) and deployed by Vercel on every push to `main`.
 
 The product is SpawnLoft. In the development preview, `spawnloft` is the preferred command;

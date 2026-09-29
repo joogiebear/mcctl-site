@@ -1,4 +1,12 @@
 {
   "outputDirectory": ".vitepress/dist",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "mcctl-site.vercel.app" }],
+      "destination": "https://www.spawnloft.com/$1",
+      "permanent": true
+    }
+  ]
 }
