@@ -1,0 +1,10 @@
+{
+  "name": "SpawnLoft",
+  "short_name": "SpawnLoft",
+  "description": "Minecraft servers on your own PC, without the terminal.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#090d0d",
+  "theme_color": "#090d0d",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

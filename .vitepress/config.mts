@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type HeadConfig } from 'vitepress'
 
 // The project site: a landing page plus the docs, both in the app's own palette.
 const reference = [
@@ -21,12 +21,35 @@ const guide = [
   { text: 'Questions', link: '/guide/faq' },
 ]
 
-// The canonical address. spawnloft.app and spawnloft.dev redirect here. Change it here only.
-const SITE = 'https://spawnloft.com'
+// The canonical address, and the host the pages really resolve on: spawnloft.com redirects to www,
+// as do spawnloft.app and spawnloft.dev. Change it here only, and change it if that redirect flips.
+const SITE = 'https://www.spawnloft.com'
+
+const DESCRIPTION = 'Minecraft servers on your own PC, without the terminal. Free, open source, for Windows, macOS and Linux.'
+const HOME_DESCRIPTION = 'Start a Paper, Fabric or NeoForge server on your machine, keep its console in front of you, install plugins, take backups that verify. No cloud, no accounts.'
+
+// What a search engine reads to show SpawnLoft as an app rather than as a page. No version or
+// rating on purpose: both would go stale or be invented, and the releases page has the real ones.
+const SOFTWARE = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'SpawnLoft',
+  description: DESCRIPTION,
+  url: SITE,
+  image: `${SITE}/brand/social-card.png`,
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Windows, macOS, Linux',
+  license: 'https://opensource.org/licenses/MIT',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  downloadUrl: 'https://github.com/joogiebear/spawnloft/releases/latest',
+  codeRepository: 'https://github.com/joogiebear/spawnloft',
+  author: { '@type': 'Person', name: 'joogiebear', url: 'https://github.com/joogiebear' },
+}
 
 export default defineConfig({
   title: 'SpawnLoft',
-  description: 'Minecraft servers on your own PC, without the terminal. Free, open source, for Windows, macOS and Linux.',
+  description: DESCRIPTION,
   lang: 'en',
   cleanUrls: true,
   scrollOffset: 120,
@@ -40,16 +63,31 @@ export default defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'SpawnLoft — Minecraft servers on your own PC' }],
     ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
-    ['meta', { property: 'og:url', content: SITE }],
-    ['meta', { property: 'og:description', content: 'Start a Paper, Fabric or NeoForge server on your machine, keep its console in front of you, install plugins, take backups that verify. No cloud, no accounts.' }],
     ['meta', { property: 'og:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:title', content: 'SpawnLoft — Minecraft servers on your own PC' }],
     ['meta', { name: 'twitter:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'theme-color', content: '#090d0d' }],
+    ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
   ],
+  // Every page names itself. Before this, og:url and og:title said "the home page" on all of them.
+  transformHead({ pageData }) {
+    const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+    const url = `${SITE}/${path}`
+    const home = pageData.relativePath === 'index.md'
+    const title = home ? 'SpawnLoft — Minecraft servers on your own PC' : `${pageData.title} | SpawnLoft`
+    const description = pageData.description || (home ? HOME_DESCRIPTION : DESCRIPTION)
+    const head: HeadConfig[] = [
+      ['link', { rel: 'canonical', href: url }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+    ]
+    if (home) head.push(['script', { type: 'application/ld+json' }, JSON.stringify(SOFTWARE)])
+    return head
+  },
   themeConfig: {
     logo: '/brand/mark.svg',
     siteTitle: 'SpawnLoft',
