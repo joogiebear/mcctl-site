@@ -113,14 +113,16 @@ const options = {
   mp4: ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4'],
   webm: ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'],
 }
-const bits = Number(params.get('bits') || 1300000)
+// Targets that land both files near 3 MB for the current 34-second cut. The browser's VP9 encoder
+// overshoots what it is asked for by roughly 1.5x, hence the lower webm figure. ?bits= overrides both.
+const defaultBits = { mp4: 750000, webm: 420000 }
 const result = { duration: DURATION, captions: events.filter(e => e.k === 'label').map((e, i, all) => ({ n: e.n, text: e.text, start: outAt(e.t), end: i + 1 < all.length ? outAt(all[i + 1].t) : DURATION })), formats: [], w: cssW, h: cssH }
 
 for (const ext of wanted) {
   const mime = options[ext].find(m => MediaRecorder.isTypeSupported(m))
   if (!mime) { log(`${ext}: not supported by this browser`); continue }
   log(`${ext}: recording ${DURATION.toFixed(1)}s as ${mime}`)
-  const blob = await record(mime, bits)
+  const blob = await record(mime, Number(params.get('bits')) || defaultBits[ext])
   await upload('demo.' + ext, blob)
   result.formats.push({ ext, type: blob.type, bytes: blob.size })
   log(`${ext}: ${(blob.size / 1e6).toFixed(2)} MB`)

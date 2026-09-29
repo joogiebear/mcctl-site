@@ -26,7 +26,7 @@ scripts look for it), and a checkout of the SpawnLoft app to run the panel from.
    browser produces, with timestamps (a few hundred MB). It logs each step as it goes.
 3. `DEMO_OUT=<somewhere> node tools/demo/encode.mjs` replays that with the waiting sped up, a drawn
    cursor and click ripples, and records the result as mp4, webm and a poster. Real time: about
-   twice the length of the finished video.
+   twice the length of the finished video. Both files come out near 3 MB; `?bits=<n>` (pass it as the first argument, for example `"?bits=900000"`) overrides the target, and `?formats=webm` encodes just one.
 4. Copy `demo.mp4`, `demo.webm` and `poster.webp` from the output folder to `public/demo/`, and
    `demo.json` to `.vitepress/theme/`.
 
