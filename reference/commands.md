@@ -1,204 +1,343 @@
 # Commands
 
-Everything the panel does, from a terminal. Run from the SpawnLoft folder as `node mcctl.mjs <command>`,
-or as `mcctl <command>` once that folder is on your PATH.
-
-In [SpawnLoft 1.0](/guide/beta), **`spawnloft` is the preferred command** and
-`mcctl` remains compatible. Existing stable examples below still work. JSON output, metrics,
-and the installed launchers described here are included in 1.0.
+`spawnloft` is the preferred command. `mcctl` runs the same implementation and remains supported for existing scripts, scheduled tasks and shortcuts. Both names accept identical arguments; the JSON `command` field always uses the canonical name.
 
 ## CLI setup {#preview-cli-setup}
 
-Installed packages include both launchers and use their bundled runtime. No separate
-Node installation is needed. On Mac, after installing into Applications:
+| Install | Command | Runtime |
+| --- | --- | --- |
+| Windows desktop | `resources\bin\spawnloft.cmd` inside the SpawnLoft install directory (default `%LOCALAPPDATA%\Programs\SpawnLoft`), or add `resources\bin` to your user `PATH` | Bundled |
+| macOS desktop | `/Applications/SpawnLoft.app/Contents/Resources/bin/spawnloft` | Bundled |
+| Linux desktop `.deb` / `.rpm` | `spawnloft` on `PATH` | Bundled |
+| Linux `spawnloft-cli` `.deb` / `.rpm` | `spawnloft` on `PATH` | Bundled Node, no graphical dependencies |
+| Source checkout ([repository](https://github.com/joogiebear/spawnloft)) | `node spawnloft.mjs <command>`, `./spawnloft` (Linux, macOS), `spawnloft.cmd` (Windows) | Node 20 or later |
+
+macOS `PATH` for the current terminal session:
 
 ```sh
-"/Applications/SpawnLoft.app/Contents/Resources/bin/spawnloft" status survival --json
-
-# Optional: enable the short commands in this terminal session.
 export PATH="/Applications/SpawnLoft.app/Contents/Resources/bin:$PATH"
-spawnloft status survival --json
+spawnloft status royalplugins --json
 ```
 
-Add that export to your shell configuration if you want it to persist. The app does not edit
-PATH automatically. Keep the launcher in its bundled directory; it finds the runtime relative
-to itself, so symlinking the launcher alone is not supported.
+Add the `export` line to your shell configuration to make it permanent. The app does not edit shell configuration; update the entry if you move the app. Do not symlink the launcher alone: it resolves its runtime relative to its own directory.
 
-On Windows, run `resources\bin\spawnloft.cmd` inside your installed SpawnLoft directory,
-or add that `resources\bin` directory to your user PATH. `mcctl.cmd` remains alongside it.
-From a source checkout, use `node spawnloft.mjs ...` with Node 20+.
+Run `spawnloft help` for usage. Unknown commands exit `2`.
+
+## Command reference
+
+Command names accept aliases where listed. `<name>` is an instance name: 32 characters or fewer, and shared by servers and databases.
+
+### Lifecycle
+
+| Command | Description |
+| --- | --- |
+| `list` (`ls`) | Every server and database with status, ports, memory and uptime. |
+| `status [<name>]` | Detail for one instance, including pids and `level-name`. Without a name, returns the same inventory as `list`. |
+| `start <name>` | Launch and block until the server reports ready. |
+| `stop <name>` | Graceful shutdown: writes `stop` to the console. |
+| `restart <name>` | Stop, then start. |
+| `kill <name>` | Force-kill the process tree. Also clears an `orphaned` instance. |
+
+| Flag | Applies to | Default | Effect |
+| --- | --- | --- | --- |
+| `--detach` | `start` | | Return as soon as the process launches. |
+| `--timeout <sec>` | `start` | `180` | Ready timeout. On timeout the server may still be loading. |
+| `--timeout <sec>` | `stop`, `restart` | `90` | Graceful stop timeout. |
+| `--no-sync` | `start` | | Do not write registry ports and RCON settings into `server.properties`. |
+| `--force` | `start`, `new` | | Proceed even when no installed Java can run the server's Minecraft version. |
+
+`start`, `stop`, `restart`, `logs` and `status` accept a database's name.
+
+A failed `start` prints the last 25 console lines, the likely cause from log diagnostics, and exits `1`.
+
+### Console
+
+| Command | Description |
+| --- | --- |
+| `logs <name> [-n 60] [-f] [--grep <regex>]` (`log`) | Read the captured console. `-n` sets the number of lines, `-f` follows, `--grep` filters. |
+| `cmd <name> "<command>"` (`rcon`) | Run a command over RCON and print the reply. |
+| `send <name> "<line>"` | Write a raw line to the server's stdin. No reply. Use for anything RCON refuses to carry. |
+| `console <name>` (`attach`) | Interactive attach. `/detach` leaves the server running. |
+| `players <name>` | Who is online. |
+| `why <name>` (`diagnostics`) | Explain what is wrong with a server from its own console: known failure causes with fixes, and crash report summaries. |
+
+### Instances
+
+| Command | Description |
+| --- | --- |
+| `adopt <name> <dir>` | Register an existing server directory in place. Nothing moves; ports and RCON password are read from its `server.properties`. Flags: `--jar <file>`, `--memory <4G>`. |
+| `new <name> [options]` | Create an instance. See [Creating servers](#creating-servers). |
+| `clone <src> <new>` | Copy plugins and configuration into a new instance on a free port with fresh worlds. `--with-worlds` also copies world data. |
+| `set <name> key=value...` | Change instance settings. See [Instance settings](#instance-settings). |
+| `props <name> [key=value...]` | Read or edit `server.properties`. Comments and key order are preserved. |
+| `plugins <name> [enable\|disable <plugin>]` | Inventory of plugins or mods, or flip one by renaming its jar in place. |
+| `worlds <name> [...]` | See [Worlds](#worlds). |
+| `upgrade <name> [--check]` | Move to the newest build for the server's Minecraft version. |
+| `pack <name> [update --yes]` | For a modpack server: show, check, or update its pack. |
+| `rename <old> <new>` | Rename an instance and its folder. Tasks move with it. |
+| `rebuild <name> --yes` | Reset worlds; keeps plugins unless `--wipe-plugins`. A snapshot is taken first unless `--no-snapshot`. |
+| `rm <name> [--purge --yes]` (`remove`) | Unregister. `--purge --yes` also deletes the files. |
+| `reveal <name>` (`open`) | Open the instance folder in the file manager. |
+| `launchers [<name>]` | Write `start`, `console` and `stop` `.bat` files into instance folders. |
+| `templates` / `templates save <inst> <tpl>` (`template`) | List, or save an instance's plugins and config as a reusable template. |
+| `jars` / `jars import <path> [--as <name>]` | List the jar store used by `new`, or add a jar to it. |
+| `paper versions [--unstable] [--limit <n>]` | Paper versions available to download. |
+| `paper builds <version> [--limit <n>]` | Builds of one version. |
+| `paper fetch <version> [build] [--force]` | Download a Paper build into the jar store. |
+
+#### Creating servers
+
+| Flag | Effect |
+| --- | --- |
+| `--paper <v>`, `--purpur <v>`, `--folia <v>`, `--asp <v>` | Download that software and version. |
+| `--vanilla <v>` | Mojang server jar (no plugins, no mods). |
+| `--spigot <v>`, `--craftbukkit <v>` | Compile with BuildTools. Needs a JDK, roughly ten minutes first time. |
+| `--fabric <v>`, `--neoforge <v>` | Download or install that loader for the Minecraft version. |
+| `--modpack <slug>` | Build the whole server from a Modrinth modpack. |
+| `--jar <file>` | Use a jar from the `jars/` store. |
+| `--template <name>` | Start from a saved template. |
+| `--build <n>` | A specific build for sources that number them (Paper, Folia, Purpur). |
+| `--memory <4G>` | Heap size. `4G` or `6144M` form. |
+| `--port <n>` | Game port. Default: first free port from `25565`; RCON from `25575`. |
+| `--accept-eula` | Write `eula=true`, accepting [Mojang's EULA](https://aka.ms/MinecraftEULA). |
+| `--offline` | Set `online-mode=false`: anyone can join under any name. Every log gets an `OFFLINE/INSECURE` banner. |
+| `--force` | Proceed when the Java check would refuse. |
+
+Java is chosen at creation as the newest installed Java that fits the Minecraft version (17 for 1.18 to 1.20.4, 21 for 1.20.5 to 1.21.x, 25 for 26.x).
+
+#### Instance settings
+
+`spawnloft set <name> key=value` accepts these keys.
+
+| Key | Value | Effect |
+| --- | --- | --- |
+| `label` | text | Display name. |
+| `memory` | `4G`, `6144M` | JVM heap. |
+| `java` | path | Java executable for this server. |
+| `jar` | file name | Server jar inside the instance folder. |
+| `port` | 1 to 65535 | Game port. Refused when another instance holds it. |
+| `rcon.port` | 1 to 65535 | RCON port. Refused when another instance holds it. |
+| `rcon.password` | text | RCON password. |
+| `auto-restart` | `on`, `off` | Relaunch after a crash. Three crashes in ten minutes stops it. |
+| `webhook` | URL, `off` | Discord webhook for crash, recovery, give-up and failed-task events. |
+
+Ports and RCON settings are written into `server.properties` at every start unless `--no-sync` is given. A per-instance `jvmFlags` array in `instances.json` overrides the default Aikar G1 flags, which switch to a large-heap variant at 12 GB and above.
+
+#### Upgrading
+
+| Command | Effect |
+| --- | --- |
+| `upgrade <name> --check` | Report the newest build for the current version and newer Minecraft versions. |
+| `upgrade <name>` | Install the newest build of the same version. The old jar is kept as the way back. |
+| `upgrade <name> --version <v> --yes` | Cross Minecraft versions. A snapshot is taken first; worlds migrate one way. |
+| `--build <n>` | Choose a specific build. |
+
+Supported on Paper, Purpur, Folia and Advanced Slime Paper (Advanced Slime Paper builds have no number and compare by date). Other software changes version by creating a new instance or importing a newer jar.
+
+#### Worlds
+
+| Command | Effect |
+| --- | --- |
+| `worlds <name>` | List worlds, marking the active one. |
+| `worlds <name> use <world>` | Switch which world runs. |
+| `worlds <name> import <zip-or-folder> --as <name>` | Import a map, found however deeply nested; never overwrites. |
+| `worlds <name> export [world]` | Export as a zip. |
+| `worlds <name> delete <world> --yes` | Delete a world. |
+
+Only the active world is included in snapshots.
+
+### Snapshots
+
+| Command | Description |
+| --- | --- |
+| `backup <name>` (`snapshot`) | Take a snapshot into `backups/<name>/`. |
+| `backups <name>` (`snapshots`) | List snapshots. |
+| `restore <name> [ref] --yes` | Restore (default `latest`). The server must be stopped. Extracts in place and deletes nothing. |
+| `prune <name> --keep <n>` | Delete all but the newest `n` (default 10). |
+| `verify <name> [ref\|--all]` | Read snapshots end to end and compare with their manifests. Non-zero exit on any failure. |
+
+| `backup` flag | Effect |
+| --- | --- |
+| `--scope <scope>` | One of the scopes below. Default `standard`. |
+| `--label <text>` | Label recorded in the snapshot name. |
+| `--keep <n>` | Prune to the newest `n` after taking the snapshot. |
+
+| Scope | Contents |
+| --- | --- |
+| `plugins` | `plugins/` and `mods/` |
+| `worlds` | The active world set |
+| `config` | Root configuration files (`server.properties`, `bukkit.yml`, `spigot.yml`, `paper*.yml`, `permissions.yml`, and similar) and `config/` |
+| `standard` | Plugins, active worlds and config |
+| `full` | Everything except `cache/`, `libraries/`, `versions/`, `logs/` |
+
+A running server is flushed with `save-off` and `save-all flush` before, and `save-on` after, every snapshot from any path (CLI, panel, task, pre-upgrade, MCP). If the flush fails the snapshot is still taken and its manifest says so. `standard` and `full` snapshots include a `databases/` dump of any attached database; restore imports it back into a running database.
+
+### Scheduled work {#scheduled-work}
+
+| Command | Description |
+| --- | --- |
+| `task list` | Every task with next run and last result. |
+| `task add <server> --do <action> [when]` | Create a task. |
+| `task run <id>` | Run now. The system scheduler calls this. |
+| `task rm <id>` | Remove. |
+| `task enable <id>` / `task disable <id>` | Resume or pause. |
+| `task linger [on]` | Linux: report, or turn on, whether tasks run while logged out. |
+
+| `--do` action | Extra flag | Notes |
+| --- | --- | --- |
+| `backup` | | Retention applies only to snapshots the same task produced. |
+| `verify` | | Reads back every snapshot; failures reach the webhook. |
+| `command` | `--line "<command>"` | Skipped, not failed, when the server is down. |
+| `restart` | | The panel's task form adds `warnMinutes` (1 to 60): countdown announced at the full figure, one minute and ten seconds. |
+| `stop` | | Skipped when the server is down. |
+| `start` | | |
+
+| When | Flag |
+| --- | --- |
+| Daily | `--daily 03:00` |
+| Weekly | `--weekly SUN --at 03:00` |
+| Every n hours | `--hourly <n>` |
+| Every n minutes | `--minutes <n>` |
+| At sign-in | `--on-logon` |
+
+`--name <text>` sets the task's display name. Tasks run through Windows Task Scheduler, per-user macOS launchd agents, or Linux systemd user timers, and only while you are signed in. See the [How it works](/guide/how-it-works#scheduled-work) for platform behavior.
+
+### Databases
+
+| Command | Description |
+| --- | --- |
+| `db` | List databases. |
+| `db versions [--engine <e>]` | Verified releases. Engines: `mysql` (default), `garnet` (Redis-compatible). |
+| `db add <name> [--version <v>] [--engine <e>] [--port <n>]` | Download the engine once and set up a database on a free port. |
+| `db connect <name> --host <h> --port <n> --user <u> --password <p>` | Register a database you already run. Never started or stopped by SpawnLoft. |
+| `db create <server>` | Create a database on the port after the server's game port, start it and attach it. |
+| `db attach <db> <server>` | Create a database and scoped user for a server and print the credentials. |
+| `db detach <db> <server> [--drop]` | Remove the user; `--drop` also deletes the data. |
+| `db creds <db> <server>` | Show credentials again. |
+| `db remove <db> [--purge]` (`rm`) | Forget a stopped database; `--purge` deletes its files. |
+
+Plugin configuration files are never written; copy credentials into them yourself.
+
+### Environment and layout
+
+| Command | Description |
+| --- | --- |
+| `doctor` | Check Java, `tar`, each server's folder, jar, EULA, port collisions, RCON exposure, orphaned processes, stale state and disk use. Clears stale state files. Exits `1` when it finds problems. |
+| `config` | Show the resolved data layout. |
+| `config set-root <path>` | Move the data root (new servers only). |
+| `config set-instances <path>` | Put servers on a different drive. |
+| `config same-drive` | Create servers under the data root again. |
+| `config set-backup-mirror <path>\|off` | Copy every new snapshot to a second location; deletions follow. |
+| `ui [--port <n>] [--no-open]` (`panel`) | Serve the control panel on `127.0.0.1` (default port `8770`). |
+| `mcp [--allow-destructive] [--show-ips]` | MCP server on stdio. See [AI assistants](/guide/ai-assistants). |
+| `uninstall --yes [--data]` | Stop every server and remove every scheduled task; `--data` also deletes what SpawnLoft created. |
+| `help` | Print usage. |
+
+Moving a location never moves existing data. Environment variables: `MCCTL_DATA_ROOT` overrides the data root for the process and its daemons; `MCCTL_RESTART_DELAY_MS` overrides the 10-second crash restart delay (used by tests); `JAVA_HOME` is consulted for Java discovery.
 
 ## JSON output {#json-output-preview}
 
 ```sh
 spawnloft list --json
-spawnloft status survival --json
-spawnloft plugins survival --json
-spawnloft backups survival --json
-spawnloft diagnostics survival --json
+spawnloft status royalplugins --json
+spawnloft plugins royalplugins --json
+spawnloft backups royalplugins --json
+spawnloft diagnostics royalplugins --json
 spawnloft doctor --json
-spawnloft backup survival --scope plugins --json
+spawnloft backup royalplugins --scope plugins --json
+spawnloft metrics royalplugins --json
 ```
 
-Each command writes one JSON object and a newline to stdout, with no progress text or ANSI
-colors mixed in. The envelope includes `schemaVersion`, `command`, `ok`, and `data` on success:
+Each command writes one JSON object and a newline to stdout, with no progress messages, tables, ANSI colors or stack traces mixed in.
 
 ```json
-{"schemaVersion":1,"command":"status","ok":true,"data":{"name":"survival","status":"stopped"}}
+{"schemaVersion":1,"command":"status","ok":true,"data":{"name":"royalplugins","status":"stopped"}}
 ```
 
-This abbreviated example omits other status fields. Accept additional fields and check the
-schema version. On failure, inspect `error.code`, `error.message`, and the process exit code.
+Failure:
 
-| Exit | Meaning for structured commands and metrics |
+```json
+{"schemaVersion":1,"command":"status","ok":false,"type":"error","error":{"code":"COMMAND_FAILED","message":"no instance named missing"}}
+```
+
+Check `schemaVersion`, accept additional fields, and branch on `error.code` and the exit code.
+
+| Field | Meaning |
 | --- | --- |
-| `0` | Completed; a stopped server or empty inventory is valid data |
-| `1` | Operation failed, or `doctor` found environment problems |
-| `2` | Invalid usage or unsupported JSON operation; no command action ran |
-| `130` / `143` | Metrics follower interrupted by Ctrl+C / SIGTERM |
+| `schemaVersion` | Contract version, currently `1`. |
+| `command` | Canonical command name. |
+| `ok` | Whether the operation succeeded. |
+| `data` | Result payload when `ok` is `true`. |
+| `type` | `error` on failure. |
+| `error.code` | `COMMAND_FAILED`, `INVALID_USAGE`, `CHECK_FAILED`, or a command-specific code. |
+| `error.message` | Human-readable reason. |
 
-Other existing commands retain their exit behavior. JSON on unsupported operations is
-rejected before acting; for example, `plugins ... enable --json` does not modify a JAR.
-`snapshots` remains an alias for `backups`, and `why` for `diagnostics`.
+| Exit code | Meaning |
+| --- | --- |
+| `0` | Completed. A stopped server or empty inventory is valid data. |
+| `1` | Operation failed, or `doctor` found environment problems (`CHECK_FAILED`). |
+| `2` | Invalid usage or unsupported JSON operation (`INVALID_USAGE`). No action ran. |
+| `130` | A metrics follower was interrupted with Ctrl+C. |
+| `143` | A metrics follower received SIGTERM. |
 
-Structured status omits configured credentials and webhook URLs. Diagnostics include console
-excerpts, so review them before sharing. A historical diagnostic is not a plugin-health check.
-`doctor --json` is read-only; plain-text `doctor` retains its stale-state repair behavior.
+Structured commands and metrics use these codes. Other commands retain their existing exit behavior.
 
-Backup exit `0` means the archive was created. Inspect warnings, skipped database dumps,
-mirror errors, and pruning results before treating every optional backup operation as successful.
+| Command | JSON behavior |
+| --- | --- |
+| `list` | Aliases: `ls`. |
+| `status` | Without a name, equals `list`. Excludes RCON and database passwords, webhook URLs and JVM arguments. |
+| `plugins` | Inventory only. `plugins ... enable\|disable --json` is rejected before any jar changes. |
+| `backups` | Aliases: `snapshots`. |
+| `diagnostics` | Aliases: `why`. Contains matching console lines and crash-report summaries; review before sharing. A historical finding is not a failed command or a plugin-health verdict. |
+| `doctor` | Read-only. Returns `ok:false` with findings when checks fail. Plain-text `doctor` additionally repairs stale state. |
+| `backup` | Aliases: `snapshot`. Reports warnings, skipped database dumps, mirror errors and pruning results. Exit `0` means the archive was created, not that every optional step succeeded; read those fields before treating an automated backup as fully successful. |
+| `metrics` | See below. |
+
+Any other command with `--json` exits `2` before taking action. `--json` takes no value.
 
 ## Performance and export {#performance-and-export-preview}
 
 ```sh
-spawnloft metrics survival --json
-spawnloft metrics survival --seconds 1800 --json
-spawnloft metrics survival --follow --json
-spawnloft metrics survival --csv --output survival-run.csv
-spawnloft metrics survival --follow --csv
+spawnloft metrics royalplugins --json
+spawnloft metrics royalplugins --seconds 1800 --json
+spawnloft metrics royalplugins --follow --json
+spawnloft metrics royalplugins --csv --output royalplugins-run.csv
+spawnloft metrics royalplugins --follow --csv
 ```
 
-These are the Performance tab's ten-second CPU and resident-memory samples, collected on
-Windows and Mac. CPU is a percentage of the whole machine; `rssMiB` includes memory outside
-the Java heap. A snapshot defaults to retained history for the current or last server run.
-An empty sample list is valid before the first reading or outside the selected time range.
-
-`--follow --json` uses **JSON Lines**: a `snapshot` envelope first, then new `sample` envelopes.
-A restart or clock rollback emits `reset`; use `runId` to separate runs. It waits while the
-server is stopped and follows the next start. Press Ctrl+C to stop.
-
-CSV columns are `instance,run_id,timestamp,cpu_percent,rss_mib,cores`, with UTC timestamps.
-`--output` creates a new file and refuses to overwrite an existing one. It is for finite CSV
-snapshots; stream a continuous capture to stdout instead. JSON and CSV are mutually exclusive.
-
-## Databases {#databases-preview}
-
-See [Databases](/guide/databases) for managed MySQL and Redis on Windows and Mac, and existing
-connections. Creation and attachment provide credentials for **manual plugin configuration**.
-There is no `db apply` config-writing command in 1.0.
-
-## Lifecycle
-
-| Command | Does |
+| Flag | Effect |
 | --- | --- |
-| `list` | Every server with status, ports, memory, uptime |
-| `status <name>` | Detail for one server, including pids and level-name |
-| `start <name>` | Launch and block until the server reports ready |
-| `stop <name>` | Graceful shutdown by writing `stop` to the console |
-| `restart <name>` | Stop, then start |
-| `kill <name>` | Force-kill the process tree |
+| `--json` | One snapshot envelope (with `--follow`, JSON Lines). |
+| `--csv` | CSV output. Mutually exclusive with `--json`; supported only for `metrics`. |
+| `--seconds <n>` | Limit the initial history window. Default: all retained history for the current or last run. |
+| `--follow` | Stream new readings until interrupted. |
+| `--output <file>` | Write a finite CSV snapshot to a new file. Never overwrites. Without it, CSV goes to stdout. |
 
-`start` flags: `--detach` (return as soon as the process launches), `--timeout <sec>` (ready
-timeout, default 180), `--no-sync` (leave `server.properties` alone instead of pushing registry
-ports into it).
+Readings are the same ten-second samples the panel's **Stats** tool uses, kept in `run/<name>/metrics.log` (up to 1,800 samples, five hours). CPU is a percentage of the whole machine; `rssMiB` is resident process memory in MiB, including memory outside the Java heap. An empty `samples` array is valid before the first measurement or outside the selected range. Collection runs on Windows, macOS and Linux; export reads saved history anywhere.
 
-If the server fails to reach ready, `start` prints the last 25 console lines and exits non-zero,
-so a failed launch is self-diagnosing.
+`--follow --json` writes JSON Lines:
 
-## Console
-
-| Command | Does |
+| Envelope | When |
 | --- | --- |
-| `logs <name> [-n 60] [-f] [--grep re]` | Read the captured console; `-f` follows |
-| `cmd <name> "<command>"` | Run over RCON and print the reply |
-| `send <name> "<line>"` | Write a raw line to the server's stdin |
-| `console <name>` | Interactive attach; `/detach` leaves the server running |
-| `players <name>` | Who is online |
+| `snapshot` | First line: history and metadata. |
+| `sample` | Each new reading. Unchanged samples are not repeated. |
+| `reset` | The server restarted or the clock rolled back. Use `runId` to keep runs apart. |
+| error envelope | A runtime failure; exit `1`. |
 
-`cmd` goes over RCON and gets a reply back, which is what you want almost always. `send` writes to
-stdin and gets no reply, which is what you want for anything RCON refuses to carry.
+The follower stays open while a server is stopped and follows its next start. It checks the file once per second. Closing the output pipe ends it cleanly.
 
-## Servers
+CSV columns: `instance,run_id,timestamp,cpu_percent,rss_mib,cores`, with UTC ISO timestamps. Redirect stdout yourself to capture an ongoing CSV stream.
 
-| Command | Does |
-| --- | --- |
-| `adopt <name> <dir>` | Register an existing server directory in place |
-| `new <name>` | Create a fresh server (`--paper <v>`, `--purpur <v>`, `--folia <v>`, `--asp <v>`, `--vanilla <v>`, `--spigot <v>`, `--craftbukkit <v>`, `--fabric <v>`, `--neoforge <v>`, `--modpack <slug>`, `--jar`, `--template`, `--accept-eula`) |
-| `clone <src> <new>` | Copy plugins and config into a new server on a free port |
-| `set <name> key=value` | `label`, `memory`, `java`, `jar`, `port`, `rcon.port`, `rcon.password`, `auto-restart=on\|off`, `webhook=<url>\|off` |
-| `props <name> [key=value]` | Read or edit `server.properties` |
-| `plugins <name> [enable\|disable <x>]` | List a server's plugins, flip one on or off |
-| `upgrade <name> [--check]` | Newest Paper build for its version; `--version <v> --yes` crosses Minecraft versions |
-| `rm <name> [--purge --yes]` | Unregister, optionally deleting the files |
+## AI assistants
 
-`new` fetches whichever server software you name; the choices are on the
-[server software](/reference/servers) page. `clone` gives fresh worlds by default; pass
-`--with-worlds` to copy world data too. Ports are allocated automatically from 25565/25575
-upward, skipping anything already claimed or in use on the box.
+`spawnloft mcp` is a Model Context Protocol server on stdio, launched by the AI app. It is outside the JSON contract above and writes only protocol messages to stdout. See [AI assistants](/guide/ai-assistants).
 
-## Worlds
+## Platform notes
 
-| Command | Does |
-| --- | --- |
-| `worlds <name>` | List a server's worlds and which is active |
-| `worlds <name> use <world>` | Switch the world the server loads |
-| `worlds <name> import <zip-or-folder> --as <world>` | Copy a world in under a new name |
-| `worlds <name> export [world]` | Zip a world for sharing (default: the active one) |
-| `worlds <name> delete <world> --yes` | Delete an inactive world and its companions |
+### Scheduled tasks on macOS
 
-## Snapshots
+`spawnloft task add royalplugins --do backup --daily 03:00` creates a per-user launchd agent. The desktop **Schedule** and **Backups** tools use the same backend, including retention scoped to each task. Tasks run with the app closed while you are signed in. Daily and weekly jobs missed during sleep run once on wake; interval jobs skip missed runs; nothing runs after sign-out; login jobs also run when registered or enabled. Keep SpawnLoft background activity enabled in macOS Login Items, and remove tasks before deleting the app.
 
-| Command | Does |
-| --- | --- |
-| `backup <name>` | Snapshot to `backups/<name>/` |
-| `snapshots <name>` | List snapshots |
-| `restore <name> [ref] --yes` | Restore (default `latest`); server must be stopped |
-| `prune <name> --keep <n>` | Delete all but the newest n |
-| `verify <name> [ref\|--all]` | Read a snapshot back end to end and check its coverage |
+### Managed databases on macOS
 
-Scopes: `plugins`, `worlds`, `config`, `standard` (the default: plugins, the active world set,
-and config), `full` (everything except `cache/`, `libraries/`, `versions/`, `logs/`).
-
-`restore` refuses without `--yes` and prints what it would overwrite. It extracts over the server
-in place and deletes nothing, so a file added after the snapshot was taken survives a restore.
-
-`verify` exits non-zero on any failure, so a scheduled `verify <name> --all` can be noticed by
-whatever runs it.
-
-## Scheduled work
-
-Scheduled tasks and automatic backups work on Windows through Task Scheduler and on macOS through launchd. Keep the computer awake and your user session logged in for scheduled work.
-
-| Command | Does |
-| --- | --- |
-| `task list` | Every scheduled task, with its next run and last result |
-| `task add <server> --do <what> [when]` | Create one |
-| `task rm <id>` / `task enable\|disable <id>` | Remove or pause one |
-| `task run <id>` | Run it now. This is also what the system scheduler calls |
-
-`--do` is one of `backup`, `command` (with `--line "<what to send>"`), `restart`, `stop`, `start`.
-When: `--daily 03:00`, `--hourly <n>`, `--minutes <n>`, `--weekly SUN --at 03:00`, or `--on-logon`.
-
-Every run writes a line to the server's run directory recording what it did: the filename a
-backup produced, the command it sent, or why it was skipped. A `command` task whose server is
-down did not fail; there was nothing to send, and it reads as skipped. Renaming a server moves its
-tasks with it, and deleting one takes them away.
-
-## Other
-
-| Command | Does |
-| --- | --- |
-| `ui` | Serve the panel at `http://127.0.0.1:8770` and open it |
-| `templates` / `templates save <server> <tpl>` | Reusable plugin and config sets |
-| `jars` / `jars import <path>` | Server jar store used by `new` |
-| `doctor` | Environment, port collisions, EULA, disk, stale state |
+On macOS 15 or later, `spawnloft db create royalplugins` downloads the verified MySQL 8.4 LTS engine for your Mac, creates and starts a database, and prints the server's credentials. `spawnloft db add testdb`, `spawnloft start testdb` and `spawnloft db attach testdb royalplugins` do the same in steps; `spawnloft db creds testdb royalplugins` shows credentials again. Existing databases are never silently upgraded to another engine or version.

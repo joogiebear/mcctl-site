@@ -15,6 +15,10 @@ inspired by the website.
 Servers are detached processes that do not belong to the app. Close the window, sign back in
 later, and they are still running with their consoles intact.
 
+## Terminal commands
+
+Packages include `spawnloft` and `mcctl` launchers that use the bundled runtime, so no separate Node is needed. See [CLI setup](/reference/commands#preview-cli-setup).
+
 ## Updates
 
 SpawnLoft checks for new releases after startup and every six hours while it
@@ -40,6 +44,12 @@ Mac builds are Developer ID signed with hardened runtime, Apple notarization and
 It does not make SmartScreen go away immediately. SmartScreen is a reputation system, not a
 signature check, and reputation accrues through real installs, so a new publisher still gets
 warned about. **More info → Run anyway** is the way past it until the reputation builds.
+
+## Uninstalling
+
+The uninstaller removes the program and asks one question: whether to delete your servers, worlds, backups, downloaded jars and settings too. The default is no, so uninstalling to reinstall loses nothing. Either way it first stops every running server and removes every scheduled task, since a task left behind would keep firing at a program that is gone. An update never does any of this.
+
+Choosing yes deletes only what SpawnLoft created. A server you added from an existing folder stays where it is, and a data folder shared with other files loses only SpawnLoft's own folders. The terminal equivalent is `spawnloft uninstall --yes [--data]`.
 
 ## Which build you have
 

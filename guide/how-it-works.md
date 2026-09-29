@@ -1,83 +1,109 @@
 # How it works
 
-A Minecraft server is an interactive foreground process. Launched from a normal shell call it
-blocks forever, its stdin is unreachable, and its console output is lost. That makes the ordinary
-edit, restart, check loop painful to automate, and impossible to put a window around.
-
-SpawnLoft puts a supervisor in front of each server so short-lived commands, and the panel, can start
-it, read what it printed, talk to it, and shut it down cleanly.
+A Minecraft server is an interactive foreground process. Launched from a short-lived shell call it blocks, its stdin is unreachable, and its console output is lost. That makes the edit, restart, check loop painful to automate and impossible to put a window around. SpawnLoft puts a supervisor in front of each server so short-lived commands and the panel can start it, read what it printed, talk to it, and stop it cleanly.
 
 ```
-mcctl (short-lived CLI, or the panel)
+spawnloft / mcctl (short-lived CLI, or the panel)
    │
    ├─ spawns detached ──▶ daemon (one per server)
-   │                        │
    │                        ├─ owns the java child process
    │                        ├─ mirrors stdout/stderr ──▶ run/<name>/console.log
-   │                        └─ listens on a local pipe / Unix socket
-   │                              ops: ping | send | stop | kill
+   │                        ├─ samples CPU and memory every 10 s ──▶ run/<name>/metrics.log
+   │                        └─ listens on a local control channel: ping | send | stop | kill
    │
-   ├─ reads run/<name>/state.json  (pids, ports, start time)
-   ├─ reads run/<name>/console.log (logs, ready detection, follow)
+   ├─ reads run/<name>/state.json   (pids, ports, start time)
+   ├─ reads run/<name>/console.log  (logs, ready detection, follow)
    └─ connects to RCON on 127.0.0.1 (commands, players, save flush)
 ```
 
-The daemon exists because the CLI is short-lived and the JVM is not. It holds the pipe to the
-server's stdin for as long as the server runs.
+The daemon exists because the CLI is short-lived and the JVM is not. It holds the pipe to the server's stdin for as long as the server runs.
 
-## Crash recovery
-
-The daemon also owns crash recovery, because it is the only thing alive at the moment a server
-dies. With auto-restart on, a crash is relaunched in place after ten seconds; three crashes in ten
-minutes and it stays down saying why, so a broken plugin cannot grind the machine all night. A stop
-that was asked for always sticks, including `stop` typed straight into the console.
-
-An optional per-server Discord webhook gets a message for the events nobody is watching the panel
-for: crashed, recovered, gave up, or a scheduled task that failed. Routine lifecycle stays quiet.
-
-Scheduled restarts can warn the players first: the countdown is said over the console at the full
-figure, one minute, and ten seconds.
+| Platform | Control channel |
+| --- | --- |
+| Windows | Named pipe `\\.\pipe\mcctl-<name>` |
+| macOS, Linux | Unix socket `run/<name>/control.sock`. When that path exceeds the socket limit (103 bytes on macOS, 107 on Linux), a socket under `/tmp/spawnloft-<uid>/` named by a hash of the path is used; the folder must be private to your user. |
 
 ## State
 
-State is reconciled against live processes on every read, so a daemon that dies takes its server
-to `stale` rather than reporting `running` forever. A java process that outlives its daemon shows
-as `orphaned`, and `kill` cleans it up.
+State is reconciled against live processes on every read.
 
-The registry is the source of truth for ports and RCON. `start` pushes those values into
-`server.properties` before every launch, so hand-editing the file cannot silently desync a server
-from what SpawnLoft believes about it.
+| Status | Meaning |
+| --- | --- |
+| `running` | Daemon and Java process are alive. |
+| `stopping` | A graceful stop is in progress. |
+| `stopped` | No daemon and no state. |
+| `stale` | The state file names dead processes, usually after a restart of the machine. Cleared on the next read, or by `spawnloft doctor`. |
+| `orphaned` | A Java process outlived its daemon. **Kill** or `spawnloft kill <name>` cleans it up. |
+
+A server is ready when its console prints `Done (<seconds>s)!`. `start` also stops waiting early on known failure shapes (`Failed to start the minecraft server`, `A fatal error has occurred`, heap reservation failures, `Unable to access jarfile`), prints the last 25 console lines, and exits non-zero.
+
+The registry (`instances.json`) is the source of truth for ports and RCON. `start` writes those values into `server.properties` before every launch, so a hand edit cannot desynchronise a server from what SpawnLoft believes about it. `--no-sync` leaves the file alone. New servers take ports from `25565` (game) and `25575` (RCON) upward, skipping anything claimed or in use.
+
+JVM flags default to Aikar's G1 tuning, switching to the large-heap variant at 12 GB and above. A per-server `jvmFlags` array in `instances.json` overrides them. `start` truncates `run/<name>/console.log` each launch; the server's own `logs/` folder keeps the rolling history.
+
+## Crash recovery
+
+The daemon owns crash recovery because it is the only process alive when a server dies.
+
+| Setting | Behavior |
+| --- | --- |
+| `auto-restart=on` | A crash relaunches the server in place after 10 seconds. |
+| Crash-loop limit | Three crashes within ten minutes: the server stays down and records why, so a broken plugin cannot grind the machine all night. |
+| Requested stops | Always stick, including `stop` typed into the console. |
+| `webhook=<url>` | A per-server Discord webhook for crashed, recovered, gave-up and failed scheduled-task events. Routine lifecycle events stay quiet. |
+| Restart warnings | A scheduled restart with `warnMinutes` announces the countdown over the console at the full figure, at one minute, and at ten seconds. |
+
+## Where data lives
+
+| Item | Location |
+| --- | --- |
+| Settings file | Windows `%APPDATA%\mcctl\settings.json`; elsewhere `$XDG_CONFIG_HOME/mcctl/settings.json`, default `~/.config/mcctl/settings.json` |
+| Default data folder | Windows `%LOCALAPPDATA%\mcctl`; elsewhere `$XDG_DATA_HOME/mcctl`, default `~/.local/share/mcctl` |
+| Override | The `MCCTL_DATA_ROOT` environment variable, inherited by daemons |
+
+| Path in the data folder | Contents |
+| --- | --- |
+| `instances.json` | Registry: ports, memory, RCON credentials, software, options |
+| `instances/` | Servers SpawnLoft created. Servers you added from an existing folder stay where they were. |
+| `templates/` | Saved plugin and config sets |
+| `jars/` | Server jar store, including `jars/buildtools/` |
+| `backups/` | Snapshots and manifests |
+| `run/<name>/` | `state.json`, `console.log`, `daemon.log`, `metrics.log`, task run logs |
+| `engines/` | Database engines, shared by version |
+| `services/<name>/` | Data for each managed database |
+
+`spawnloft config` shows the layout and moves it: `set-root`, `set-instances`, `same-drive` and `set-backup-mirror`. Moving a location never moves existing data.
 
 ## Backups
 
-Backing up a running server issues `save-off` and `save-all flush` over RCON first and `save-on`
-afterward, so a hot snapshot is coherent rather than a torn copy of a world mid-write. Every path
-that takes a snapshot gets this: the command line, the Backups tab, a scheduled task, and the
-snapshot taken before a cross-version upgrade.
+Snapshots are tar archives with a manifest.
 
-`verify` is a restore minus the writes. Listing the archive decompresses every block, so the gzip
-checksums are genuinely checked, and the entries are compared against the manifest so a snapshot
-missing a locked world is caught the week it was taken rather than the day it is needed.
+| Scope | Contents |
+| --- | --- |
+| `plugins` | `plugins/` and `mods/` |
+| `worlds` | The active world set |
+| `config` | Root configuration files and `config/` |
+| `standard` (default) | Plugins, active worlds and config |
+| `full` | Everything except `cache/`, `libraries/`, `versions/` and `logs/` |
 
-## Scheduled work
+Backing up a running server issues `save-off` and `save-all flush` over RCON first and `save-on` afterward, so a hot snapshot is coherent rather than a torn copy of a world mid-write. Every path that takes a snapshot gets this: the command line, the **Backups** tool, a scheduled task, MCP, and the snapshot taken before a cross-version upgrade. If the flush cannot be done the snapshot is still taken and its manifest says so.
 
-Windows Task Scheduler runs scheduled tasks, so they happen whether or not SpawnLoft is open. They run
-while you are signed in, screen locked included, but not after you sign out. Running regardless
-would mean storing a Windows password in the task definition, which is not a thing to do quietly
-for a nightly backup.
+`verify` is a restore minus the writes. Listing the archive decompresses every block, so the gzip checksums are genuinely checked, and entries are compared against the manifest so a snapshot missing a world is caught the week it was taken rather than the day it is needed.
 
-SpawnLoft keeps the task definitions in its own file and gives Windows only a trigger that calls back
-into `mcctl task run <id>`. What a task *does* stays inside SpawnLoft, constrained to the handful of
-things a task is allowed to be, rather than an arbitrary command line.
+Snapshots of `standard` and `full` scope include a `databases/` dump of any attached database. `restore` extracts in place and deletes nothing, so a file added after the snapshot survives. `tar` exits 1 when it skips a file the running server holds locked; that is expected on hot snapshots and is not treated as failure.
 
-On macOS, launchd runs the same task actions as per-user LaunchAgents, including automatic backups. Keep the Mac awake and your user session logged in. Closing SpawnLoft does not disable these tasks.
+## Scheduled work {#scheduled-work}
+
+The operating system holds only a trigger that calls `spawnloft task run <id>`. Task definitions live in SpawnLoft's own file, and what a task does is limited to an allowlist (`backup`, `verify`, `command`, `restart`, `stop`, `start`) rather than an arbitrary command line. A value SpawnLoft does not recognise is refused.
+
+| Platform | Scheduler | Behavior |
+| --- | --- | --- |
+| Windows | Task Scheduler | Runs while you are signed in, screen locked included, never after sign-out. Running regardless would mean storing a Windows password in the task definition. |
+| macOS | Per-user launchd agents | Daily and weekly jobs missed during sleep run once on wake; interval jobs skip missed runs; login jobs also run when registered or enabled. Remove tasks before deleting the app. |
+| Linux | systemd user timers | Requires lingering to run after logout: `spawnloft task linger on`. |
+
+Tasks run whether or not SpawnLoft is open, as the signed-in user, with no stored password and no elevation.
 
 ## Zero dependencies
 
-The engine is plain Node and the operating system's `tar`. No framework, no build step, no
-package that rots. The panel is one HTML file served by Node's own http module. The desktop app
-runs the engine inside the Electron process, so there is one process, no second Node to ship, and
-no orphaned child if the window dies.
-
-Preview packages also include terminal launchers that use the bundled runtime, so installed
-CLI use does not require a separate Node installation. `spawnloft` and `mcctl` run the same commands.
+The engine is plain Node and the operating system's `tar`. There is no framework, no build step, and no package to go stale. The panel is one HTML file served by Node's own `http` module. The desktop app runs the engine inside the Electron process, so there is one process, no second Node to ship, and no orphaned child if the window dies. Installed packages include `spawnloft` and `mcctl` launchers that use the bundled runtime; both run the same commands.
