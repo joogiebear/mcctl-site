@@ -1,3 +1,7 @@
+---
+description: "The failures SpawnLoft recognises when a Minecraft server will not start or falls over, and the way out of each."
+---
+
 # Troubleshooting
 
 When a server fails, SpawnLoft reads the console and names the cause wherever the failure surfaces:

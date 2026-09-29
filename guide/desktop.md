@@ -1,3 +1,7 @@
+---
+description: "What the SpawnLoft desktop app adds around the panel: a native folder picker, first-run setup, appearance themes and automatic updates."
+---
+
 # The desktop app
 
 A window around the [panel](/guide/panel), plus a native folder picker, first-run setup and

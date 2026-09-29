@@ -1,3 +1,7 @@
+---
+description: "Every server software SpawnLoft can run, from Paper and Purpur to Fabric and NeoForge: what each loads, where it comes from and how it is verified."
+---
+
 # Server software
 
 `new` downloads or builds the server you name, and **Add a server** in the panel offers the same list. Every option runs with a plain `-jar`, so the supervisor is indifferent to which; the differences are where the software comes from, how it is verified, and what it loads.

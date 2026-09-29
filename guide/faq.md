@@ -1,3 +1,7 @@
+---
+description: "Straight answers about SpawnLoft: is it free, can friends join, Mac and Linux, backups, Java, updates, and where your data lives."
+---
+
 # Questions
 
 ## Is it free?
