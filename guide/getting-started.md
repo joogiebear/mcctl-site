@@ -27,7 +27,7 @@ The Mac app needs macOS 13+; managed MySQL needs macOS 15+ on a Mac and x64 on L
 - **Windows 10 or 11 (x64)**, **macOS 13+**, or **Linux** (Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 family; x64 or arm64) for the desktop app.
   Source CLI usage requires Node 20+; platform-specific capabilities are listed in the [platform guide](/guide/beta#platform-support).
 
-The app checks for Java on first run, and the panel shows a banner if it is missing. SpawnLoft looks
+The app checks for Java on first run and marks a missing or outdated Java in the header. SpawnLoft looks
 on PATH **and** in the usual install folders (Program Files, the per-user Programs folder,
 `JAVA_HOME`), so a Java the installer did not add to PATH is still found. Each server can also be
 pointed at a specific Java.

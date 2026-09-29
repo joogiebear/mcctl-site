@@ -41,6 +41,12 @@ SpawnLoft does not detect plugins and inject database credentials into their con
 files are left unchanged. A created database is not proof that a plugin is using it;
 verify the plugin's behavior after configuring it.
 
+## Databases in the panel
+
+Databases sit beside servers in the panel with a lamp, a console, start, stop, restart and crash recovery. Each listens on `127.0.0.1` only and is stopped through `mysqladmin` over TCP, since a database takes no console input. The user a server receives can reach its own database and nothing else.
+
+**Add a server → A database** creates one with choices: a version, an engine, or one shared by several servers. **Settings → Databases** on a server shows credentials with one click and **Create a database** builds one on the port after the game port, started and attached.
+
 ## Use the command line
 
 After [setting up the launcher](/reference/commands#preview-cli-setup):
@@ -58,6 +64,17 @@ spawnloft db attach testdb survival
 spawnloft db creds testdb survival
 ```
 
+| Command | Effect |
+| --- | --- |
+| `db versions [--engine <e>]` | Verified releases (`mysql`, `garnet`) |
+| `db add <name> [--version <v>] [--engine <e>]` | Download the engine once and set up a database on a free port |
+| `db create <server>` | `db add`, start and `db attach` in one step, on the port after the game port |
+| `db attach <db> <server>` | Create a database and scoped user for the server; prints credentials |
+| `db detach <db> <server> [--drop]` | Remove the user; `--drop` deletes the data |
+| `db creds <db> <server>` | Show credentials again |
+| `db connect <name> --host <h> --port <n> --user <u> --password <p>` | Register a database you already run |
+| `db remove <db> [--purge]` | Forget a stopped database; `--purge` deletes its files |
+
 Choose one creation route. `db create` defaults to MySQL on Windows, Mac and Linux x64. Use `--engine garnet` for a Redis-compatible service.
 Credential output contains passwords: keep it private and out of shared logs.
 
@@ -72,6 +89,12 @@ the tools directory with `spawnloft db connect ... --tools <folder>`. See
 `spawnloft help` for the connection commands.
 
 ## Back up and verify
+
+A server snapshot of `standard` or `full` scope carries a dump of its attached database as a `databases/` member. `verify` checks for it, and `restore` imports it back into the database it came from, which has to be running.
+
+::: info New in 1.4
+A MySQL database has its own **Backups** tool, separate from the servers' snapshots. **Back up now** writes a plain SQL dump of the databases your servers use; each dump can be downloaded, put back (saving a dump of the current state first, so a restore can itself be undone) or deleted. Redis keeps its own checkpoints and has no dump; stop saves a checkpoint, and a failed save leaves it running with an error.
+:::
 
 Managed SQL backup/restore uses the engine's tools. Review backup results for skipped database
 dumps or warnings, especially in automation: a completed server archive does not guarantee
