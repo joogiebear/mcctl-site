@@ -154,8 +154,8 @@ Deleting a server, database credentials, and settings that hold secrets are not 
 
 ## Configuration file access
 
-::: info New in 1.4
-`list_config_files`, `read_config_file` and `write_config_file` arrive in SpawnLoft 1.4.
+::: info Added in 1.4
+`list_config_files`, `read_config_file` and `write_config_file` were added in SpawnLoft 1.4.
 :::
 
 `list_config_files`, `read_config_file` and `write_config_file` work inside the server's own folder and nowhere else. Links that lead outside the folder are refused.

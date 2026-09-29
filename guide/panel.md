@@ -18,8 +18,8 @@ Each server is a tab across the top; a server's tools (**Plugins**, **Worlds**, 
 | Rename, reset, delete | Require typing the server's name. A dialog that only says "are you sure" gets answered reflexively. |
 | Server card | Status lamp, port, memory and a live uptime. |
 
-::: info New in 1.4
-The tabs-and-dock layout and the overview below arrive in SpawnLoft 1.4. Earlier versions list servers down the side and show one tool at a time.
+::: info Added in 1.4
+The tabs-and-dock layout and the overview below were added in SpawnLoft 1.4. Earlier versions list servers down the side and show one tool at a time.
 :::
 
 ## Overview
@@ -47,7 +47,7 @@ Search and install from **Modrinth and Hangar** together, each result naming its
 
 The tool manages **only what SpawnLoft installed**; it records provenance beside the jars. A custom or premium plugin dropped in by hand is never offered a meaningless update and never has its hash sent to anyone. `spawnloft plugins <name>` lists the full inventory with a source column. Enable and disable rename the jar in place, so a disabled plugin keeps its spot and its config.
 
-::: info New in 1.4
+::: info Added in 1.4
 **Plugins** lists everything in the folder, hand-added jars included, and when a check finds updates it can install them all behind one snapshot and restart.
 :::
 
@@ -96,7 +96,7 @@ Nightly backups, a 5 a.m. restart that warns players first, a command on the hou
 
 Servers SpawnLoft creates start with `online-mode=true`, `max-players=10` and `spawn-protection=0`. Writes never disturb another key or a comment.
 
-::: info New in 1.4
+::: info Added in 1.4
 Settings is one form: sections are listed down the side with a dot on any holding an unsaved change, each setting reads **Default** until the file has it and **Changed** until saved, and a bottom bar saves, discards, or saves and restarts.
 :::
 

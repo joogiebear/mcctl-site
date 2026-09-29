@@ -92,7 +92,7 @@ the tools directory with `spawnloft db connect ... --tools <folder>`. See
 
 A server snapshot of `standard` or `full` scope carries a dump of its attached database as a `databases/` member. `verify` checks for it, and `restore` imports it back into the database it came from, which has to be running.
 
-::: info New in 1.4
+::: info Added in 1.4
 A MySQL database has its own **Backups** tool, separate from the servers' snapshots. **Back up now** writes a plain SQL dump of the databases your servers use; each dump can be downloaded, put back (saving a dump of the current state first, so a restore can itself be undone) or deleted. Redis keeps its own checkpoints and has no dump; stop saves a checkpoint, and a failed save leaves it running with an error.
 :::
 
