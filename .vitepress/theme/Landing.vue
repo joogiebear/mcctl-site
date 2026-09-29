@@ -5,6 +5,7 @@ import BrandIcon from './BrandIcon.vue'
 import WorldScene from './WorldScene.vue'
 import PortalScene from './PortalScene.vue'
 import ProductExplorer from './ProductExplorer.vue'
+import DemoVideo from './DemoVideo.vue'
 import ProofStrip from './ProofStrip.vue'
 const hero = ref<HTMLElement>(), inside = ref<HTMLElement>()
 const heroProgress = ref(0), insideProgress = ref(0), menu = ref(false), reduced = ref(false)
@@ -131,6 +132,7 @@ onBeforeUnmount(()=>{ stopPortalTrip(); stop() })
       </section>
       <div class="compat-strip"><span>HOWEVER YOU PLAY.</span><div><span><BrandIcon name="cube" :size="18" /> Paper</span><span>Fabric</span><span>NeoForge</span><span>Modrinth</span><span>Hangar</span><a href="/reference/servers">And more <BrandIcon name="arrow" :size="14" /></a></div></div>
       <ProductExplorer />
+      <DemoVideo />
       <ProofStrip />
       <section ref="inside" id="inside" class="inside-journey">
         <div class="inside-screen">
