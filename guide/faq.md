@@ -2,17 +2,13 @@
 
 ## Is it free?
 
-The current desktop app is a free download, and SpawnLoft is open source under the MIT licence.
+The desktop app is a free download, and SpawnLoft is open source under the MIT licence.
 You can get started without an account. If it earns its keep, there is a
 [Sponsor](https://github.com/sponsors/joogiebear) button.
 
 ## Can my friends join?
 
-Anyone on your home network can join straight away with your PC's local address and the server's
-port. Anyone outside it needs a way in, and that is the one thing SpawnLoft deliberately does not do
-for you. Opening a port on your router, or running a tunnel such as playit.gg, is a decision about
-exposing your machine to the internet, and it should be yours. See [Security](/guide/security).
-A Share screen that lays those options out honestly is on the [roadmap](/roadmap).
+Anyone on your home network can join straight away with your PC's local address and the server's port. Anyone outside it needs a way in, and that is the one thing SpawnLoft deliberately does not do for you: opening a port on your router, or running a tunnel such as playit.gg, is a decision about exposing your machine to the internet, and it should be yours. See [Sharing your server](/guide/sharing) and [Security](/guide/security). A Share screen that lays the options out is on the [roadmap](/roadmap).
 
 ## Does it work on Mac or Linux?
 
@@ -22,6 +18,22 @@ Yes. SpawnLoft runs on Windows, Apple Silicon and Intel Macs, and Linux: a `.deb
 
 **Settings → Appearance** offers **Classic** and **SpawnLoft**.
 Classic keeps the original palette; SpawnLoft follows the website's look.
+
+## Can an AI assistant run my server?
+
+If you connect one. `spawnloft mcp` lets an AI app you choose (Claude Desktop, Claude Code, LM Studio) check status, read the console, back up, install plugins, and change plugin configuration files. It needs no account and opens no port; the app asks before each change, and restore, force-kill and Minecraft version upgrades are off unless you enable them. What a tool returns is sent to the AI provider, so read [what the provider sees](/guide/ai-assistants#what-the-ai-provider-sees) first.
+
+## Does SpawnLoft update itself?
+
+Yes. It checks 20 seconds after it starts and every six hours, downloads in the background, and asks you to **Restart to update**. Servers keep running through it. **Settings → Updates → Get beta builds** follows the betas. On a Linux machine with no desktop, `spawnloft-cli` has no updater; install a newer package. See [Downloads & platforms](/guide/beta#automatic-updates-and-beta-builds).
+
+## How do I back up my world?
+
+The **Backups** tool, or `spawnloft backup <name>`. A running server is flushed first, so the snapshot is coherent. Schedule nightly backups in **Schedule**, and set a second location with `spawnloft config set-backup-mirror`. See [Backups](/guide/backups).
+
+## Will scheduled backups run when I am logged out?
+
+Not by default. Tasks run while you are signed in, screen locked included. On Linux, `spawnloft task linger on` keeps them running after logout. Windows never runs them signed out, because that would require storing your Windows password. See [How it works](/guide/how-it-works#scheduled-work).
 
 ## Will SpawnLoft fill in my plugin's database config?
 
@@ -64,7 +76,7 @@ The stable installer is signed, but SmartScreen judges by reputation, and a new 
 through real installs. Click **More info**, then **Run anyway**. It goes away on its own as the
 reputation builds.
 
-Version 1.0 uses signed Windows installers and Developer ID signed, Apple-notarized Mac installers. See [release details](/guide/beta).
+Windows installers are signed, and Mac installers are Developer ID signed and Apple-notarized. See [Downloads & platforms](/guide/beta).
 
 ## Is it safe to leave the panel open?
 

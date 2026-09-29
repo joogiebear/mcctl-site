@@ -8,6 +8,9 @@ const reference = [
 const guide = [
   { text: 'Getting started', link: '/guide/getting-started' },
   { text: 'The panel', link: '/guide/panel' },
+  { text: 'Plugins and mods', link: '/guide/plugins' },
+  { text: 'Backups', link: '/guide/backups' },
+  { text: 'Sharing your server', link: '/guide/sharing' },
   { text: 'The desktop app', link: '/guide/desktop' },
   { text: 'Downloads & platforms', link: '/guide/beta' },
   { text: 'Databases', link: '/guide/databases' },
@@ -56,8 +59,8 @@ export default defineConfig({
       { text: 'Roadmap', link: '/roadmap' },
     ],
     sidebar: {
-      '/guide/': [{ text: 'Start here', items: guide.slice(0,6) }, { text: 'Understand & troubleshoot', items: guide.slice(6) }, { text: 'Reference', items: reference }],
-      '/reference/': [{ text: 'Start here', items: guide.slice(0,6) }, { text: 'Understand & troubleshoot', items: guide.slice(6) }, { text: 'Reference', items: reference }],
+      '/guide/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
+      '/reference/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/spawnloft' }],
     editLink: { pattern: 'https://github.com/joogiebear/mcctl-site/edit/main/:path', text: 'Edit this page' },

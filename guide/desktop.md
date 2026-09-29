@@ -29,9 +29,6 @@ The app waits for you to restart before replacing the running version. Closing t
 update waiting also applies it on exit. Running servers survive either way: only the app window
 restarts.
 
-If you are on **v0.13.0 or earlier**, press **Check for updates** in the header to get the release
-that enables automatic checking. See the [v0.14.0 release notes](/changelog#v0.14.0) for the details.
-
 On Linux the update installs through a system password prompt. To follow the betas between releases, turn on **Settings → Updates → Get beta builds**; see [automatic updates and beta builds](/guide/beta#automatic-updates-and-beta-builds).
 
 ## Signed builds and SmartScreen
