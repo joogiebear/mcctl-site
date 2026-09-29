@@ -66,11 +66,11 @@ onMounted(async () => {
 .btn:hover { filter: brightness(1.1); text-decoration: none; }
 .btn.lg { padding: 13px 20px; font-size: 15px; }
 .dl-full { display: flex; flex-direction: column; align-items: stretch; gap: 18px; width: 100%; max-width: 760px; margin-inline: auto; }
-.release-label { font: 10px var(--mono); letter-spacing: .08em; }
+.release-label { font: 11px var(--mono); letter-spacing: .08em; }
 .platforms { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
 .platform { display: flex; flex-direction: column; gap: 12px; text-align: left; padding: 20px 16px; border: 1px solid currentColor; border-radius: 2px; background: transparent; color: inherit; text-decoration: none; transition: background .15s, color .15s; }
 .platform-title { display: flex; justify-content: space-between; align-items: center; gap: 16px; font: 600 18px var(--ui); }
-.platform small { font: 10px/1.6 var(--mono); }
+.platform small { font: 11px/1.6 var(--mono); }
 a.platform:hover { background: #090d0d; color: #c4f566; text-decoration: none; }
 .more-linux { margin: -6px 0 0; font: 12px/1.8 var(--ui); opacity: .85; }
 .more-linux a { color: inherit; text-underline-offset: 4px; }
