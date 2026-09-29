@@ -5,6 +5,13 @@ const reference = [
   { text: 'Commands', link: '/reference/commands' },
   { text: 'Server software', link: '/reference/servers' },
 ]
+// Task-shaped pages, for someone who has the app and a goal.
+const useCases = [
+  { text: 'Host for friends', link: '/guide/host-for-friends' },
+  { text: 'Paper, Fabric or NeoForge', link: '/guide/choose-software' },
+  { text: 'Try things safely', link: '/guide/try-it-safely' },
+  { text: 'Run a modpack', link: '/guide/modpack-server' },
+]
 const guide = [
   { text: 'Getting started', link: '/guide/getting-started' },
   { text: 'The panel', link: '/guide/panel' },
@@ -101,8 +108,8 @@ export default defineConfig({
       { text: 'Roadmap', link: '/roadmap' },
     ],
     sidebar: {
-      '/guide/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
-      '/reference/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
+      '/guide/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Do more with it', items: useCases }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
+      '/reference/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Do more with it', items: useCases }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/spawnloft' }],
     editLink: { pattern: 'https://github.com/joogiebear/mcctl-site/edit/main/:path', text: 'Edit this page' },

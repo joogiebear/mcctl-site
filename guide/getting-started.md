@@ -87,3 +87,9 @@ spawnloft clone survival ecotest && spawnloft start ecotest
 | Have friends join | [Sharing your server](/guide/sharing) |
 | Something failed | [Troubleshooting](/guide/troubleshooting) |
 | Learn the tools | [The panel](/guide/panel) |
+
+## Where next
+
+- [Host a server for your friends](/guide/host-for-friends), from the first start to a server that looks after itself.
+- [Paper, Fabric or NeoForge](/guide/choose-software), if you are not sure which to pick.
+- [Try a plugin or update without risking your world](/guide/try-it-safely).
