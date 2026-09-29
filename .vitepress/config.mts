@@ -31,10 +31,11 @@ const guide = [
   { text: 'Questions', link: '/guide/faq' },
 ]
 
-// The canonical address, and the host the pages really resolve on. In Vercel, spawnloft.com redirects
-// (308) to www.spawnloft.com, and vercel.json sends mcctl-site.vercel.app there too. spawnloft.app and
-// spawnloft.dev are not attached to the project and do not resolve. Change it here only, and change it
-// if the apex/www redirect ever flips.
+// The canonical address, and the host the pages really resolve on. In Vercel, spawnloft.com,
+// spawnloft.app, spawnloft.dev and their www variants all redirect (308) to www.spawnloft.com, and
+// vercel.json sends mcctl-site.vercel.app there too. The .app and .dev zones are in Cloudflare, each
+// with an apex and a www CNAME (DNS only) to the project's Vercel target. Change it here only, and
+// change it if the redirects ever flip.
 const SITE = 'https://www.spawnloft.com'
 
 const DESCRIPTION = 'Minecraft servers on your own PC, without the terminal. Free, open source, for Windows, macOS and Linux.'
