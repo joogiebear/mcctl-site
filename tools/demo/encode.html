@@ -1,0 +1,134 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Demo encoder</title>
+<canvas id="c" style="display:block"></canvas>
+<script type="module">
+// Replays a recording made by record.mjs onto a canvas and records the canvas with MediaRecorder.
+// The edit lives here: speed changes around the long waits, a drawn cursor and click ripples, and a
+// short fade at each end so the loop does not jump. Captions are NOT burned in; they are written to
+// demo.json so the page can show them as real, clickable text.
+const params = new URLSearchParams(location.search)
+const FPS = 30, FADE_IN = 0.35, FADE_OUT = 0.5, LIME = '#c4f566'
+const canvas = document.getElementById('c'), ctx = canvas.getContext('2d')
+
+const log = m => fetch('/log', { method: 'POST', body: String(m) }).catch(() => {})
+window.onerror = (m) => log('error: ' + m)
+
+const manifest = await (await fetch('/manifest.json')).json()
+const { frames, events, end, cssW, cssH, w: srcW, h: srcH } = manifest
+canvas.width = cssW; canvas.height = cssH
+const scale = srcW / cssW
+
+// ---- Time map: output seconds <-> source milliseconds ---------------------------------------------
+const cuts = [{ src: 0, speed: 1 }, ...events.filter(e => e.k === 'speed').map(e => ({ src: e.t, speed: e.n }))]
+const seg = cuts.map((c, i) => ({ a: c.src, b: i + 1 < cuts.length ? cuts[i + 1].src : end, speed: c.speed }))
+let acc = 0
+for (const s of seg) { s.out0 = acc; acc += (s.b - s.a) / s.speed / 1000; s.out1 = acc }
+const DURATION = acc
+const srcAt = out => { const s = seg.find(x => out < x.out1) || seg[seg.length - 1]; return s.a + (out - s.out0) * 1000 * s.speed }
+const outAt = src => { const s = seg.find(x => src < x.b) || seg[seg.length - 1]; return s.out0 + (src - s.a) / s.speed / 1000 }
+
+// ---- Frames, decoded a little ahead of the playhead -----------------------------------------------
+const bitmaps = new Map()
+const want = new Set()
+async function load(i) {
+  if (bitmaps.has(i) || want.has(i) || i >= frames.length) return
+  want.add(i)
+  const blob = await (await fetch('/frames/' + frames[i].f)).blob()
+  bitmaps.set(i, await createImageBitmap(blob))
+  want.delete(i)
+}
+const frameIndexAt = src => { let lo = 0, hi = frames.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; frames[m].t <= src ? lo = m : hi = m - 1 } return lo }
+function prefetch(i) {
+  for (let k = i; k < i + 20; k++) load(k)
+  for (const key of bitmaps.keys()) if (key < i - 3) { bitmaps.get(key).close(); bitmaps.delete(key) }
+}
+
+// ---- Overlay: cursor and click ripples ------------------------------------------------------------
+const moves = events.filter(e => e.k === 'm'), clicks = events.filter(e => e.k === 'c')
+function cursorAt(src) {
+  let lo = -1, hi = moves.length - 1
+  while (lo < hi) { const m = (lo + hi + 1) >> 1; moves[m].t <= src ? lo = m : hi = m - 1 }
+  return lo < 0 ? null : moves[lo]
+}
+function drawCursor(x, y, press) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(press ? 0.9 : 1, press ? 0.9 : 1)
+  ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, 17); ctx.lineTo(4.4, 13.2); ctx.lineTo(7.4, 20); ctx.lineTo(10.2, 18.8); ctx.lineTo(7.3, 12.2); ctx.lineTo(12.8, 12.2); ctx.closePath()
+  ctx.fillStyle = '#fff'; ctx.fill(); ctx.shadowColor = 'transparent'; ctx.lineWidth = 1.2; ctx.strokeStyle = '#0b100c'; ctx.stroke()
+  ctx.restore()
+}
+function drawRipples(src) {
+  for (const c of clicks) {
+    const age = src - c.t
+    if (age < 0 || age > 520) continue
+    const k = age / 520
+    ctx.beginPath(); ctx.arc(c.x, c.y, 6 + 26 * k, 0, Math.PI * 2)
+    ctx.strokeStyle = LIME; ctx.globalAlpha = 0.85 * (1 - k); ctx.lineWidth = 2.4 * (1 - k) + 0.6; ctx.stroke(); ctx.globalAlpha = 1
+  }
+}
+
+// ---- Render ----------------------------------------------------------------------------------------
+let last = null
+function draw(out) {
+  const src = Math.min(srcAt(out), end)
+  const i = frameIndexAt(src)
+  prefetch(i)
+  const bmp = bitmaps.get(i) || last
+  ctx.fillStyle = '#080c0a'; ctx.fillRect(0, 0, cssW, cssH)
+  if (bmp) { ctx.drawImage(bmp, 0, 0, cssW, cssH); last = bmp }
+  drawRipples(src)
+  const cur = cursorAt(src)
+  if (cur) drawCursor(cur.x, cur.y, clicks.some(c => src - c.t >= 0 && src - c.t < 140))
+  const fade = Math.min(1, out / FADE_IN, (DURATION - out) / FADE_OUT)
+  if (fade < 1) { ctx.fillStyle = `rgba(8,12,10,${1 - Math.max(0, fade)})`; ctx.fillRect(0, 0, cssW, cssH) }
+}
+const pause = ms => new Promise(r => setTimeout(r, ms))
+async function warm(i0) { prefetch(i0); await pause(400) }
+
+async function record(mime, bits) {
+  await warm(0)
+  const stream = canvas.captureStream(FPS)
+  const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: bits })
+  const chunks = []
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data)
+  const stopped = new Promise(r => rec.onstop = r)
+  draw(0); rec.start(1000)
+  const t0 = performance.now()
+  await new Promise(resolve => {
+    const tick = () => {
+      const out = (performance.now() - t0) / 1000
+      if (out >= DURATION) return resolve()
+      draw(out); requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  })
+  draw(DURATION); await pause(200); rec.stop(); await stopped
+  return new Blob(chunks, { type: mime.split(';')[0] })
+}
+
+const upload = (name, blob) => fetch('/upload?name=' + name, { method: 'POST', body: blob })
+const wanted = (params.get('formats') || 'mp4,webm').split(',')
+const options = {
+  mp4: ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4'],
+  webm: ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'],
+}
+const bits = Number(params.get('bits') || 1300000)
+const result = { duration: DURATION, captions: events.filter(e => e.k === 'label').map((e, i, all) => ({ n: e.n, text: e.text, start: outAt(e.t), end: i + 1 < all.length ? outAt(all[i + 1].t) : DURATION })), formats: [], w: cssW, h: cssH }
+
+for (const ext of wanted) {
+  const mime = options[ext].find(m => MediaRecorder.isTypeSupported(m))
+  if (!mime) { log(`${ext}: not supported by this browser`); continue }
+  log(`${ext}: recording ${DURATION.toFixed(1)}s as ${mime}`)
+  const blob = await record(mime, bits)
+  await upload('demo.' + ext, blob)
+  result.formats.push({ ext, type: blob.type, bytes: blob.size })
+  log(`${ext}: ${(blob.size / 1e6).toFixed(2)} MB`)
+}
+
+// Poster: the moment the plugin has installed, with the console and the plugin list side by side.
+const pluginDone = events.filter(e => e.k === 'label').find(e => e.n === 4)
+draw(Math.max(0.5, outAt((pluginDone ? pluginDone.t : end / 2) - 900)))
+await new Promise(r => canvas.toBlob(async b => { await upload('poster.webp', b); r() }, 'image/webp', 0.86))
+await fetch('/done', { method: 'POST', body: JSON.stringify(result) })
+</script>

@@ -19,6 +19,7 @@ npm run build    # .vitepress/dist
 - `ProductExplorer.vue` is the keyboard-accessible four-tab product tour. `WorldScene.vue` renders and animates the custom Blender world.
 - `art/spawnloft-world.blend` is the current editable world. See [art/WORLD.md](art/WORLD.md) for rebuilding and exporting it.
 - `ProofStrip.vue` shows figures read from GitHub at build time by `proof.data.ts` (a snapshot is used if the API is unreachable; `GITHUB_TOKEN` is optional). Stars and downloads only appear once they pass a floor set in the component. The numbers refresh on each deploy.
+- `DemoVideo.vue` plays the recording in `public/demo/`, with its steps from `demo.json`. `tools/demo/` records and encodes it from the real app; see its README.
 - `BrandIcon.vue`, `public/brand/`, and `public/favicon.svg` contain the custom visual identity.
 - `guide/` and `reference/` are the docs, plain Markdown.
 - `.vitepress/theme/custom.css` carries the website's brand tokens and documentation styling.
