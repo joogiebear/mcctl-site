@@ -1,3 +1,7 @@
+---
+description: "The full SpawnLoft command line reference: lifecycle, console, instances, snapshots, scheduled work, databases, JSON output and performance export."
+---
+
 # Commands
 
 `spawnloft` is the preferred command. `mcctl` runs the same implementation and remains supported for existing scripts, scheduled tasks and shortcuts. Both names accept identical arguments; the JSON `command` field always uses the canonical name.

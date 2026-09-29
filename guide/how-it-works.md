@@ -1,3 +1,7 @@
+---
+description: "How SpawnLoft runs a Minecraft server: a supervisor for each one, crash recovery, hot backups, scheduled tasks and where your data lives."
+---
+
 # How it works
 
 A Minecraft server is an interactive foreground process. Launched from a short-lived shell call it blocks, its stdin is unreachable, and its console output is lost. That makes the edit, restart, check loop painful to automate and impossible to put a window around. SpawnLoft puts a supervisor in front of each server so short-lived commands and the panel can start it, read what it printed, talk to it, and stop it cleanly.

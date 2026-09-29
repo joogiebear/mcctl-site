@@ -1,3 +1,7 @@
+---
+description: "A tour of the SpawnLoft panel: the console, plugins, worlds, backups, players, stats, schedule and server settings."
+---
+
 # The panel
 
 The panel is what the desktop app shows. It is one HTML page served by SpawnLoft itself, so it works offline and runs equally well in a browser tab:

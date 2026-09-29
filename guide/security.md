@@ -1,3 +1,7 @@
+---
+description: "What stays on your machine, what SpawnLoft never does, and how the panel, RCON, scheduled tasks and AI assistants are locked down."
+---
+
 # Security
 
 SpawnLoft is built for **one machine, and the LAN around it**. That is a design, not a limitation.

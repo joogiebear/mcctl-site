@@ -1,3 +1,7 @@
+---
+description: "Install SpawnLoft, create or import a Minecraft server, and bring your world online on your own PC in three steps."
+---
+
 # Getting started
 
 Install SpawnLoft, create or import a Minecraft server, and bring your world online. Everything runs on your own PC.
