@@ -69,6 +69,9 @@ export default defineConfig({
     ['meta', { name: 'twitter:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'theme-color', content: '#090d0d' }],
     ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
+    // Vercel Web Analytics: cookieless, no personal data. Serves nothing until it is switched on
+    // for the project in the Vercel dashboard, and the site works the same without it.
+    ['script', { defer: '', src: '/_vercel/insights/script.js' }],
   ],
   // Every page names itself. Before this, og:url and og:title said "the home page" on all of them.
   transformHead({ pageData }) {
