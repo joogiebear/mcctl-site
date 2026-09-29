@@ -19,6 +19,7 @@ npm run build    # .vitepress/dist
 - `ProductExplorer.vue` is the keyboard-accessible four-tab product tour. `WorldScene.vue` renders and animates the custom Blender world.
 - `art/spawnloft-world.blend` is the current editable world. See [art/WORLD.md](art/WORLD.md) for rebuilding and exporting it.
 - `ProofStrip.vue` shows figures read from GitHub at build time by `proof.data.ts` (a snapshot is used if the API is unreachable; `GITHUB_TOKEN` is optional). Stars and downloads only appear once they pass a floor set in the component. The numbers refresh on each deploy.
+- `public/img/tabs/*.webp` are the four panel screenshots in the product tour, taken from the real panel by `tools/screenshots/`; see its README to retake them when the panel changes.
 - `DemoVideo.vue` plays the recording in `public/demo/`, with its steps from `demo.json`. `tools/demo/` records and encodes it from the real app; see its README.
 - `public/social/` holds one 1200x630 social card per docs page, drawn by `tools/social-cards/build.mjs` from each page's title and description and committed (Vercel's build has no Chromium). Re-run `node tools/social-cards/build.mjs` when a title or description changes; a page with no card falls back to `public/brand/social-card.png`.
 - `BrandIcon.vue`, `public/brand/`, and `public/favicon.svg` contain the custom visual identity.
