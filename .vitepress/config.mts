@@ -1,4 +1,6 @@
+import fs from 'node:fs'
 import { defineConfig, type HeadConfig } from 'vitepress'
+import { cardSlug } from '../tools/social-cards/slug.mjs'
 
 // The project site: a landing page plus the docs, both in the app's own palette.
 const reference = [
@@ -72,9 +74,7 @@ export default defineConfig({
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
-    ['meta', { property: 'og:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:image', content: `${SITE}/brand/social-card.png` }],
     ['meta', { name: 'theme-color', content: '#090d0d' }],
     ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
     // Vercel Web Analytics: cookieless, no personal data. Serves nothing until it is switched on
@@ -96,6 +96,16 @@ export default defineConfig({
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
     ]
+    // Each page's own card from tools/social-cards when it has one; the shared card otherwise.
+    const slug = cardSlug(pageData.relativePath)
+    const image = !home && fs.existsSync(`public/social/${slug}.png`) ? `${SITE}/social/${slug}.png` : `${SITE}/brand/social-card.png`
+    head.push(
+      ['meta', { property: 'og:image', content: image }],
+      ['meta', { property: 'og:image:width', content: '1200' }],
+      ['meta', { property: 'og:image:height', content: '630' }],
+      ['meta', { property: 'og:image:alt', content: `SpawnLoft: ${home ? 'Minecraft servers on your own PC' : pageData.title}` }],
+      ['meta', { name: 'twitter:image', content: image }],
+    )
     if (home) head.push(['script', { type: 'application/ld+json' }, JSON.stringify(SOFTWARE)])
     return head
   },
