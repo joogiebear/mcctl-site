@@ -34,7 +34,7 @@
 }
 .docs-site .VPSidebar { border-right:1px solid #293323; padding-top:calc(var(--vp-nav-height) + 30px); }
 .docs-site .VPSidebar .group { border:0; padding:9px 0 17px; }
-.docs-site .VPSidebarItem.level-0>.item>.text { color:#829471; font:9px var(--mono); text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; }
+.docs-site .VPSidebarItem.level-0>.item>.text { color:#829471; font:11px var(--mono); text-transform:uppercase; letter-spacing:.12em; margin-bottom:8px; }
 .docs-site .VPSidebarItem.level-1>.item { border-left:2px solid transparent; padding:3px 0 3px 12px; margin-left:-2px; transition:background .15s; }
 .docs-site .VPSidebarItem.level-1.is-active>.item { border-left-color:#c4f566; background:#c4f5660c; }
 .docs-site .VPSidebarItem.level-1>.item:hover { background:#c4f56609; }
@@ -63,12 +63,12 @@
 .docs-site .vp-doc blockquote { border-left:3px solid #7c9c51; color:#586c45; background:#e5e9da; padding:4px 20px; }
 .docs-site .vp-doc .custom-block { border-radius:2px; }
 .docs-site .vp-doc img { border:1px solid #b0bea0; border-radius:3px; }
-.docs-site .VPDocAsideOutline .outline-title { font:9px/24px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:#556747; }
+.docs-site .VPDocAsideOutline .outline-title { font:11px/24px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:#556747; }
 .docs-site .VPDocAsideOutline .outline-link { font-size:12px; line-height:1.5; padding:6px 0; }
 .docs-site .VPDocAsideOutline .outline-marker { background:#648f31; }
 .docs-site .VPDocFooter .pager-link { border-radius:0; padding:20px; background:#e6eada; border-color:#c3cdb5; }
 .docs-site .VPDocFooter .title { font:600 18px var(--display); color:#375523; }
-.docs-site .VPDocFooter .desc { font:9px var(--mono); text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; }
+.docs-site .VPDocFooter .desc { font:11px var(--mono); text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; }
 .docs-site .dl .btn { border-radius:0; background:#c4f566; color:#17220f; border:1px solid #99b75c; box-shadow:none; font:600 13px var(--display); padding:14px 20px; }
 .docs-site .dl .fine { color:#657253; font-size:12px; }.docs-site .dl .fine b { color:#354d23; }
 .docs-site .VPLocalNav { background:#e6eada; border-bottom-color:#c6d0ba; color:#384c29; }
