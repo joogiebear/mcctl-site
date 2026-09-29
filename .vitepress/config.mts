@@ -15,6 +15,7 @@ const guide = [
   { text: 'Downloads & platforms', link: '/guide/beta' },
   { text: 'Databases', link: '/guide/databases' },
   { text: 'AI assistants', link: '/guide/ai-assistants' },
+  { text: 'Compare', link: '/guide/compare' },
   { text: 'How it works', link: '/guide/how-it-works' },
   { text: 'Security', link: '/guide/security' },
   { text: 'Troubleshooting', link: '/guide/troubleshooting' },

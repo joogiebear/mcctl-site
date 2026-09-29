@@ -20,6 +20,7 @@ const sections = [
     { title:'Sharing your server', text:'How friends join, and what to switch on first.', href:'/guide/sharing' },
     { title:'Security', text:'What stays local, and why.', href:'/guide/security' },
     { title:'Common questions', text:'Straight answers to the things people ask.', href:'/guide/faq' },
+    { title:'Compare', text:'SpawnLoft next to Aternos, Pterodactyl and Crafty, and where each one fits.', href:'/guide/compare' },
     { title:'AI assistants', text:'Let an AI app you choose check on and run your servers.', href:'/guide/ai-assistants' },
   ] },
 ]
