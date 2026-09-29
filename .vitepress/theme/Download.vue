@@ -3,18 +3,18 @@ import { onMounted, ref } from 'vue'
 
 const props = withDefaults(defineProps<{ size?: 'lg' | 'md'; fine?: boolean }>(), { size: 'md', fine: false })
 const release = 'https://github.com/joogiebear/spawnloft/releases/download/'
-const version = ref('v1.2.0')
+const version = ref('v1.4.0')
 const platforms = ref([
-  { id: 'windows', title: 'Windows', detail: '10 / 11 · x64', file: 'SpawnLoft-Setup-1.2.0.exe', match: /^SpawnLoft-Setup-[\d.]+\.exe$/ },
-  { id: 'arm64', title: 'macOS', detail: 'Apple Silicon', file: 'SpawnLoft-1.2.0-mac-arm64.dmg', match: /^SpawnLoft-[\d.]+-mac-arm64\.dmg$/ },
-  { id: 'x64', title: 'macOS', detail: 'Intel', file: 'SpawnLoft-1.2.0-mac-x64.dmg', match: /^SpawnLoft-[\d.]+-mac-x64\.dmg$/ },
-  { id: 'linux', title: 'Linux', detail: 'Ubuntu / Debian · x64', file: 'SpawnLoft-1.2.0-linux-amd64.deb', match: /^SpawnLoft-[\d.]+-linux-amd64\.deb$/ },
+  { id: 'windows', title: 'Windows', detail: '10 / 11 · x64', file: 'SpawnLoft-Setup-1.4.0.exe', match: /^SpawnLoft-Setup-[\d.]+\.exe$/ },
+  { id: 'arm64', title: 'macOS', detail: 'Apple Silicon', file: 'SpawnLoft-1.4.0-mac-arm64.dmg', match: /^SpawnLoft-[\d.]+-mac-arm64\.dmg$/ },
+  { id: 'x64', title: 'macOS', detail: 'Intel', file: 'SpawnLoft-1.4.0-mac-x64.dmg', match: /^SpawnLoft-[\d.]+-mac-x64\.dmg$/ },
+  { id: 'linux', title: 'Linux', detail: 'Ubuntu / Debian · x64', file: 'SpawnLoft-1.4.0-linux-amd64.deb', match: /^SpawnLoft-[\d.]+-linux-amd64\.deb$/ },
 ])
 // The other Linux desktop packages, and the command line alone for a server with no screen.
 const linux = ref([
-  { id: 'deb-arm64', label: 'Ubuntu / Debian · arm64', file: 'SpawnLoft-1.2.0-linux-arm64.deb', match: /^SpawnLoft-[\d.]+-linux-arm64\.deb$/ },
-  { id: 'rpm-x64', label: 'Fedora / RHEL · x64', file: 'SpawnLoft-1.2.0-linux-x86_64.rpm', match: /^SpawnLoft-[\d.]+-linux-x86_64\.rpm$/ },
-  { id: 'rpm-arm64', label: 'Fedora / RHEL · arm64', file: 'SpawnLoft-1.2.0-linux-aarch64.rpm', match: /^SpawnLoft-[\d.]+-linux-aarch64\.rpm$/ },
+  { id: 'deb-arm64', label: 'Ubuntu / Debian · arm64', file: 'SpawnLoft-1.4.0-linux-arm64.deb', match: /^SpawnLoft-[\d.]+-linux-arm64\.deb$/ },
+  { id: 'rpm-x64', label: 'Fedora / RHEL · x64', file: 'SpawnLoft-1.4.0-linux-x86_64.rpm', match: /^SpawnLoft-[\d.]+-linux-x86_64\.rpm$/ },
+  { id: 'rpm-arm64', label: 'Fedora / RHEL · arm64', file: 'SpawnLoft-1.4.0-linux-aarch64.rpm', match: /^SpawnLoft-[\d.]+-linux-aarch64\.rpm$/ },
 ])
 
 onMounted(async () => {
@@ -32,7 +32,7 @@ onMounted(async () => {
     platforms.value = platforms.value.map((platform, index) => ({ ...platform, file: assets[index].name }))
     linux.value = linux.value.map((item, index) => ({ ...item, file: linuxAssets[index].name }))
     version.value = latest.tag_name
-  } catch { /* The verified 1.2 links work without a GitHub API response. */ }
+  } catch { /* The verified 1.4 links work without a GitHub API response. */ }
 })
 </script>
 

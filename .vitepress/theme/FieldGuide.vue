@@ -9,13 +9,16 @@ const sections = [
   ] },
   { title:'Find your way around.', icon:'terminal', label:'MAKE IT YOURS', links:[
     { title:'The panel', text:'Your console, plugins, worlds, and backups.', href:'/guide/panel' },
+    { title:'Plugins and mods', text:'Install, update and manage what your server loads.', href:'/guide/plugins' },
+    { title:'Backups', text:'Snapshots, schedules, verification and restore.', href:'/guide/backups' },
     { title:'Databases', text:'Managed setup, connection details, and manual plugin configs.', href:'/guide/databases' },
     { title:'How it works', text:'The engine underneath your control room.', href:'/guide/how-it-works' },
     { title:'Command reference', text:'Commands, structured JSON, and performance exports.', href:'/reference/commands' },
   ] },
   { title:'Keep things running.', icon:'shield', label:'GET A HAND', links:[
     { title:'Troubleshooting', text:'Recognize the error. Find the next step.', href:'/guide/troubleshooting' },
-    { title:'Security & connections', text:'What stays local, and how friends can join.', href:'/guide/security' },
+    { title:'Sharing your server', text:'How friends join, and what to switch on first.', href:'/guide/sharing' },
+    { title:'Security', text:'What stays local, and why.', href:'/guide/security' },
     { title:'Common questions', text:'Straight answers to the things people ask.', href:'/guide/faq' },
     { title:'AI assistants', text:'Let an AI app you choose check on and run your servers.', href:'/guide/ai-assistants' },
   ] },
@@ -25,7 +28,7 @@ const sections = [
   <main class="field-guide">
     <section class="field-intro">
       <div><span class="field-label">SPAWNLOFT / DOCUMENTATION</span><h1>Your world.<br><span>Your field guide.</span></h1><p>From your first server to your next big idea.<br> Find the steps, the tools, and the answers.</p><a class="field-primary" href="/guide/getting-started">Start your first server <BrandIcon name="arrow" :size="20" /></a></div>
-      <nav class="quick-start" aria-label="Quick answers"><span class="field-label">WHAT BRINGS YOU HERE?</span><a href="/guide/getting-started"><span>01</span> I’m just getting started.<BrandIcon name="arrow" :size="19" /></a><a href="/guide/panel"><span>02</span> I want to do more.<BrandIcon name="arrow" :size="19" /></a><a href="/guide/troubleshooting"><span>03</span> Something needs a fix.<BrandIcon name="arrow" :size="19" /></a><p>New in 1.0: Windows and Mac, two app themes, MySQL and Redis, and CLI exports. <a href="/guide/beta">Explore the release →</a></p></nav>
+      <nav class="quick-start" aria-label="Quick answers"><span class="field-label">WHAT BRINGS YOU HERE?</span><a href="/guide/getting-started"><span>01</span> I’m just getting started.<BrandIcon name="arrow" :size="19" /></a><a href="/guide/panel"><span>02</span> I want to do more.<BrandIcon name="arrow" :size="19" /></a><a href="/guide/troubleshooting"><span>03</span> Something needs a fix.<BrandIcon name="arrow" :size="19" /></a><p>New in 1.4: a redesigned panel, a per-server overview, and AI assistants that edit plugin configuration. <a href="/guide/beta">Explore the release →</a></p></nav>
     </section>
     <section class="field-library" aria-labelledby="library-title"><div class="library-heading"><span class="field-label">THE LIBRARY</span><h2 id="library-title">A good place to find your feet.</h2><span>Guides & reference</span></div><div class="library-columns"><div v-for="section in sections" :key="section.title" class="library-column"><BrandIcon :name="section.icon" :size="35" /><span class="field-label">{{section.label}}</span><h3>{{section.title}}</h3><a v-for="link in section.links" :key="link.href" :href="link.href"><div><strong>{{link.title}}</strong><p>{{link.text}}</p></div><BrandIcon name="arrow" :size="18" /></a></div></div></section>
     <section class="field-panel"><div><span class="field-label">KNOW YOUR CONTROL ROOM</span><h2>Everything has<br> its place.</h2><p>Follow the console. Add a plugin. Take a backup. Get familiar with the panel you’ll use every day.</p><a href="/guide/panel">Take a look around <BrandIcon name="arrow" :size="19" /></a></div><a class="panel-capture" href="/guide/panel" aria-label="Explore the SpawnLoft panel"><img src="/img/tabs/console.webp" width="2558" height="1392" alt="The SpawnLoft desktop console, showing server controls and live logs." loading="lazy"><span>THE SPAWNLOFT APP / CONSOLE</span></a></section>

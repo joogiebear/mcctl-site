@@ -1,8 +1,8 @@
 # Troubleshooting
 
 When a server fails, SpawnLoft reads the console and names the cause wherever the failure surfaces:
-a strip under the server's vitals in the panel, advice under a failed `mcctl start`,
-`mcctl why <name>` from a terminal, and the Discord webhook message for a crash. Anything it does not
+a strip under the server's vitals in the panel, advice under a failed `spawnloft start`,
+`spawnloft why <name>` from a terminal, and the Discord webhook message for a crash. Anything it does not
 recognise stays a stack trace, honestly, rather than being guessed at.
 
 These are the failures it recognises, and the way out of each.
@@ -10,7 +10,7 @@ These are the failures it recognises, and the way out of each.
 ## The port is already taken
 
 Something else is listening on this server's port, usually another server or another copy of
-this one. `mcctl list` shows who. Change the port under **Manage** if both should run at once.
+this one. `spawnloft list` shows who. Change the port under **Settings** if both should run at once.
 
 ## The EULA is not accepted
 
@@ -20,19 +20,19 @@ and start again. Servers SpawnLoft creates ask at creation time.
 ## Java is too old for this server
 
 The server is built for a newer Java than the one that launched it. Install the Java it names
-and, if several are installed, point this server at it: **Manage** in the panel, or
-`mcctl set <name> java=<path-to-java.exe>`. Current Minecraft needs Java 25, 1.21 needs 21,
+and, if several are installed, point this server at it: **Settings** in the panel, or
+`spawnloft set <name> java=<path-to-java>`. Current Minecraft needs Java 25, 1.21 needs 21,
 1.18 to 1.20.4 need 17.
 
 ## The server ran out of memory
 
-It has its configured memory and wants more. Raise it under **Manage**. Modded servers usually
+It has its configured memory and wants more. Raise it under **Settings**, next to Java. Modded servers usually
 want 4G or more, and the machine has to have that to give.
 
 ## The disk is full
 
 The drive this server lives on has no room left, so saves and logs are failing. Free space, or
-move the data folder onto a drive that has some under **Settings**. `mcctl prune` thins old
+move the data folder onto a drive that has some under **Settings**. `spawnloft prune` thins old
 snapshots.
 
 ## A plugin is missing a dependency
@@ -54,7 +54,7 @@ tab.
 ## The world failed to load
 
 Part of the world data would not read back, usually after a hard power-off mid-save. Restore the
-latest snapshot from the Backups tab. `mcctl verify` proves which snapshots are whole.
+latest snapshot from the Backups tab. `spawnloft verify` proves which snapshots are whole.
 
 ## Something in the world crashed the server
 
@@ -70,10 +70,18 @@ was doing. More memory or fewer chunks loaded usually helps.
 
 ## The server jar is missing
 
-Java could not find the server jar. Re-download it, with `mcctl upgrade` for Paper or by
-choosing a jar again under **Manage**, or restore the folder from a snapshot.
+Java could not find the server jar. Re-download it, with `spawnloft upgrade` for Paper or by
+choosing a jar again under **Settings**, or restore the folder from a snapshot.
 
 ## Other things that look like failures
+
+**A database will not start on Linux.** Managed MySQL needs `libaio`, `libnuma` and `ncurses`. SpawnLoft fetches them from your distribution without `sudo`; where that cannot work it prints the command to run. Managed MySQL is not offered on arm64. See [Downloads & platforms](/guide/beta#install-on-linux).
+
+**Scheduled tasks stopped after I logged out (Linux).** systemd user timers stop at logout unless lingering is on. Run `spawnloft task linger on`.
+
+**`spawnloft doctor` reports RCON reachable from the internet.** This machine has a public address and no active firewall, and Minecraft cannot bind RCON separately from the game port. Enable a firewall that blocks incoming connections except the game port, or set `server-ip=127.0.0.1` if nobody else needs to join. See [Security](/guide/security).
+
+**An AI assistant's config change did nothing.** A plugin applies configuration when it reloads, often through `<plugin> reload`, or at the next restart, and some plugins write their configuration back when they stop. Restart the server, then check the file. To undo a change, restore its `before-edit_config_…` snapshot in **Backups**.
 
 **Windows protected your PC.** SmartScreen, not a problem with the installer. **More info**, then
 **Run anyway**. See [Questions](/guide/faq#windows-says-windows-protected-your-pc).
