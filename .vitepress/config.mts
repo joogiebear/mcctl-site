@@ -62,7 +62,7 @@ export default defineConfig({
   cleanUrls: true,
   scrollOffset: 120,
   lastUpdated: true,
-  srcExclude: ['README.md', 'art/**'],
+  srcExclude: ['README.md', 'art/**', 'tools/**'],
   appearance: 'force-dark',
   sitemap: { hostname: SITE },
   head: [
