@@ -109,9 +109,9 @@ onBeforeUnmount(()=>{ stopPortalTrip(); stop() })
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a href="/" class="site-logo" aria-label="SpawnLoft home"><BrandIcon name="mark" :size="31" /><span>spawnloft<span class="logo-period">.</span></span></a>
-      <nav class="desktop-nav" aria-label="Main navigation"><a href="#product">The app</a><a href="#inside">The possibilities</a><a href="/descent">The descent <BrandIcon name="arrow" :size="12" /></a><a href="/guide/">Docs <BrandIcon name="arrow" :size="12" /></a></nav>
+      <nav class="desktop-nav" aria-label="Main navigation"><a href="#product">The app</a><a href="#inside">The possibilities</a><a href="/descent">The descent <BrandIcon name="arrow" :size="12" /></a><a href="/blog/">Blog <BrandIcon name="arrow" :size="12" /></a><a href="/guide/">Docs <BrandIcon name="arrow" :size="12" /></a></nav>
       <div class="header-actions"><a class="github-link" href="https://github.com/joogiebear/spawnloft" aria-label="SpawnLoft on GitHub"><BrandIcon name="github" :size="21" /></a><a class="header-download" href="#download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a><button class="menu-toggle" @click="menu=!menu" :aria-expanded="menu" aria-controls="mobile-navigation" :aria-label="menu ? 'Close navigation' : 'Open navigation'"><BrandIcon :name="menu ? 'close' : 'menu'" /></button></div>
-      <nav v-if="menu" id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation" @click="menu=false"><a href="#product">Explore the app</a><a href="#inside">The possibilities</a><a href="/descent">The descent</a><a href="/guide/">Documentation</a><a href="#download">Get SpawnLoft</a></nav>
+      <nav v-if="menu" id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation" @click="menu=false"><a href="#product">Explore the app</a><a href="#inside">The possibilities</a><a href="/descent">The descent</a><a href="/blog/">Blog</a><a href="/guide/">Documentation</a><a href="#download">Get SpawnLoft</a></nav>
     </header>
     <main id="main">
       <section ref="hero" class="hero-journey" :style="{'--journey':heroProgress}">
