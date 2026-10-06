@@ -4,6 +4,7 @@ import { h, defineComponent } from 'vue'
 import { useData } from 'vitepress'
 import BackToTop from './BackToTop.vue'
 import Landing from './Landing.vue'
+import Descent from './Descent.vue'
 import Download from './Download.vue'
 import DocsChrome from './DocsChrome.vue'
 import './custom.css'
@@ -15,6 +16,8 @@ export default {
     const { frontmatter } = useData()
     return () => frontmatter.value.layout === 'showcase'
       ? h(Landing)
+      : frontmatter.value.layout === 'descent'
+      ? h(Descent)
       : h('div', { class: ['secondary-site', frontmatter.value.layout === 'page' ? 'editorial-site' : 'docs-site'] }, [h(DefaultTheme.Layout, null, {
         'layout-bottom': () => h(BackToTop),
         'doc-before': () => h(DocsChrome, { placement: 'before' }),
