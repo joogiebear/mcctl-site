@@ -24,6 +24,7 @@ npm run build    # .vitepress/dist
 - `public/social/` holds one 1200x630 social card per docs page, drawn by `tools/social-cards/build.mjs` from each page's title and description and committed (Vercel's build has no Chromium). Re-run `node tools/social-cards/build.mjs` when a title or description changes; a page with no card falls back to `public/brand/social-card.png`.
 - `BrandIcon.vue`, `public/brand/`, and `public/favicon.svg` contain the custom visual identity.
 - `guide/` and `reference/` are the docs, plain Markdown.
+- `blog/` holds the posts, plain Markdown. A post needs `title`, `description` and `date` (YYYY-MM-DD) in its frontmatter, with optional `author` and `tags`, plus `sidebar: false`, `aside: false` and `lastUpdated: false` for the single-column layout. Quote any value that contains a colon, or the YAML will not parse. Posts join the listing (`BlogIndex.vue`, through `blog.data.ts`) and the RSS feed at `/blog/feed.xml`, which `buildEnd` in the config writes on every build. Put images in `public/img/blog/` and wrap figures in `<figure class="post-figure">`. After adding a post, draw its share card with `node tools/social-cards/build.mjs blog-<slug>`.
 - `.vitepress/theme/custom.css` carries the website's brand tokens and documentation styling.
 - `.vitepress/theme/Download.vue` asks GitHub for the latest release and points the button at
   the installer, so the version on the site never goes stale.

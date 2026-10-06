@@ -30,13 +30,14 @@ function readPage(relativePath) {
   const front = /^---\n([\s\S]*?)\n---/.exec(source)?.[1] ?? ''
   const field = name => new RegExp(`^${name}:\\s*(.+)$`, 'm').exec(front)?.[1].trim().replace(/^['"]|['"]$/g, '')
   const heading = /^# (.+)$/m.exec(source)?.[1].trim()
-  const section = relativePath.startsWith('guide/') ? 'FIELD GUIDE' : relativePath.startsWith('reference/') ? 'REFERENCE' : relativePath.replace(/\.md$/, '').toUpperCase()
+  const section = relativePath.startsWith('guide/') ? 'FIELD GUIDE' : relativePath.startsWith('reference/') ? 'REFERENCE' : relativePath.startsWith('blog/') ? 'BLOG' : relativePath.replace(/\.md$/, '').toUpperCase()
   return { relativePath, slug: cardSlug(relativePath), title: field('title') || heading, description: field('description') || '', section }
 }
 
 const files = ['changelog.md', 'roadmap.md',
   ...fs.readdirSync(path.join(ROOT, 'guide')).filter(f => f.endsWith('.md')).map(f => `guide/${f}`),
-  ...fs.readdirSync(path.join(ROOT, 'reference')).filter(f => f.endsWith('.md')).map(f => `reference/${f}`)]
+  ...fs.readdirSync(path.join(ROOT, 'reference')).filter(f => f.endsWith('.md')).map(f => `reference/${f}`),
+  ...fs.readdirSync(path.join(ROOT, 'blog')).filter(f => f.endsWith('.md')).map(f => `blog/${f}`)]
 const only = process.argv[2]
 const pages = files.map(readPage).filter(p => p.title && (!only || p.slug === only))
 if (!pages.length) throw new Error(only ? `No page has the card name ${only}.` : 'No pages found.')

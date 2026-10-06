@@ -78,3 +78,10 @@
 @media(max-width:959px) { .docs-site .VPSidebar { padding-top:32px; }.secondary-site .VPNavBarTitle .title { font-size:24px; }.docs-site .VPDoc { padding-top:35px; } }
 @media(max-width:600px) { .secondary-site { --vp-nav-height:64px; }.docs-site .vp-doc h1 { font-size:42px; }.docs-site .vp-doc h1+p { font-size:16px; }.docs-site .vp-doc h2 { font-size:28px; margin-top:35px; }.docs-site .vp-doc p,.docs-site .vp-doc li { font-size:14px; }.docs-site .vp-doc td,.docs-site .vp-doc th { padding:11px; }.docs-site .VPDoc { padding-bottom:55px; } }
 @media(prefers-reduced-motion:reduce) { .secondary-site * { scroll-behavior:auto!important; }.docs-site .VPSidebarItem.level-1>.item { transition:none; } }
+
+/* Blog posts: figures sit on the dark shell colour, because the island posters are transparent renders made for a dark page. */
+.docs-site .vp-doc .post-figure { margin:34px 0; background:#090d0d; border:1px solid #293323; border-radius:3px; overflow:hidden; }
+.docs-site .vp-doc .post-figure img { display:block; border:0; border-radius:0; width:100%; max-width:100%; max-height:520px; height:auto; margin:0 auto; object-fit:contain; }
+.docs-site .vp-doc .post-figure.is-poster img { width:auto; }
+.docs-site .vp-doc .post-figure figcaption { padding:12px 16px; border-top:1px solid #293323; font:12px/1.6 var(--mono); color:#9ba990; }
+.docs-site .vp-doc .post-figure figcaption a { color:#c4f566; }
