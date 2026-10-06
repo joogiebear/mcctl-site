@@ -100,7 +100,9 @@ export async function createWorld(canvas: HTMLCanvasElement, reduced: boolean): 
   const v3 = (a: number[]) => new T.Vector3(a[0], a[1], a[2])
   const camCurve = new T.CatmullRomCurve3([[30, 30, 70], [22, 16, 60], [58, -2, 44], [-30, -30, 44], [24, -62, 48], [2, -92, 30]].map(v3), false, 'catmullrom', 0.5)
   const lookCurve = new T.CatmullRomCurve3([[-13, 6, 0], [-12, 5, 0], [-30, 0, 2], [-12, -36, -10], [-15, -66, -6], [-9, -100, 0]].map(v3), false, 'catmullrom', 0.5)
-  const pathSamples = camCurve.getPoints(160)
+  // On narrower windows the camera is pulled back (see `framing`), so keep debris clear of those paths too.
+  const lookSamples = lookCurve.getPoints(160)
+  const pathSamples = camCurve.getPoints(160).flatMap((p, i) => [1, 1.15, 1.3].map(f => p.clone().sub(lookSamples[i]).multiplyScalar(f).add(lookSamples[i])))
 
   // Debris that whips past the camera on the way down. Nothing is placed on the camera's own path.
   type Chip = { x: number; y: number; z: number; s: number; rx: number; ry: number; c: THREE.Color }
@@ -187,6 +189,10 @@ export async function createWorld(canvas: HTMLCanvasElement, reduced: boolean): 
   scene.add(new T.Points(eGeo, new T.PointsMaterial({ color: 0xc4f566, size: 0.28, transparent: true, opacity: 0.8, depthWrite: false, toneMapped: false })))
 
   let time = 0, cx = 0, cy = 0
+  // Framing for the window's shape. The island is placed for wide screens, where the copy column leaves it room.
+  // As the window gets closer to square, the camera backs off and the picture shifts right, so the island stays
+  // clear of the text. Wide screens and phones are left as authored.
+  let framing = 1
   const lookAt = new T.Vector3(), fwd = new T.Vector3(), right = new T.Vector3(), up = new T.Vector3(), proj = new T.Vector3()
   let lostHandler = () => {}
   const lost = (event: Event) => { event.preventDefault(); lostHandler() }
@@ -207,6 +213,7 @@ export async function createWorld(canvas: HTMLCanvasElement, reduced: boolean): 
       const t = u / (KEYS.length - 1)
       camCurve.getPoint(t, camera.position)
       lookCurve.getPoint(t, lookAt)
+      camera.position.sub(lookAt).multiplyScalar(framing).add(lookAt)
       const k = reduced ? 0 : 1 - Math.exp(-7 * dt)
       cx += (px - cx) * k; cy += (py - cy) * k
       // Moving the camera and re-aiming at the same target is what makes near objects shift more than far ones.
@@ -238,10 +245,15 @@ export async function createWorld(canvas: HTMLCanvasElement, reduced: boolean): 
     },
     resize(width, height) {
       const narrow = width < 760
+      const aspect = width / height
+      framing = narrow ? 1 : clamp(1.7 / aspect, 1, 1.3)
+      const shift = narrow ? 0 : clamp((1.7 - aspect) * 0.15, 0, 0.06)
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, narrow ? 1.25 : 1.5))
       renderer.setSize(width, height, false)
       camera.aspect = width / height
       camera.fov = narrow ? 62 : 42
+      if (shift > 0) camera.setViewOffset(width, height, -shift * width, 0, width, height)
+      else camera.clearViewOffset()
       camera.updateProjectionMatrix()
     },
     onContextLost(handler) { lostHandler = handler },

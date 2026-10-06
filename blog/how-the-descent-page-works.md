@@ -12,7 +12,7 @@ aside: false
 # How the Descent page works
 
 <figure class="post-figure">
-  <img src="/img/blog/descent-command.webp" width="800" height="609" alt="The Descent page at its Command chapter: headline and paragraph on the left, a giant outlined word along the bottom, the island on the right and a height gauge at the edge.">
+  <img src="/img/blog/descent-command.webp" width="800" height="600" alt="The Descent page at its Command chapter: headline and paragraph on the left, a giant outlined word along the bottom, the island on the right and a height gauge at the edge.">
   <figcaption>The <a href="/descent">Descent page</a> at its Command chapter. The copy, the outlined word and the island each move at their own rate.</figcaption>
 </figure>
 
