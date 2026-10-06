@@ -1,6 +1,8 @@
 import fs from 'node:fs'
-import { defineConfig, type HeadConfig } from 'vitepress'
+import path from 'node:path'
+import { createContentLoader, defineConfig, type HeadConfig } from 'vitepress'
 import { cardSlug } from '../tools/social-cards/slug.mjs'
+import { isPost, newestFirst, toPost } from './theme/posts'
 
 // The project site: a landing page plus the docs, both in the app's own palette.
 const reference = [
@@ -81,6 +83,7 @@ export default defineConfig({
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'theme-color', content: '#090d0d' }],
     ['link', { rel: 'manifest', href: '/manifest.webmanifest' }],
+    ['link', { rel: 'alternate', type: 'application/rss+xml', title: 'SpawnLoft blog', href: '/blog/feed.xml' }],
     // Vercel Web Analytics: cookieless, no personal data. Serves nothing until it is switched on
     // for the project in the Vercel dashboard, and the site works the same without it.
     ['script', { defer: '', src: '/_vercel/insights/script.js' }],
@@ -111,7 +114,39 @@ export default defineConfig({
       ['meta', { name: 'twitter:image', content: image }],
     )
     if (home) head.push(['script', { type: 'application/ld+json' }, JSON.stringify(SOFTWARE)])
+    // Posts are articles, with a publish date for the people and feeds that read it.
+    if (pageData.relativePath.startsWith('blog/') && pageData.relativePath !== 'blog/index.md') {
+      head.push(['meta', { property: 'og:type', content: 'article' }])
+      if (pageData.frontmatter.date) head.push(['meta', { property: 'article:published_time', content: new Date(String(pageData.frontmatter.date)).toISOString() }])
+    }
     return head
+  },
+  // The RSS feed: a summary and a link for every post, newest first. Written next to the built pages.
+  async buildEnd(siteConfig) {
+    const raws = await createContentLoader('blog/*.md', { includeSrc: true, render: false, excerpt: false }).load()
+    const posts = raws.filter(isPost).map(toPost).sort(newestFirst)
+    const xml = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    const items = posts.map(post => `    <item>
+      <title>${xml(post.title)}</title>
+      <link>${SITE}${post.url}</link>
+      <guid isPermaLink="true">${SITE}${post.url}</guid>
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+      <description>${xml(post.description)}</description>
+    </item>`).join('\n')
+    const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SpawnLoft blog</title>
+    <link>${SITE}/blog/</link>
+    <description>Notes on building SpawnLoft in the open: how it works, how it looks, and the decisions behind both.</description>
+    <language>en</language>
+    <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml" />
+${items}
+  </channel>
+</rss>
+`
+    fs.mkdirSync(path.join(siteConfig.outDir, 'blog'), { recursive: true })
+    fs.writeFileSync(path.join(siteConfig.outDir, 'blog', 'feed.xml'), feed)
   },
   themeConfig: {
     logo: '/brand/mark.svg',
@@ -120,6 +155,7 @@ export default defineConfig({
       { text: 'Field guide', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Changelog', link: '/changelog' },
       { text: 'Roadmap', link: '/roadmap' },
+      { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },
     ],
     sidebar: {
       '/guide/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Do more with it', items: useCases }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
