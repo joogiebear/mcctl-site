@@ -69,7 +69,8 @@ export default defineConfig({
   lastUpdated: true,
   srcExclude: ['README.md', 'art/**', 'tools/**'],
   appearance: 'force-dark',
-  sitemap: { hostname: SITE },
+  // /descent is an unlisted preview of an alternative hero, so it stays out of the sitemap as well as out of search.
+  sitemap: { hostname: SITE, transformItems: items => items.filter(item => !item.url.includes('descent')) },
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
