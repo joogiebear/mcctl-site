@@ -23,7 +23,7 @@ export default {
         'doc-before': () => h(DocsChrome, { placement: 'before' }),
         'doc-after': () => h(DocsChrome, { placement: 'after' }),
         'sidebar-nav-before': () => h(DocsChrome, { placement: 'sidebar' }),
-        'nav-bar-content-after': () => h('a', { href: '/#download', class: 'docs-download' }, 'Get SpawnLoft ↗'),
+        'nav-bar-content-after': () => h('a', { href: '/get-started', class: 'docs-download' }, 'Get SpawnLoft ↗'),
       })])
   } }),
   enhanceApp({ app }) {
