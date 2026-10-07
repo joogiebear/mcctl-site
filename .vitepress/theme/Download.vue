@@ -73,7 +73,10 @@ onMounted(async () => {
 .platform small { font: 11px/1.6 var(--mono); }
 a.platform:hover { background: #090d0d; color: #c4f566; text-decoration: none; }
 .more-linux { margin: -6px 0 0; font: 12px/1.8 var(--ui); opacity: .85; }
-.more-linux a { color: inherit; text-underline-offset: 4px; }
+/* These sit inline inside a sentence, in the same colour as the prose around them, so without
+   a rule they read as plain text and nothing marks them as the other Linux downloads. */
+.more-linux a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.more-linux a:hover { text-decoration-thickness: 2px; }
 .fine { font: 12px/1.8 var(--ui); opacity: .75; }
 .setup-link { font: 12px var(--ui); color: inherit; text-underline-offset: 4px; }
 a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }

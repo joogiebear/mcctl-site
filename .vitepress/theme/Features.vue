@@ -139,7 +139,13 @@ const limits = [
       <div class="screens-grid">
         <figure v-for="screen in screens" :key="screen.image">
           <img :src="`/img/tabs/${screen.image}.webp`" :alt="`The SpawnLoft ${screen.image} panel, captured from the running app.`" width="2558" height="1392" loading="lazy" decoding="async">
-          <figcaption><strong>{{ screen.title }}</strong><span>{{ screen.text }}</span></figcaption>
+          <figcaption>
+            <strong>{{ screen.title }}</strong>
+            <span>{{ screen.text }}</span>
+            <!-- A 2558px capture shrunk into a phone is unreadable, so offer the real file —
+                 the same escape hatch ProductExplorer gives on the landing page. -->
+            <a :href="`/img/tabs/${screen.image}.webp`" target="_blank" rel="noopener">Open the full capture <BrandIcon name="external" :size="13" /></a>
+          </figcaption>
         </figure>
       </div>
     </section>
@@ -244,7 +250,8 @@ h1 span { color:#c4f566; }
 .screens-grid img { display:block; width:100%; height:auto; border:1px solid #b6bfac; }
 .screens-grid figcaption { margin-top:18px; }
 .screens-grid strong { display:block; font:600 19px var(--display); letter-spacing:-.03em; margin-bottom:8px; }
-.screens-grid figcaption span { font-size:13px; line-height:1.7; color:#5d6757; }
+.screens-grid figcaption span { display:block; font-size:13px; line-height:1.7; color:#5d6757; }
+.screens-grid figcaption a { display:inline-flex; align-items:center; gap:10px; margin-top:14px; font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:#172016; border-bottom:1px solid #89917b; padding-bottom:5px; }
 
 /* Platforms: honest about where a capability narrows, in the same breath as the yes. */
 .feat-platforms { max-width:1320px; margin:auto; padding:85px 5vw 90px; }
@@ -305,7 +312,8 @@ h1 span { color:#c4f566; }
   .feat-jobs { padding:43px 22px; }
   .jobs-heading h2 { font-size:30px; }
   .jobs-heading>span:last-child { margin:0; }
-  .jobs-grid>article>svg { float:right; margin:0; }
+  /* float does nothing to a flex child; the cards just want a tighter icon gap on a phone. */
+  .jobs-grid>article>svg { margin-bottom:14px; }
   .jobs-grid h3 { font-size:26px; }
   .jobs-grid p { max-width:none; }
   .feat-integrations { padding:50px 22px; }

@@ -299,10 +299,10 @@ h1 span { color:#c4f566; }
   .start-platforms { padding:48px 22px; }
   .plat-heading h2 { font-size:32px; }
   .plat-list { margin-top:32px; }
-  .plat-list button { padding:22px 0; gap:14px; flex-wrap:wrap; }
+  .plat-list summary { padding:22px 0; gap:14px; flex-wrap:wrap; }
   .plat-name { font-size:21px; }
   .plat-detail { width:100%; order:3; flex-basis:100%; }
-  .plat-list button>svg:last-child { order:2; }
+  .plat-list summary>svg:last-child { order:2; }
   .start-honest { padding:44px 22px; }
   .start-honest>svg { display:none; }
   .start-honest h2 { font-size:31px; }
@@ -313,5 +313,5 @@ h1 span { color:#c4f566; }
   .start-stuck { padding:40px 22px; }
   .start-stuck nav { gap:18px; }
 }
-@media(prefers-reduced-motion:reduce) { .plat-list button>svg:last-child,.next-grid a,.next-grid a>svg:last-child { transition:none; } }
+@media(prefers-reduced-motion:reduce) { .plat-list summary>svg:last-child,.next-grid a,.next-grid a>svg:last-child { transition:none; } }
 </style>
