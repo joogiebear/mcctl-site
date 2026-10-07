@@ -152,6 +152,8 @@ ${items}
     logo: '/brand/mark.svg',
     siteTitle: 'SpawnLoft',
     nav: [
+      { text: 'Features', link: '/features' },
+      { text: 'Get started', link: '/get-started' },
       { text: 'Field guide', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Changelog', link: '/changelog' },
       { text: 'Roadmap', link: '/roadmap' },

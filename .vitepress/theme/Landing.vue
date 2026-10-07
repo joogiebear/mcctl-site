@@ -109,9 +109,9 @@ onBeforeUnmount(()=>{ stopPortalTrip(); stop() })
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a href="/" class="site-logo" aria-label="SpawnLoft home"><BrandIcon name="mark" :size="31" /><span>spawnloft<span class="logo-period">.</span></span></a>
-      <nav class="desktop-nav" aria-label="Main navigation"><a href="#product">The app</a><a href="#inside">The possibilities</a><a href="/descent">The descent <BrandIcon name="arrow" :size="12" /></a><a href="/blog/">Blog <BrandIcon name="arrow" :size="12" /></a><a href="/guide/">Docs <BrandIcon name="arrow" :size="12" /></a></nav>
+      <nav class="desktop-nav" aria-label="Main navigation"><a href="#product">The app</a><a href="#inside">The possibilities</a><a href="/features">Features <BrandIcon name="arrow" :size="12" /></a><a href="/descent">The descent <BrandIcon name="arrow" :size="12" /></a><a href="/blog/">Blog <BrandIcon name="arrow" :size="12" /></a><a href="/guide/">Docs <BrandIcon name="arrow" :size="12" /></a></nav>
       <div class="header-actions"><a class="github-link" href="https://github.com/joogiebear/spawnloft" aria-label="SpawnLoft on GitHub"><BrandIcon name="github" :size="21" /></a><a class="header-download" href="#download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a><button class="menu-toggle" @click="menu=!menu" :aria-expanded="menu" aria-controls="mobile-navigation" :aria-label="menu ? 'Close navigation' : 'Open navigation'"><BrandIcon :name="menu ? 'close' : 'menu'" /></button></div>
-      <nav v-if="menu" id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation" @click="menu=false"><a href="#product">Explore the app</a><a href="#inside">The possibilities</a><a href="/descent">The descent</a><a href="/blog/">Blog</a><a href="/guide/">Documentation</a><a href="#download">Get SpawnLoft</a></nav>
+      <nav v-if="menu" id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation" @click="menu=false"><a href="#product">Explore the app</a><a href="#inside">The possibilities</a><a href="/features">Features</a><a href="/descent">The descent</a><a href="/blog/">Blog</a><a href="/guide/">Documentation</a><a href="/get-started">Get started</a><a href="#download">Get SpawnLoft</a></nav>
     </header>
     <main id="main">
       <section ref="hero" class="hero-journey" :style="{'--journey':heroProgress}">
@@ -193,6 +193,18 @@ main { padding-top:72px; }.eyebrow { font:11px/1.6 var(--mono); letter-spacing:.
 .site-footer { padding:40px 5vw 20px; }.footer-top { display:grid; grid-template-columns:1fr 1fr 1fr; align-items:start; gap:25px; }.footer-top p { color:#8a987d; font-size:12px; margin:0; }.footer-top nav { display:grid; grid-template-columns:1fr 1fr; gap:12px 25px; }.footer-top nav a { font-size:11px; color:#b8c5ab; }.footer-bottom { margin-top:45px; padding-top:20px; border-top:1px solid #d0e6b91a; display:flex; gap:25px; justify-content:space-between; color:#718064; font:11px/1.7 var(--mono); letter-spacing:.05em; }.footer-bottom a { color:#c1cfb3; }
 .sl-reveal { transition:transform .5s cubic-bezier(.2,.7,.2,1); }.sl-reveal.revealed { animation:rise .55s both; }@keyframes rise { from { transform:translateY(24px); } to { transform:none; } }
 @media(max-width:1100px) { .hero-wordmark { font-size:18vw; }.hero-convert { max-width:355px; }.hero-convert p { font-size:11px; }.world-turn { top:47%; }.inside-copy { width:43%; }.inside-copy h2 { font-size:48px; }.inside-world { width:65%; right:-8%; }.benefit-row { gap:30px; }.compat-strip>div { gap:25px; font-size:15px; } }
+/* The showcase nav runs out of room long before the phone breakpoint: at 1000px and below the
+   links wrap onto two lines, "The app" lands on top of the wordmark and "Docs" collides with the
+   GitHub mark. Collapse to the hamburger while the row still fits — the mobile nav carries every
+   link, so nothing is lost. Must stay above the 600px block, which re-points mobile-nav at the
+   shorter header. */
+@media(max-width:1050px) {
+  .desktop-nav,.github-link,.header-download { display:none; }
+  .menu-toggle { display:block; color:var(--sl-lime); cursor:pointer; padding:10px; }
+  .header-actions { gap:0; }
+  .mobile-nav { position:absolute; display:grid; top:72px; left:0; right:0; padding:20px; background:#111a0f; border-bottom:1px solid #81976655; gap:0; }
+  .mobile-nav a { color:var(--sl-paper); padding:16px 5px; border-bottom:1px solid #a8bb9222; font-size:16px; }
+}
 @media(min-width:851px) and (max-height:760px) { .hero-screen { min-height:0; }.hero-wordmark { top:30px; font-size:15vw; left:10vw; }.hero-bottom { bottom:47px; }.hero-promise h2 { font-size:31px; }.hero-convert p { font-size:11px; }.hero-topline { top:15px; }.world-coordinate { top:43%; }.world-turn { top:42%; }.inside-screen { min-height:0; }.inside-copy { top:13%; }.inside-copy h2 { font-size:39px; margin-bottom:12px; }.layer-buttons button { padding:12px 0; }.layer-text>span { font-size:11px; }.inside-caption { bottom:9%; } }
 @media(max-width:850px) { .desktop-nav { gap:20px; }.world-coordinate { display:none; }.hero-bottom { bottom:60px; gap:25px; }.hero-promise h2 { font-size:29px; }.hero-convert { max-width:330px; }.world-turn { top:45%; right:4vw; font-size:11px!important; }.inside-journey { height:auto; }.inside-screen { height:auto; min-height:0; display:flex; flex-direction:column; padding:34px 5vw 55px; }.inside-top { position:static; }.inside-copy { position:relative; left:auto; top:auto; width:100%; margin-top:25px; }.inside-copy h2 { font-size:52px; }.inside-copy h2 br { display:none; }.inside-copy h2 { max-width:590px; }.layer-buttons { max-width:none; }.inside-world { position:relative; width:100%; right:auto; top:auto; height:430px; order:2; }.inside-caption { position:static; order:3; justify-content:center; font-size:11px; }.inside-progress { display:none; }.layer-buttons button { padding:13px 0; }.layer-text>span { max-width:500px; }.manifesto h2 { font-size:55px; }.launch-guide { gap:6vw; }.footer-top { grid-template-columns:1fr 1fr; }.footer-top p { display:none; } }
 @media(max-width:600px) {
