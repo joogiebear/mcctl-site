@@ -65,6 +65,7 @@ the outputs: Vercel's build does not run it. `Figure` reads them with `:widths="
 ## The lab page
 
 `Descent.vue` (`/lab/descent`, the scroll-driven 3D experiment) predates the system and keeps its own
-chrome and three.js scene. It reads the system's tokens (`--bg`, `--fg`, `--accent`, `--line`, the
-fonts) but none of its components, and it is the only page that loads three.js. It stays out of the
-nav, the sitemap and search; retire it or move it onto the system, nothing else depends on it.
+chrome and three.js scene. It reads the system's tokens (`--bg`, `--fg`, `--fg-2`, `--accent`, `--line`,
+`--r1`, the fonts) but none of its components, and it is the only page that loads three.js. It stays
+out of the nav, the sitemap and search. Two blog posts link to it (`how-the-descent-page-works` is
+about it), so retiring it means retiring or rewording those too.
