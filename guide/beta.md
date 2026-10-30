@@ -99,6 +99,7 @@ Each release's notes are in the [changelog](/changelog). Recent highlights:
 
 | Version | Highlights |
 | --- | --- |
+| 1.5 | **Files** in the panel, an **Activity** history per server, scheduled tasks of several steps, named backups you can keep, Java arguments of your own, the console in its own window, interface size, test players for plugins, servers and their tools in a sidebar |
 | 1.4 | Redesigned panel with the console beside a tool dock, a per-server overview, settings as one form, database backups, AI assistants that edit plugin configuration, update checks for Purpur, Folia and Advanced Slime Paper |
 | 1.3 | [AI assistants](/guide/ai-assistants), plugin installs snapshot first, faster **Backups** on Windows, database setup no longer freezes the app |
 | 1.2 | `.rpm` packages, arm64 packages, `spawnloft-cli`, **Get beta builds** as a setting, `spawnloft task linger on` |

@@ -52,6 +52,10 @@ colour, a px font size or `transition: all`. Add a token instead. The GitHub Act
 `site-checks.yml` runs the lint, the build and Lighthouse with the budgets in `lighthouserc.json`
 on every pull request.
 
+An axe run (WCAG 2.0 A and AA plus best practice) is clean on the marketing pages. Docs pages keep two
+best-practice notes from VitePress itself: the skip link and the edit-link footer sit outside any
+landmark. The footer is given `role="group"` in `Layout.vue` so it is not a second contentinfo.
+
 ## Images
 
 Masters live under `public/img/`. `npm run images` writes the 800, 1280 and 2558px WebP and AVIF
@@ -61,5 +65,7 @@ the outputs: Vercel's build does not run it. `Figure` reads them with `:widths="
 ## The lab page
 
 `Descent.vue` (`/lab/descent`, the scroll-driven 3D experiment) predates the system and keeps its own
-chrome. It reads the legacy aliases at the bottom of `tokens.css`; those go when it is either moved
-onto the system or retired.
+chrome and three.js scene. It reads the system's tokens (`--bg`, `--fg`, `--fg-2`, `--accent`, `--line`,
+`--r1`, the fonts) but none of its components, and it is the only page that loads three.js. It stays
+out of the nav, the sitemap and search. Two blog posts link to it (`how-the-descent-page-works` is
+about it), so retiring it means retiring or rewording those too.

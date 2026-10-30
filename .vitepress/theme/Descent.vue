@@ -179,23 +179,23 @@ onBeforeUnmount(() => { destroyed = true; cleanup() })
 </template>
 
 <style scoped>
-.descent { --gutter: clamp(16px, 6vw, 96px); background: var(--void); color: var(--ink); min-height: 100vh; }
+.descent { --gutter: clamp(16px, 6vw, 96px); background: var(--bg); color: var(--fg); min-height: 100vh; }
 .descent a { color: inherit; }
-.descent :focus-visible { outline: 2px solid var(--lapis); outline-offset: 3px; }
+.descent :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .descent-bar { position: fixed; z-index: 20; inset: 0 0 auto 0; display: flex; justify-content: space-between; align-items: center; gap: 12px;
   padding: 14px var(--gutter); background: linear-gradient(180deg, rgba(9,13,13,.88), rgba(9,13,13,0)); }
 .descent-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .descent-brand b { font: 700 1.15rem/1 var(--display); letter-spacing: -.01em; }
-.descent-bar nav { display: flex; align-items: center; gap: 22px; font: 500 .9rem/1 var(--ui); }
+.descent-bar nav { display: flex; align-items: center; gap: 22px; font: 500 .9rem/1 var(--text); }
 .descent-bar nav a { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-.descent-bar nav a:hover { color: var(--lapis); }
-.descent-get { padding: 11px 16px; background: var(--lapis-dim); color: var(--void) !important; border: 1px solid var(--lapis); border-radius: var(--r-sm); font-weight: 600; }
+.descent-bar nav a:hover { color: var(--accent); }
+.descent-get { padding: 11px 16px; background: var(--accent); color: var(--bg) !important; border: 1px solid var(--accent); border-radius: var(--r1); font-weight: 600; }
 .descent-get:hover { background: #d9ffa1; }
 
 .descent-scroller { position: relative; height: 640vh; }
 .descent-stage { position: sticky; top: 0; height: 100vh; min-height: 520px; overflow: hidden;
-  background: radial-gradient(120% 90% at 70% 30%, #16201a 0%, var(--void) 60%); }
+  background: radial-gradient(120% 90% at 70% 30%, #16201a 0%, var(--bg) 60%); }
 .descent-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .9s ease; }
 .descent-canvas.on { opacity: 1; }
 .no-gl .descent-canvas { display: none; }
@@ -203,35 +203,35 @@ onBeforeUnmount(() => { destroyed = true; cleanup() })
 
 .descent-words { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .descent-word { position: absolute; right: -2vw; bottom: 4vh; font: 800 clamp(5rem, 21vw, 17rem)/.8 var(--display); letter-spacing: -.045em; text-transform: uppercase;
-  color: transparent; -webkit-text-stroke: 1.5px var(--lapis); opacity: 0; white-space: nowrap; transform: translate3d(calc(var(--d, 0) * -1200px), 0, 0); }
+  color: transparent; -webkit-text-stroke: 1.5px var(--accent); opacity: 0; white-space: nowrap; transform: translate3d(calc(var(--d, 0) * -1200px), 0, 0); }
 
 .descent-panel { position: absolute; inset: 0; display: flex; align-items: center; padding: 72px var(--gutter); pointer-events: none; opacity: 0; }
 /* Resting state, so the first view is complete before any script runs. The scroll code sets inline opacity from then on. */
 .descent-panel.first { opacity: 1; }
 .descent-panel.on { pointer-events: auto; }
 .descent-copy { max-width: 30rem; min-width: 0; }
-.descent-eyebrow { margin: 0 0 18px; font: 500 .72rem/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--lapis); }
+.descent-eyebrow { margin: 0 0 18px; font: 500 .72rem/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
 .descent-copy :is(h1, h2) { margin: 0 0 18px; font: 700 clamp(2.4rem, 6.2vw, 5rem)/.94 var(--display); letter-spacing: -.035em; text-wrap: balance;
   transform: translate3d(0, calc(var(--d, 0) * -300px), 0); }
-.descent-body { margin: 0; max-width: 27rem; color: var(--ink-2); font-size: 1.05rem; transform: translate3d(0, calc(var(--d, 0) * -440px), 0); }
-.descent-cta { margin-top: 28px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; background: var(--lapis-dim); color: var(--void) !important;
-  border: 1px solid var(--lapis); border-radius: var(--r-sm); font: 600 .95rem/1 var(--ui); text-decoration: none; transform: translate3d(0, calc(var(--d, 0) * -560px), 0); }
+.descent-body { margin: 0; max-width: 27rem; color: var(--fg-2); font-size: 1.05rem; transform: translate3d(0, calc(var(--d, 0) * -440px), 0); }
+.descent-cta { margin-top: 28px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; background: var(--accent); color: var(--bg) !important;
+  border: 1px solid var(--accent); border-radius: var(--r1); font: 600 .95rem/1 var(--text); text-decoration: none; transform: translate3d(0, calc(var(--d, 0) * -560px), 0); }
 .descent-cta:hover { background: #d9ffa1; }
 
 .descent-gauge { position: absolute; right: var(--gutter); top: 50%; height: 46vh; min-height: 220px; width: 120px; transform: translateY(-50%); pointer-events: none;
-  font: 500 .66rem/1 var(--mono); letter-spacing: .1em; color: var(--ink-2); }
+  font: 500 .66rem/1 var(--mono); letter-spacing: .1em; color: var(--fg-2); }
 .descent-rail { position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
 .descent-tick { position: absolute; right: 0; display: flex; align-items: center; gap: 8px; transform: translateY(-50%); white-space: nowrap; }
-.descent-tick::after { content: ""; width: 10px; height: 1px; background: var(--ink-2); }
-.descent-mark { position: absolute; right: -4px; top: 0; width: 9px; height: 9px; background: var(--lapis); transform: translateY(-50%); box-shadow: 0 0 14px 2px rgba(196,245,102,.6); }
-.descent-readout { position: absolute; right: 0; top: -52px; text-align: right; color: var(--ink); white-space: nowrap; }
-.descent-readout em { display: block; margin-top: 5px; font-style: normal; color: var(--lapis); }
+.descent-tick::after { content: ""; width: 10px; height: 1px; background: var(--fg-2); }
+.descent-mark { position: absolute; right: -4px; top: 0; width: 9px; height: 9px; background: var(--accent); transform: translateY(-50%); box-shadow: 0 0 14px 2px rgba(196,245,102,.6); }
+.descent-readout { position: absolute; right: 0; top: -52px; text-align: right; color: var(--fg); white-space: nowrap; }
+.descent-readout em { display: block; margin-top: 5px; font-style: normal; color: var(--accent); }
 
 .descent-tags span { position: absolute; left: 0; top: 0; padding: 4px 7px; border: 1px solid rgba(196,245,102,.4); background: rgba(9,13,13,.6);
-  font: 500 .66rem/1 var(--mono); letter-spacing: .12em; color: var(--lapis); opacity: 0; white-space: nowrap; pointer-events: none; }
+  font: 500 .66rem/1 var(--mono); letter-spacing: .12em; color: var(--accent); opacity: 0; white-space: nowrap; pointer-events: none; }
 .descent-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px;
-  font: 500 .68rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); transition: opacity .4s; pointer-events: none; }
-.descent-hint::after { content: ""; width: 1px; height: 28px; background: linear-gradient(var(--lapis), transparent); }
+  font: 500 .68rem/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--fg-2); transition: opacity .4s; pointer-events: none; }
+.descent-hint::after { content: ""; width: 1px; height: 28px; background: linear-gradient(var(--accent), transparent); }
 
 @media (max-width: 760px) {
   .descent-bar nav a:not(.descent-get) { display: none; }

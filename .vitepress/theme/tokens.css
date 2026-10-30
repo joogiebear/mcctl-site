@@ -21,6 +21,7 @@
   --paper-0: #efeee6; --paper-1: #e5e5db; --paper-2: #d9dacd; --paper-3: #cfd0c2;
   --paper-fg: #182113; --paper-fg-2: #4d5a46; --paper-fg-3: #5c6953;
   --paper-accent-text: #3d641f; --paper-fg-hover: #0e140b;
+  --code-comment: #8b949e; /* github-dark comments (#6a737d) are 3.7:1 on the well; this is 5.8:1 */
   --well: #111a10; --well-fg: #d6e6bf; --well-fg-2: #9fb292; --well-line: #314428;
 
   /* Type */
@@ -65,11 +66,3 @@
   background: var(--bg); color: var(--fg);
 }
 
-/* Aliases the pages not yet on the system still read (Features, Changelog,
-   Roadmap, BlogIndex, FieldGuide). Each goes when its page is rebuilt; none is new API. */
-:root {
-  --ui: var(--text); --lapis: var(--accent); --lapis-dim: var(--accent); --lapis-wash: var(--accent-wash);
-  --void: var(--bg); --surface: var(--bg-1); --raised: var(--bg-2); --recess: var(--bg-1); --sunken: var(--bg);
-  --ink: var(--fg); --ink-2: var(--fg-2); --ink-3: var(--fg-3); --edge: var(--line-strong);
-  --live: var(--ok); --r: var(--r2); --r-sm: var(--r1); --lift: none;
-}
