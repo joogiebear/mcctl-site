@@ -7,10 +7,10 @@ composition, not CSS.
 
 | Path | What it is |
 | --- | --- |
-| `tokens.css` | Colour, type, space, radius and motion as custom properties. The only file allowed to contain a raw colour or a px font size. `.paper` redefines the same names for the light reading surface, so a component never knows which surface it is on. |
+| `tokens.css` | Colour, type, space, radius and motion as custom properties. The only file allowed to contain a raw colour or a px font size. `.paper` redefines the same names for the light reading surface, so a component never knows which surface it is on. `--cta`/`--cta-fg`/`--cta-hover` is the one call-to-action fill (lime on ink, ink on paper). Paper's `--fg-3` passes AA on `--bg` and `--bg-1` only; use `--fg-2` for small text on `--bg-2`/`--bg-3`. |
 | `fonts.css` | `@font-face` for the two self-hosted faces in `public/fonts/`: Bricolage Grotesque (display and text, variable, with its optical size axis) and JetBrains Mono (captions and anything the computer said). |
 | `base.css` | Reset, type roles (`.eyebrow .display .h1 .h2 .h3 .lede .body .small`), layout helpers (`.wrap` 1200px, `.wrap-wide` 1360px, `.section`, `.grid-2/3/4`) and the `v-reveal` motion, all scoped to the marketing shell `.sl`. |
-| `docs.css` | VitePress's default theme pointed at the tokens: ink sidebar, paper reading column, the default nav bar hidden in favour of `SiteHeader`. |
+| `docs.css` | VitePress's default theme pointed at the tokens: ink sidebar, paper reading column; the default nav bar is turned off in `config.mts` (`navbar: false` on every page) in favour of `SiteHeader`. The `--vp-*` mapping lives on `:root` because the search box is teleported to `<body>`. |
 | `Layout.vue` | One layout for every page. `page` and `showcase` pages get header, content, footer. Docs and blog posts keep VitePress's sidebar, outline and search inside the same header and footer. `descent` is the lab page with its own chrome, loaded only there. |
 | `components/` | The system. Each is a Vue single-file component that uses tokens only. |
 | `release.ts` | What the site knows about downloads: file names, the platform words, OS detection and the release check. Bump `FALLBACK_VERSION` and the file names with each stable release. |

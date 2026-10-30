@@ -16,15 +16,16 @@ import DocsChrome from './DocsChrome.vue'
 const Landing = defineAsyncComponent(() => import('./Landing.vue'))
 const Descent = defineAsyncComponent(() => import('./Descent.vue'))
 
-const { frontmatter } = useData()
-const kind = computed<string>(() => frontmatter.value.layout ?? 'doc')
+const { frontmatter, page } = useData()
+// VitePress's not-found page data carries `layout: 'page'`; it belongs in the docs shell.
+const kind = computed<string>(() => (page.value.isNotFound ? 'doc' : frontmatter.value.layout) ?? 'doc')
 </script>
 
 <template>
   <Descent v-if="kind === 'descent'" />
   <div v-else-if="kind === 'showcase' || kind === 'page'" class="sl">
     <SiteHeader />
-    <div id="main" class="sl-main">
+    <div id="main" class="sl-main" tabindex="-1">
       <Landing v-if="kind === 'showcase'" />
       <Content v-else />
     </div>
@@ -32,7 +33,7 @@ const kind = computed<string>(() => frontmatter.value.layout ?? 'doc')
   </div>
   <div v-else class="sl-docs">
     <DefaultTheme.Layout>
-      <template #layout-top><SiteHeader fixed search skip-to="#VPContent" /></template>
+      <template #layout-top><SiteHeader fixed search :skip="false" /></template>
       <template #doc-before><DocsChrome placement="before" /></template>
       <template #doc-after><DocsChrome placement="after" /></template>
       <template #sidebar-nav-before><DocsChrome placement="sidebar" /></template>

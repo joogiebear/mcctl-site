@@ -73,10 +73,8 @@ onBeforeUnmount(() => controller?.abort())
 .list { display: grid; gap: var(--s3); }
 .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s4); align-items: center; padding: var(--s4) var(--s5); border: 1px solid var(--line-strong); border-radius: var(--r1); color: var(--fg); text-decoration: none; transition: border-color var(--d1) var(--ease), background var(--d1) var(--ease); }
 .row:hover { border-color: var(--fg); background: var(--accent-wash); color: var(--fg); }
-.row.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
-.row.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--accent-fg); }
-.paper .row.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-.paper .row.primary:hover { background: var(--paper-fg-hover); border-color: var(--paper-fg-hover); color: var(--bg); }
+.row.primary { background: var(--cta); color: var(--cta-fg); border-color: var(--cta); }
+.row.primary:hover { background: var(--cta-hover); border-color: var(--cta-hover); color: var(--cta-fg); }
 .row-words { display: grid; gap: 2px; min-width: 0; }
 .os { font: 600 var(--t-h4)/1.2 var(--display); letter-spacing: -.02em; }
 .file { font: 400 var(--t-caption)/1.5 var(--mono); color: var(--fg-2); overflow-wrap: anywhere; }

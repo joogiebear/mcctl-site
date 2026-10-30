@@ -1,9 +1,14 @@
 /*
   The field guide: VitePress's default theme pointed at the tokens. The shell (sidebar) is ink,
   the reading column is paper (tokens.css gives .VPContent the paper palette), and the site's own
-  header replaces the default nav bar, which is hidden here and laid out against --vp-nav-height.
+  header replaces the default nav bar (config.mts turns it off with `navbar: false` on every page, so
+  it is not rendered at all), and the sidebar and local nav are laid out against --vp-nav-height.
+
+  The VitePress variables live on :root, not on .sl-docs: the search box is teleported to <body>,
+  the local nav reads --vp-nav-height from the root element, and VitePress's own `.dark` and
+  `.hide-nav` rules target the root too.
 */
-.sl-docs {
+:root, :root.dark, :root.hide-nav {
   --vp-nav-height: var(--header-h); --vp-sidebar-width: 260px; --vp-layout-max-width: 1440px;
   --vp-font-family-base: var(--text); --vp-font-family-mono: var(--mono);
   --vp-c-bg: var(--bg); --vp-c-bg-alt: var(--bg-1); --vp-c-bg-elv: var(--bg-2); --vp-c-bg-soft: var(--bg-1);
@@ -14,9 +19,13 @@
   --vp-c-green-1: var(--ok); --vp-c-yellow-1: var(--warn); --vp-c-red-1: var(--bad);
   --vp-button-brand-bg: var(--accent); --vp-button-brand-border: var(--accent); --vp-button-brand-text: var(--accent-fg);
   --vp-button-brand-hover-bg: var(--accent-hover); --vp-button-brand-hover-border: var(--accent-hover); --vp-button-brand-hover-text: var(--accent-fg);
-  background: var(--bg); color: var(--fg); font-optical-sizing: auto; -webkit-font-smoothing: antialiased;
 }
-.sl-docs .VPNav, .sl-docs .VPFooter { display: none; }
+body { margin: 0; background: var(--bg); }
+.hide-nav .sl-docs .VPSidebar { --vp-nav-height: var(--header-h); }
+.sl-docs { background: var(--bg); color: var(--fg); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+.sl-docs .VPFooter { display: none; }
+/* The site footer sits above the fixed sidebar (z-index 25 from 960px) and the aside curtain (10). */
+.sl-docs .site-footer { position: relative; z-index: 26; }
 /* The site header is fixed at every width, so the content starts under it at every width.
    !important because VitePress's scoped component styles outrank a plain class selector. */
 .sl-docs .VPContent { padding-top: var(--vp-nav-height) !important; }
@@ -67,13 +76,14 @@
 .sl-docs .vp-doc p { margin: var(--s4) 0; }
 .sl-docs .vp-doc li + li { margin-top: var(--s1); }
 .sl-docs .vp-doc li::marker { color: var(--fg-3); }
-.sl-docs .vp-doc a { color: var(--accent-text); text-underline-offset: 4px; text-decoration-thickness: 1px; }
-.sl-docs .vp-doc a:hover { color: var(--fg); text-decoration-thickness: 2px; }
+/* Prose links only: a link with a class belongs to a component, which styles it itself. */
+.sl-docs .vp-doc a:not([class]) { color: var(--accent-text); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.sl-docs .vp-doc a:not([class]):hover { color: var(--fg); text-decoration-thickness: 2px; }
 .sl-docs .vp-doc strong { color: var(--fg); font-weight: 600; }
 .sl-docs .vp-doc :not(pre) > code { border: 0; border-radius: 3px; padding: 2px 5px; font-size: .86em; }
 .sl-docs .vp-doc div[class*='language-'] { border: 1px solid var(--well-line); border-radius: var(--r1); margin: var(--s5) 0; }
 .sl-docs .vp-doc div[class*='language-'] code { border: 0; color: var(--well-fg); font-size: var(--t-code); }
-.sl-docs .vp-doc div[class*='language-'] > span.lang { color: var(--well-fg); opacity: .7; font-family: var(--mono); }
+.sl-docs .vp-doc div[class*='language-'] > span.lang { color: var(--well-fg-2); font-family: var(--mono); }
 .sl-docs .vp-doc div[class*='language-'] > button.copy { border-color: var(--well-line); background-color: var(--well); }
 .sl-docs .vp-doc div[class*='language-'] > button.copy.copied::before { background: var(--accent); color: var(--accent-fg); }
 .sl-docs .vp-doc table { font-size: var(--t-small); border-collapse: collapse; margin: var(--s5) 0; }

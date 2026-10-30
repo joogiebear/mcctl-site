@@ -8,9 +8,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import sharp from 'sharp'
+import { fileURLToPath } from 'node:url'
 
 const WIDTHS = [800, 1280, 2558]
-const masters = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync('public/img/tabs').filter(name => /\.(png|webp|jpe?g)$/.test(name) && !/-\d+\.\w+$/.test(name)).map(name => path.join('public/img/tabs', name))
+// Paths resolve against the repo root, so the tool works from any folder.
+const TABS = fileURLToPath(new URL('../../public/img/tabs', import.meta.url))
+const masters = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync(TABS).filter(name => /\.(png|webp|jpe?g)$/.test(name) && !/-\d+\.\w+$/.test(name)).map(name => path.join(TABS, name))
 
 for (const master of masters) {
   const image = sharp(master)

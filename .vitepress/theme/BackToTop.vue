@@ -39,7 +39,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   position: fixed;
   right: 20px;
   bottom: 20px;
-  z-index: var(--vp-z-index-local-nav);
+  z-index: calc(var(--z-header) - 1);
   display: grid;
   place-items: center;
   width: 44px;

@@ -19,10 +19,10 @@ const lines = computed(() => props.code.replace(/^\n+|\n+$/g, '').split('\n').ma
 
 <style scoped>
 .code { border: 1px solid var(--well-line); border-radius: var(--r1); background: var(--well); color: var(--well-fg); overflow: hidden; }
-.code-label { padding: var(--s2) var(--s4); border-bottom: 1px solid var(--well-line); font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+.code-label { padding: var(--s2) var(--s4); border-bottom: 1px solid var(--well-line); font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--well-fg-2); }
 pre { margin: 0; padding: var(--s4); font: 400 var(--t-code)/1.65 var(--mono); overflow-x: auto; }
 code { font: inherit; background: none; padding: 0; color: inherit; }
 .prompt b { color: var(--accent); font-weight: 500; }
-.comment { color: var(--fg-3); }
+.comment { color: var(--well-fg-2); }
 .out { opacity: .85; }
 </style>
