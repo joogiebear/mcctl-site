@@ -29,21 +29,23 @@ const SCRIPT: Line[] = [
 const KEEP = 14
 const lines = ref<(Line & { stamp: string; id: number })[]>([])
 const count = ref(214)
-const seconds = ref(8 * 60 + 25)
+const seconds = ref(24 * 60 + 25)
 const two = (v: number) => String(v).padStart(2, '0')
-const stamp = () => { const d = new Date(); return `${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}` }
+const stamp = (agoMs = 0) => { const d = new Date(Date.now() - agoMs); return `${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}` }
 const uptime = () => `${Math.floor(seconds.value / 60)}m ${two(seconds.value % 60)}s`
 let next = 0, id = 0
 const timers: number[] = []
-function add() {
-  lines.value.push({ ...SCRIPT[next % SCRIPT.length], stamp: stamp(), id: id++ })
+function add(agoMs = 0) {
+  lines.value.push({ ...SCRIPT[next % SCRIPT.length], stamp: stamp(agoMs), id: id++ })
   next++
   if (lines.value.length > KEEP) lines.value.shift()
   count.value++
 }
 onMounted(() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  for (let i = 0; i < (reduced ? KEEP : 9); i++) add()
+  // The opening lines are backdated as if they had arrived one every 1.7 s.
+  const seed = reduced ? KEEP : 12
+  for (let i = 0; i < seed; i++) add((seed - 1 - i) * 1700)
   if (reduced) return
   timers.push(window.setInterval(add, 1700), window.setInterval(() => { seconds.value++ }, 1000))
 })
@@ -68,7 +70,7 @@ const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'
         <div class="stat"><span class="k">Last backup</span><span class="v">10m<small>ago</small></span></div>
       </div>
     </div>
-    <div class="body" aria-hidden="true">
+    <div class="con-body" aria-hidden="true">
       <div class="main">
         <div class="toolbar"><span>Console</span><span class="seg"><span class="on">All</span><span>Warnings</span><span>Errors</span></span><span class="count">{{ count }} lines</span></div>
         <div class="log">
@@ -103,11 +105,11 @@ const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'
 .stat .v small { font: 400 var(--t-caption)/1 var(--mono); color: var(--fg-3); margin-left: var(--s1); }
 .bar { width: 90px; height: 4px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
 .bar i { display: block; height: 100%; width: 52%; background: var(--accent); }
-.body { display: grid; grid-template-columns: minmax(0, 1fr) 112px; min-height: 340px; }
+.con-body { display: grid; grid-template-columns: minmax(0, 1fr) 112px; min-height: 340px; }
 .main { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; }
 .toolbar { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s5); border-bottom: 1px solid var(--line); color: var(--fg-3); font-size: var(--t-code); }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r1); overflow: hidden; }
-.seg span { padding: 4px 10px; }
+.seg span { padding: var(--s1) var(--s3); }
 .seg span.on { background: var(--bg-3); color: var(--fg); }
 .count { margin-left: auto; font: 400 var(--t-caption)/1 var(--mono); }
 .log { position: relative; height: 264px; overflow: hidden; padding: var(--s3) var(--s5); font: 400 var(--t-code)/1.7 var(--mono); color: var(--fg-2); white-space: pre-wrap; word-break: break-word; display: flex; flex-direction: column; justify-content: flex-end; }
@@ -123,12 +125,12 @@ const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'
 @keyframes caret { 50% { opacity: 0; } }
 .send { height: 38px; display: inline-flex; align-items: center; padding: 0 var(--s4); background: var(--accent); color: var(--accent-fg); border-radius: var(--r1); font: 600 var(--t-code)/1 var(--text); }
 .dock { border-left: 1px solid var(--line); display: grid; align-content: start; padding: var(--s2) 0; }
-.dock a { display: grid; justify-items: center; gap: var(--s1); padding: 10px var(--s1); font: 500 var(--t-caption)/1 var(--mono); color: var(--fg-3); }
+.dock a { display: grid; justify-items: center; gap: var(--s1); padding: var(--s3) var(--s1); font: 500 var(--t-caption)/1 var(--mono); color: var(--fg-3); }
 .dock a.on { color: var(--accent-text); }
 @media (max-width: 760px) {
   .head { grid-template-columns: minmax(0, 1fr); }
   .stats { gap: var(--s5); flex-wrap: wrap; }
-  .body { grid-template-columns: minmax(0, 1fr); }
+  .con-body { grid-template-columns: minmax(0, 1fr); }
   .dock, .seg { display: none; }
   .log { height: 220px; font-size: var(--t-caption); }
 }

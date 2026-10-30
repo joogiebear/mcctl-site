@@ -20,10 +20,10 @@ function select(index: number, focus = false) {
   if (focus) buttons.value[current.value]?.focus()
 }
 function onKey(event: KeyboardEvent) {
-  const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : event.key === 'Home' ? -current.value : event.key === 'End' ? tabs.length - 1 - current.value : 0
-  if (!step) return
+  const target: Record<string, number> = { ArrowRight: current.value + 1, ArrowLeft: current.value - 1, Home: 0, End: tabs.length - 1 }
+  if (!(event.key in target)) return
   event.preventDefault()
-  select(current.value + step, true)
+  select(target[event.key], true)
 }
 </script>
 
@@ -34,10 +34,10 @@ function onKey(event: KeyboardEvent) {
         <template #aside><ArrowLink href="/features">Take the full tour</ArrowLink></template>
       </SectionHead>
       <div class="tabs" role="tablist" aria-label="Panel tour" @keydown="onKey">
-        <button v-for="(tab, index) in tabs" :key="tab.id" ref="buttons" type="button" role="tab" :id="`tour-tab-${tab.id}`" :aria-selected="index === current" :aria-controls="`tour-panel-${tab.id}`" :tabindex="index === current ? 0 : -1" @click="select(index)">{{ tab.title }} <small>0{{ index + 1 }}</small></button>
+        <button v-for="(tab, index) in tabs" :key="tab.id" :ref="(el) => { buttons[index] = el as HTMLButtonElement }" type="button" role="tab" :id="`tour-tab-${tab.id}`" :aria-selected="index === current" :aria-controls="`tour-panel-${tab.id}`" :tabindex="index === current ? 0 : -1" @click="select(index)">{{ tab.title }} <small>0{{ index + 1 }}</small></button>
       </div>
       <div v-for="(tab, index) in tabs" :key="tab.id" v-show="index === current" :id="`tour-panel-${tab.id}`" role="tabpanel" :aria-labelledby="`tour-tab-${tab.id}`" class="panel" tabindex="0">
-        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="tab.title" caption="captured from the app, not a mockup" detail="2558 × 1392" :loading="index === 0 ? 'eager' : 'lazy'" />
+        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="tab.title" caption="Captured from the app, not a mockup" detail="2558 × 1392" :loading="index === 0 ? 'eager' : 'lazy'" />
         <div class="copy">
           <Eyebrow>0{{ index + 1 }} · {{ tab.title }}</Eyebrow>
           <h3 class="h3">{{ tab.h }}</h3>
@@ -64,5 +64,6 @@ function onKey(event: KeyboardEvent) {
 .copy li { display: flex; gap: var(--s3); align-items: baseline; color: var(--fg-2); font-size: var(--t-ui); }
 .copy li::before { content: ""; width: 10px; height: 1px; background: var(--accent); flex: none; transform: translateY(-4px); }
 @media (max-width: 900px) { .panel { grid-template-columns: minmax(0, 1fr); gap: var(--s5); } .copy { position: static; } .tabs { gap: var(--s5); } }
+@media (max-width: 640px) { .tabs { flex-wrap: wrap; gap: var(--s2) var(--s5); overflow: visible; } }
 @media (prefers-reduced-motion: reduce) { .panel { animation: none; } }
 </style>

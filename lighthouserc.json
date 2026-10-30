@@ -48,13 +48,13 @@
           "matchingUrlPattern": "/(download|changelog|guide/).*",
           "assertions": {
             "resource-summary:total:size": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 512000
               }
             ],
             "resource-summary:script:size": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 153600
               }
@@ -77,13 +77,13 @@
           "matchingUrlPattern": "/index.html$",
           "assertions": {
             "resource-summary:total:size": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 512000
               }
             ],
             "resource-summary:script:size": [
-              "warn",
+              "error",
               {
                 "maxNumericValue": 153600
               }

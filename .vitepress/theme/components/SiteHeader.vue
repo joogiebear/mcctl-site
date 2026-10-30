@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{ fixed?: boolean; search?: boolean; skip
 
 const links = [
   { text: 'Product', href: '/features', match: /^\/(features|product)(\/|$)/ },
-  { text: 'Download', href: '/download', match: /^\/(get-started|download)(\/|$)/ },
+  { text: 'Download', href: '/download', match: /^\/download(\/|$)/ },
   { text: 'Docs', href: '/guide/', match: /^\/(guide|reference)\// },
   { text: 'Blog', href: '/blog/', match: /^\/blog(\/|$)/ },
 ]

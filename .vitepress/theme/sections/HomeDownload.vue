@@ -11,7 +11,7 @@ import PlatformPicker from '../components/PlatformPicker.vue'
         <Eyebrow accent>Download</Eyebrow>
         <h2 class="h1">Running in about ten minutes.</h2>
         <p class="lede">Install it, add a server, press Start. Java is the one thing it cannot install for you, and it tells you which one you need before it downloads anything.</p>
-        <p class="small">Signed Windows and Mac installers · macOS 13 or later · Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 · Managed MySQL needs macOS 15+ on a Mac and x64 on Linux.</p>
+        <p class="small">Signed Windows and Mac installers · macOS 13 or later on Apple Silicon (Intel Macs stay on 1.4) · Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 · Managed MySQL needs macOS 15+ on a Mac and x64 on Linux.</p>
         <ArrowLink href="/guide/getting-started">First time here? Read the setup guide</ArrowLink>
       </div>
       <PlatformPicker compact v-reveal />

@@ -29,7 +29,7 @@ const url = (file: string) => downloadUrl(version.value, file)
       <a v-for="item in main" :key="item.id" class="row" :class="{ primary: os && item.os === os }" :href="url(item.file)">
         <span class="row-words">
           <span class="os">{{ item.title }}<span v-if="os && item.os === os" class="sr-only"> (detected)</span></span>
-          <span class="file">{{ item.file }}<template v-if="item.size"> · {{ formatSize(item.size) }}</template><template v-else> · {{ item.detail }}</template></span>
+          <span class="file">{{ item.file }} · {{ item.detail }}<template v-if="item.size"> · {{ formatSize(item.size) }}</template></span>
         </span>
         <BrandIcon name="download" :size="18" />
       </a>

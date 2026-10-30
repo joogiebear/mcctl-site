@@ -61,7 +61,7 @@ const next = [
         </div>
         <Prose class="table">
           <table>
-            <caption class="eyebrow">Which Java your Minecraft wants</caption>
+            <caption class="eyebrow">Which Java current Minecraft versions want</caption>
             <thead><tr><th scope="col">Minecraft</th><th scope="col">Needs</th><th scope="col">Notes</th></tr></thead>
             <tbody><tr v-for="row in java" :key="row[0]"><td>{{ row[0] }}</td><td>{{ row[1] }}</td><td>{{ row[2] }}</td></tr></tbody>
           </table>
@@ -88,7 +88,7 @@ const next = [
             <p>Managed MySQL runs on x64 only. Running a server with no screen? There is a command-line-only package, about 30 MB, with its own runtime. <a href="/guide/beta#no-screen">Set that up instead</a>.</p>
           </Disclosure>
         </div>
-        <p class="small verify">Every file of a release, with its size, is listed on <a :href="RELEASES_URL">GitHub Releases</a>. The Windows and Mac installers are code-signed, and the app's own updater verifies each package it downloads by hash.</p>
+        <p class="small verify">Every file of a release, with its size, is listed on <a :href="RELEASES_URL">GitHub Releases</a>. The Windows and Mac installers are code-signed, and updates arrive the same way: signed installers on Windows and Mac, hash-verified packages on Linux.</p>
       </div>
     </section>
 
@@ -118,7 +118,6 @@ const next = [
 .notes { margin-top: var(--s6); }
 .notes :deep(.disc-body) { display: grid; gap: var(--s4); max-width: 46em; }
 .notes :deep(.disc-body p) { margin: 0; }
-.notes :deep(.disc-body code) { font-family: var(--mono); font-size: .88em; background: var(--bg-2); padding: 1px 5px; border-radius: 3px; }
 .verify { margin-top: var(--s6); max-width: 46em; }
 .verify a { color: var(--fg-2); text-decoration: underline; text-underline-offset: 3px; }
 .cards { margin-top: var(--s6); }
