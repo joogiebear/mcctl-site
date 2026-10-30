@@ -12,6 +12,7 @@ const chapters = demo.captions
 const started = ref(false), step = ref(0)
 const video = ref<HTMLVideoElement>()
 const length = `${Math.floor(demo.duration / 60)}:${String(Math.round(demo.duration % 60)).padStart(2, '0')}`
+const pad = (n: number) => String(n).padStart(2, '0')
 
 async function start(at = 0) {
   started.value = true
@@ -19,6 +20,8 @@ async function start(at = 0) {
   const el = video.value
   if (!el) return
   if (at) el.currentTime = at + 0.05
+  // The poster button is gone, so focus moves to the video rather than falling to <body>.
+  el.focus({ preventScroll: true })
   el.play().catch(() => {})
 }
 function seek(chapter: { n: number; start: number }) {
@@ -39,7 +42,7 @@ function tick() {
 <template>
   <div class="demo">
     <div class="stage">
-      <video v-if="started" ref="video" controls muted playsinline preload="auto" poster="/demo/poster.webp" :width="demo.w" :height="demo.h"
+      <video v-if="started" ref="video" tabindex="0" controls muted playsinline preload="auto" poster="/demo/poster.webp" :width="demo.w" :height="demo.h"
         aria-label="A recording of SpawnLoft: creating a server, starting it, installing the WorldEdit plugin and taking a backup."
         @timeupdate="tick" @ended="step = 0">
         <source src="/demo/demo.webm" type="video/webm">
@@ -53,7 +56,7 @@ function tick() {
     </div>
     <ol class="chapters" aria-label="Chapters">
       <li v-for="chapter in chapters" :key="chapter.n">
-        <button type="button" :aria-current="step === chapter.n ? 'step' : undefined" @click="seek(chapter)"><span class="n mono">0{{ chapter.n }}</span>{{ chapter.text }}</button>
+        <button type="button" :aria-current="step === chapter.n ? 'step' : undefined" @click="seek(chapter)"><span class="n mono">{{ pad(chapter.n) }}</span>{{ chapter.text }}</button>
       </li>
     </ol>
   </div>
@@ -66,9 +69,11 @@ function tick() {
 .poster { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
 .poster img { transition: opacity var(--d2) var(--ease); }
 .poster:hover img { opacity: .85; }
-.play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s5) var(--s3) var(--s4); border-radius: 999px; background: var(--accent); color: var(--accent-fg); font: 600 var(--t-ui)/1 var(--text); white-space: nowrap; transition: background var(--d1) var(--ease); }
-.poster:hover .play { background: var(--accent-hover); }
-.play small { font-size: var(--t-caption); font-weight: 500; opacity: .75; }
+/* Not a lime fill: Button is the only one on a view. An ink pill with a lime icon, as the panel's own chips. */
+.play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s5) var(--s3) var(--s4); border: 1px solid var(--line-strong); border-radius: 999px; background: var(--bg); color: var(--fg); font: 600 var(--t-ui)/1 var(--text); white-space: nowrap; transition: border-color var(--d1) var(--ease); }
+.play :deep(svg) { color: var(--accent); }
+.poster:hover .play { border-color: var(--fg); }
+.play small { font-size: var(--t-caption); font-weight: 500; color: var(--fg-3); }
 .poster:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; }
 .chapters { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 var(--s5); }
 .chapters li { border-top: 1px solid var(--line); }

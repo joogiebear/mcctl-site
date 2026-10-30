@@ -1,6 +1,6 @@
 ---
 title: The game launcher
-description: Play on your own SpawnLoft server from a launcher window. Setups by Minecraft version, Vanilla or Fabric, Microsoft sign-in on Microsoft's own page, and a Play button that starts the server first when it has to. In the 1.6 betas.
+description: In the 1.6 betas. Play on your own SpawnLoft server from a launcher window. Setups by Minecraft version, Vanilla or Fabric, Microsoft sign-in on Microsoft's own page, and a Play button that starts the server first when it has to. In the 1.6 betas.
 ---
 
 # The game launcher
@@ -13,7 +13,10 @@ to stand in the world you are hosting, or to test the plugin you are writing as 
 ::: warning In the 1.6 betas
 The launcher ships in the 1.6 beta builds; SpawnLoft 1.5 does not have it. To follow the betas, turn on
 **Settings → Updates → Get beta builds**; see [automatic updates and beta builds](/guide/beta#automatic-updates-and-beta-builds).
-Betas are what they sound like, so keep a backup of anything you care about.
+Betas are what they sound like, so keep a backup of anything you care about. Two things are still
+being verified as this is written: signing in from the packaged Windows app, and the Window menu entry
+on macOS. If the sign-in page never comes back, run `spawnloft client login` in a terminal and the
+launcher picks the account up.
 :::
 
 Nothing is drawn or patched by SpawnLoft. It downloads the client from Mojang's own servers, the way
@@ -66,8 +69,8 @@ existing one) has:
   not install them for you.
 - **Memory.** 2, 4 or 8 GB, or a custom amount with a slider that shows how much the machine has free.
 - **Name**, who it plays as, and the server it usually joins.
-- **Let SpawnLoft see the game**, which adds the harness mod so an [AI assistant](/guide/ai-assistants)
-  can join, chat, take a screenshot and read the game's log as a real player.
+- **Let SpawnLoft see the game**, which adds the harness mod (and Fabric API) so an [AI assistant](/guide/ai-assistants)
+  can send a command, read what came back and take a screenshot, as a real player would.
 - Under **Advanced**, the Java path and the Fabric loader version.
 
 The version, loader, Java, memory and harness cannot be changed while that setup's game is running.
@@ -103,7 +106,8 @@ work on the same list.
 
 ## While the game runs
 
-The button turns into **Stop**, with **Open folder** beside it. If the game closes within a minute of
+The button turns into **Stop**, with **Open folder** beside it in the desktop app (a browser tab shows
+the folder's path instead). If the game closes within a minute of
 starting without a Stop from you, a notice says so, shows the last lines of the game log, and offers
 **Report a problem**, which writes the same diagnostics bundle as `spawnloft diag --client`. When Play
 cannot work, it is greyed with the reason where the line under it was, and a link that fixes it: a

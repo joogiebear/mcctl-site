@@ -19,7 +19,7 @@ import { formatDate } from '../posts'
           <article v-for="post in posts" :key="post.url" class="post">
             <p class="meta small mono"><time :datetime="post.date">{{ formatDate(post.date) }}</time><span>{{ post.minutes }} min read</span></p>
             <div class="post-words">
-              <h2 class="h3"><a :href="post.url">{{ post.title }}</a></h2>
+              <h2 class="h2"><a :href="post.url">{{ post.title }}</a></h2>
               <p class="body">{{ post.description }}</p>
               <ul v-if="post.tags.length" class="tags" aria-label="Topics"><li v-for="tag in post.tags" :key="tag"><Pill>{{ tag }}</Pill></li></ul>
             </div>
@@ -37,7 +37,6 @@ import { formatDate } from '../posts'
 .post { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--s6); padding: var(--s6) 0; border-bottom: 1px solid var(--line); }
 .meta { display: grid; gap: var(--s1); padding-top: 6px; }
 .post-words { display: grid; gap: var(--s3); justify-items: start; min-width: 0; }
-.post-words .h3 { font-size: var(--t-h2); line-height: 1.1; letter-spacing: -.03em; }
 .post-words h2 a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--accent); }
 .tags { list-style: none; margin: var(--s1) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2); }
 @media (max-width: 760px) { .post { grid-template-columns: minmax(0, 1fr); gap: var(--s3); } .meta { display: flex; gap: var(--s4); padding: 0; } }

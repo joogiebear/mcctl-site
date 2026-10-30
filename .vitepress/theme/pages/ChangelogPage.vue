@@ -43,6 +43,11 @@ const safeUrl = (href: string) => {
 }
 // Release Markdown is external content. Keep its formatting without executing embedded HTML.
 const renderer = new Renderer()
+// Release notes start their headings at h2 on GitHub; here they sit under a release's own h2.
+renderer.heading = function ({ tokens, depth }) {
+  const level = Math.min(6, depth + 1)
+  return `<h${level}>${this.parser.parseInline(tokens)}</h${level}>\n`
+}
 renderer.html = ({ text }) => escape(text.replace(/<!--[\s\S]*?-->/g, ''))
 renderer.link = function ({ href, tokens }) {
   const label = this.parser.parseInline(tokens)
@@ -100,8 +105,9 @@ async function showMore() {
   await nextTick()
   if (firstNew) document.getElementById(firstNew)?.querySelector('summary')?.focus({ preventScroll: true })
 }
-onMounted(load)
-onBeforeUnmount(() => request?.abort())
+const onHash = () => { if (state.value === 'ok') void openLinked() }
+onMounted(() => { window.addEventListener('hashchange', onHash); void load() })
+onBeforeUnmount(() => { window.removeEventListener('hashchange', onHash); request?.abort() })
 </script>
 
 <template>

@@ -32,6 +32,17 @@ const reach = [
   { title: 'Linux, in more shapes.', text: 'A .deb and an .rpm for x64 and arm64 ship today, and a command-line package for servers with no screen. An AppImage is still to come; it needs its own answers to libfuse2, Ubuntu’s AppArmor sandbox, and a path that changes every launch.', link: ['Platform support', '/guide/beta'] },
   { title: 'More languages.', text: 'Localisation is a future direction. Language support and timing have not been announced.' },
 ]
+
+// A jump link scrolls to its section and moves focus there, so a keyboard user lands where the
+// page went instead of tabbing on from the top.
+function jumpTo(href: string) {
+  const target = document.getElementById(href.slice(1))
+  if (!target) return
+  history.replaceState(null, '', href)
+  target.setAttribute('tabindex', '-1')
+  target.scrollIntoView({ block: 'start' })
+  target.focus({ preventScroll: true })
+}
 </script>
 
 <template>
@@ -41,7 +52,7 @@ const reach = [
         <SectionHead level="h1" eyebrow="Roadmap" title="A bigger world. The same purpose." lede="Better tools for the server on your own PC, built around the people who make it theirs. What has shipped, what is next, and what is deliberately not on the list.">
           <template #aside><ArrowLink :href="ROADMAP_URL" external>The living roadmap</ArrowLink></template>
         </SectionHead>
-        <nav class="jumps" aria-label="Roadmap sections"><a v-for="[text, href] in jumps" :key="href" :href="href">{{ text }}</a></nav>
+        <nav class="jumps" aria-label="Roadmap sections"><a v-for="[text, href] in jumps" :key="href" :href="href" @click.prevent="jumpTo(href)">{{ text }}</a></nav>
       </div>
     </section>
 
@@ -111,6 +122,7 @@ const reach = [
 
 <style scoped>
 .top { padding-top: var(--s8); padding-bottom: var(--s7); }
+section:focus { outline: 0; }
 .jumps { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s6); margin-top: var(--s5); }
 .jumps a { font: 500 var(--t-ui)/1.3 var(--display); color: var(--fg-2); padding: var(--s2) 0; }
 .jumps a:hover { color: var(--accent-text); }

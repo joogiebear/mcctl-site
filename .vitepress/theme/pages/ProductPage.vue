@@ -57,7 +57,8 @@ const integrations = [
 ]
 const launcher = [
   'Setups by Minecraft version, Vanilla or Fabric, with the memory you choose',
-  'Any version in Mojang’s list, with the Java it needs fetched when none on the machine fits',
+  'Any version in Mojang’s list; the game client gets Mojang’s own Java when none on the machine fits',
+  'Windows x64, Apple Silicon and Linux x64; Linux arm64 cannot run the client',
   'Microsoft sign-in on Microsoft’s own page, or an offline name for a test server',
   'Press Play on a stopped server and it is started first, then joined',
 ]
@@ -66,6 +67,17 @@ const platforms = [
   { name: 'macOS', detail: '13 or later · Apple Silicon', points: ['Signed, notarized and stapled', 'Managed MySQL needs macOS 15 or later', 'Schedules via launchd', 'Intel Macs stay on 1.4'] },
   { name: 'Linux', detail: '.deb and .rpm · x64 or arm64', points: ['Hash-verified packages', 'Managed MySQL on x64 only', 'A command-line-only build for servers'] },
 ]
+
+// A jump link scrolls to its section and moves focus there, so a keyboard user lands where the
+// page went instead of tabbing on from the top.
+function jumpTo(href: string) {
+  const target = document.getElementById(href.slice(1))
+  if (!target) return
+  history.replaceState(null, '', href)
+  target.setAttribute('tabindex', '-1')
+  target.scrollIntoView({ block: 'start' })
+  target.focus({ preventScroll: true })
+}
 </script>
 
 <template>
@@ -84,7 +96,7 @@ const platforms = [
         </div>
         <nav class="jump" aria-label="On this page">
           <Eyebrow>On this page</Eyebrow>
-          <a v-for="[text, href] in jumps" :key="href" :href="href"><span>{{ text }}</span><BrandIcon name="arrow" :size="16" /></a>
+          <a v-for="[text, href] in jumps" :key="href" :href="href" @click.prevent="jumpTo(href)"><span>{{ text }}</span><BrandIcon name="arrow" :size="16" /></a>
         </nav>
       </div>
     </section>
@@ -146,7 +158,7 @@ const platforms = [
           <h2 class="h2">Press Play on your own server.</h2>
           <p class="body">A window for the real Minecraft client, already pointed at one of your SpawnLoft servers. It is a developer's tool that goes with the app: make a setup, press Play, test the plugin you are writing as a player. Nothing is drawn or patched by SpawnLoft; it downloads the client Mojang ships and runs it.</p>
           <ul class="ticks"><li v-for="point in launcher" :key="point">{{ point }}</li></ul>
-          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it.</p>
+          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it, and the sign-in inside the packaged desktop app is still being verified.</p>
           <div class="links"><ArrowLink href="/guide/launcher">How the launcher works</ArrowLink><ArrowLink href="/guide/beta#automatic-updates-and-beta-builds">Get the beta builds</ArrowLink></div>
         </div>
         <div class="sketch-col" v-reveal>
@@ -201,6 +213,7 @@ const platforms = [
 .words { display: grid; gap: var(--s5); align-content: start; }
 .cta-row { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s4); align-items: center; }
 .aside { max-width: 24em; font-size: var(--t-body); }
+section:focus { outline: 0; }
 .jump { display: grid; align-content: start; padding-top: var(--s2); }
 .jump .eyebrow { margin-bottom: var(--s3); }
 .jump a { display: flex; justify-content: space-between; align-items: center; gap: var(--s4); padding: var(--s3) 0; border-top: 1px solid var(--line); font: 500 var(--t-ui)/1.3 var(--display); color: var(--fg-2); }
@@ -233,8 +246,8 @@ const platforms = [
 .sk { display: grid; gap: var(--s6); padding: var(--s5); background: var(--bg); }
 .sk-top { display: flex; justify-content: space-between; align-items: center; }
 .sk-brand { color: var(--accent); display: inline-flex; }
-.sk-chip { display: inline-flex; align-items: center; gap: var(--s2); padding: 4px 10px 4px 6px; border: 1px solid var(--line-strong); border-radius: 999px; font: 500 var(--t-caption)/1.4 var(--mono); color: var(--fg-2); }
-.sk-chip i { width: 16px; height: 16px; border-radius: 3px; background: var(--bg-3); }
+.sk-chip { display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s1) var(--s3) var(--s1) var(--s2); border: 1px solid var(--line-strong); border-radius: 999px; font: 500 var(--t-caption)/1.4 var(--mono); color: var(--fg-2); }
+.sk-chip i { width: 16px; height: 16px; border-radius: var(--r1); background: var(--bg-3); }
 .sk-main { display: grid; gap: var(--s4); justify-items: start; }
 .sk-play { display: inline-flex; border-radius: var(--r1); overflow: hidden; }
 .sk-play-big { display: inline-flex; align-items: center; gap: var(--s3); min-height: 52px; padding: 0 var(--s6) 0 var(--s5); background: var(--accent); color: var(--accent-fg); font: 600 var(--t-lede)/1 var(--display); }
