@@ -75,8 +75,8 @@ export default defineConfig({
   // The visible header is SiteHeader.vue (theme/Layout.vue); VitePress's own nav bar is not rendered
   // anywhere, so its search box is not mounted twice on docs pages.
   transformPageData(pageData) { pageData.frontmatter.navbar = false },
-  // /lab/descent is the 3D experiment, kept as a lab page: out of the nav, the sitemap and search.
-  sitemap: { hostname: SITE, transformItems: items => items.filter(item => !item.url.includes('descent')) },
+  // Lab pages (/lab/descent, the 3D experiment) stay out of the nav, the sitemap and search.
+  sitemap: { hostname: SITE, transformItems: items => items.filter(item => !/^\/?lab\//.test(item.url)) },
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
     // The two faces are self-hosted (public/fonts, .vitepress/theme/fonts.css); the latin files are

@@ -83,6 +83,9 @@ body { margin: 0; background: var(--bg); }
 .sl-docs .vp-doc :not(pre) > code { border: 0; border-radius: 3px; padding: 2px 5px; font-size: .86em; }
 .sl-docs .vp-doc div[class*='language-'] { border: 1px solid var(--well-line); border-radius: var(--r1); margin: var(--s5) 0; }
 .sl-docs .vp-doc div[class*='language-'] code { border: 0; color: var(--well-fg); font-size: var(--t-code); }
+/* Shiki inlines github-dark's comment colour per token (an inline --shiki-dark, so the colour itself
+   is what has to change); lift it to the readable one from tokens.css. */
+.sl-docs .vp-doc .vp-code span[style*='6A737D' i] { color: var(--code-comment); }
 .sl-docs .vp-doc div[class*='language-'] > span.lang { color: var(--well-fg-2); font-family: var(--mono); }
 .sl-docs .vp-doc div[class*='language-'] > button.copy { border-color: var(--well-line); background-color: var(--well); }
 .sl-docs .vp-doc div[class*='language-'] > button.copy.copied::before { background: var(--accent); color: var(--accent-fg); }

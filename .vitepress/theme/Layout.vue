@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onMounted, watch } from 'vue'
 import DefaultTheme from 'vitepress/theme-without-fonts'
-import { useData } from 'vitepress'
+import { useData, useRoute } from 'vitepress'
 import SiteHeader from './components/SiteHeader.vue'
 import SiteFooter from './components/SiteFooter.vue'
 import BackToTop from './BackToTop.vue'
@@ -18,6 +18,15 @@ const Descent = defineAsyncComponent(() => import('./Descent.vue'))
 const { frontmatter, page } = useData()
 // VitePress's not-found page data carries `layout: 'page'`; it belongs in the docs shell.
 const kind = computed<string>(() => (page.value.isNotFound ? 'doc' : frontmatter.value.layout) ?? 'doc')
+
+// VitePress renders the edit link and pager in a <footer> beside <main>, which makes it a second
+// contentinfo landmark next to the site footer. A footer may be a group, so it becomes one; the
+// pager inside it stays a navigation landmark of its own.
+const route = useRoute()
+function labelDocFooter() {
+  for (const el of document.querySelectorAll('.VPDocFooter')) { el.setAttribute('role', 'group'); el.setAttribute('aria-label', 'Page links') }
+}
+onMounted(() => { labelDocFooter(); watch(() => route.path, () => nextTick(labelDocFooter)) })
 </script>
 
 <template>
