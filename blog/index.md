@@ -8,7 +8,7 @@ aside: false
 ---
 
 <script setup>
-import BlogIndex from '../.vitepress/theme/BlogIndex.vue'
+import BlogPage from '../.vitepress/theme/pages/BlogPage.vue'
 </script>
 
-<BlogIndex />
+<BlogPage />

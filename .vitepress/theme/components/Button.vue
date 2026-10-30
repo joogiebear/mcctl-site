@@ -11,18 +11,14 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <component
-    :is="href ? 'a' : 'button'"
-    class="btn"
-    :class="[`btn-${variant}`, `btn-${size}`]"
-    :href="href"
-    :type="href ? undefined : type"
-    :rel="external ? 'noopener' : undefined"
-    :aria-disabled="disabled || undefined"
-    :tabindex="disabled ? -1 : undefined"
-  >
+  <!-- Two elements rather than one dynamic `component`: `:is="'button'"` would resolve to this
+       globally registered Button and render it inside itself without end. -->
+  <a v-if="href" class="btn" :class="[`btn-${variant}`, `btn-${size}`]" :href="href" :rel="external ? 'noopener' : undefined" :aria-disabled="disabled || undefined" :tabindex="disabled ? -1 : undefined">
     <slot name="icon" /><span class="label"><slot /></span><slot name="trailing" />
-  </component>
+  </a>
+  <button v-else class="btn" :class="[`btn-${variant}`, `btn-${size}`]" :type="type" :aria-disabled="disabled || undefined" :tabindex="disabled ? -1 : undefined">
+    <slot name="icon" /><span class="label"><slot /></span><slot name="trailing" />
+  </button>
 </template>
 
 <style scoped>

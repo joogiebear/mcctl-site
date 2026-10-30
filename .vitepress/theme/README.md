@@ -11,10 +11,10 @@ composition, not CSS.
 | `fonts.css` | `@font-face` for the two self-hosted faces in `public/fonts/`: Bricolage Grotesque (display and text, variable, with its optical size axis) and JetBrains Mono (captions and anything the computer said). |
 | `base.css` | Reset, type roles (`.eyebrow .display .h1 .h2 .h3 .lede .body .small .mono`; these names are reserved, so a structural wrapper is never called `body`), layout helpers (`.wrap` 1200px, `.wrap-wide` 1360px, `.section`, `.grid-2/3/4`) and the `v-reveal` motion, all scoped to the marketing shell `.sl`. |
 | `docs.css` | VitePress's default theme pointed at the tokens: ink sidebar, paper reading column; the default nav bar is turned off in `config.mts` (`navbar: false` on every page) in favour of `SiteHeader`. The `--vp-*` mapping lives on `:root` because the search box is teleported to `<body>`. |
-| `Layout.vue` | One layout for every page. `page` pages get header, content, footer. Docs and blog posts keep VitePress's sidebar, outline and search inside the same header and footer. `descent` is the lab page with its own chrome, loaded only there. |
+| `Layout.vue` | One layout for every page. `page` pages get header, content, footer. Docs and blog posts keep VitePress's sidebar, outline and search inside the same header and footer. `descent` is the lab page (`/lab/descent`) with its own chrome, loaded only there. |
 | `components/` | The system. Each is a Vue single-file component that uses tokens only. |
 | `sections/` | The home page's sections (hero, compat strip, principles, tour, developers, limits, download). Each owns its copy and layout and composes components. |
-| `pages/` | One component per marketing page (`Home`, `DownloadPage`), imported by the Markdown file at the route. |
+| `pages/` | One component per marketing page (`Home`, `ProductPage`, `DownloadPage`, `ChangelogPage`, `RoadmapPage`, `BlogPage`, `DocsIndex`), imported by the Markdown file at the route. |
 | `release.ts` | What the site knows about downloads: file names, the platform words, OS detection and the release check. Bump `FALLBACK_VERSION` and the file names with each stable release. |
 | `proof.data.ts` | Build-time figures from GitHub (release count, latest version and date), with a snapshot when the API is unreachable. |
 
@@ -30,10 +30,11 @@ composition, not CSS.
 | `Card` | Hairline frame on bg-1 with optional `eyebrow`, `title`, `href`. |
 | `Stat` | A label and a tabular figure. Only figures the repository can back up. |
 | `Steps` / `Step` | A numbered list for things that happen in order. Numbers appear nowhere else. |
-| `Disclosure` | Native `details`, styled. |
+| `Disclosure` | Native `details`, styled. `note` adds a quieter second line to the summary. |
 | `Notice` | A short aside with a coloured edge. `tone` info or warn. |
 | `CodeBlock` | A dark well on both surfaces. Lines starting `$ ` are prompts, `# ` comments. |
 | `Figure` | A capture in a hairline frame with a caption. With `widths`, it builds a `srcset` from the files `tools/images/build.mjs` writes. |
+| `DemoPlayer` | The demo recording on `/product`: a poster that is a button, the video created on the first press, chapters that seek. Never autoplays. |
 | `AppFrame` | The frame a capture or the live console sits in. `hero` adds the site's one shadow. |
 | `LiveConsole` | The hero: an HTML replica of the panel playing a real-shaped log. Still at rest under reduced motion. |
 | `PlatformPicker` | The download list: detected OS first, latest stable release from GitHub, verified fallback links otherwise. Use it anywhere a download is offered; nothing else may link an installer. |
@@ -57,8 +58,8 @@ Masters live under `public/img/`. `npm run images` writes the 800, 1280 and 2558
 variants next to each master in `public/img/tabs/` (pass a path for one file elsewhere). Commit
 the outputs: Vercel's build does not run it. `Figure` reads them with `:widths="[800, 1280, 2558]"`.
 
-## Pages still on the old styles
+## The lab page
 
-`Features`, `Changelog`, `Roadmap`, `BlogIndex`, `FieldGuide`, `DemoVideo`,
-`ProductExplorer` and `Descent` predate the system. They render inside the shared header and footer through the legacy
-aliases at the bottom of `tokens.css`, and each is replaced as its page is rebuilt.
+`Descent.vue` (`/lab/descent`, the scroll-driven 3D experiment) predates the system and keeps its own
+chrome. It reads the legacy aliases at the bottom of `tokens.css`; those go when it is either moved
+onto the system or retired.

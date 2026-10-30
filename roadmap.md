@@ -8,7 +8,7 @@ aside: false
 ---
 
 <script setup>
-import Roadmap from './.vitepress/theme/Roadmap.vue'
+import RoadmapPage from './.vitepress/theme/pages/RoadmapPage.vue'
 </script>
 
-<Roadmap />
+<RoadmapPage />

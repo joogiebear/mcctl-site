@@ -8,7 +8,7 @@ aside: false
 ---
 
 <script setup>
-import Changelog from './.vitepress/theme/Changelog.vue'
+import ChangelogPage from './.vitepress/theme/pages/ChangelogPage.vue'
 </script>
 
-<Changelog />
+<ChangelogPage />

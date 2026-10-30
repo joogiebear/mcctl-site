@@ -17,6 +17,16 @@
       "source": "/get-started",
       "destination": "/download",
       "permanent": true
+    },
+    {
+      "source": "/features",
+      "destination": "/product",
+      "permanent": true
+    },
+    {
+      "source": "/descent",
+      "destination": "/lab/descent",
+      "permanent": true
     }
   ]
 }

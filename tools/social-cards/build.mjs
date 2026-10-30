@@ -30,11 +30,11 @@ function readPage(relativePath) {
   const front = /^---\n([\s\S]*?)\n---/.exec(source)?.[1] ?? ''
   const field = name => new RegExp(`^${name}:\\s*(.+)$`, 'm').exec(front)?.[1].trim().replace(/^['"]|['"]$/g, '')
   const heading = /^# (.+)$/m.exec(source)?.[1].trim()
-  const section = relativePath.startsWith('guide/') ? 'FIELD GUIDE' : relativePath.startsWith('reference/') ? 'REFERENCE' : relativePath.startsWith('blog/') ? 'BLOG' : relativePath.replace(/\.md$/, '').toUpperCase()
+  const section = relativePath.startsWith('guide/') ? 'FIELD GUIDE' : relativePath.startsWith('reference/') ? 'REFERENCE' : relativePath.startsWith('blog/') ? 'BLOG' : relativePath === 'product.md' ? 'WHAT IT DOES' : relativePath.replace(/\.md$/, '').toUpperCase()
   return { relativePath, slug: cardSlug(relativePath), title: field('title') || heading, description: field('description') || '', section }
 }
 
-const files = ['download.md', 'features.md', 'changelog.md', 'roadmap.md',
+const files = ['download.md', 'product.md', 'changelog.md', 'roadmap.md',
   ...fs.readdirSync(path.join(ROOT, 'guide')).filter(f => f.endsWith('.md')).map(f => `guide/${f}`),
   ...fs.readdirSync(path.join(ROOT, 'reference')).filter(f => f.endsWith('.md')).map(f => `reference/${f}`),
   ...fs.readdirSync(path.join(ROOT, 'blog')).filter(f => f.endsWith('.md')).map(f => `blog/${f}`)]

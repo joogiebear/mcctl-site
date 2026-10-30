@@ -13,10 +13,10 @@ aside: false
 
 <figure class="post-figure">
   <img src="/img/blog/descent-command.webp" width="800" height="600" alt="The Descent page at its Command chapter: headline and paragraph on the left, a giant outlined word along the bottom, the island on the right and a height gauge at the edge.">
-  <figcaption>The <a href="/descent">Descent page</a> at its Command chapter. The copy, the outlined word and the island each move at their own rate.</figcaption>
+  <figcaption>The <a href="/lab/descent">Descent page</a> at its Command chapter. The copy, the outlined word and the island each move at their own rate.</figcaption>
 </figure>
 
-The [Descent page](/descent) is a single scroll. As you move down it, a camera dives through the SpawnLoft island and the world beneath it, and each feature of the app sits on the layer of the world it belongs to. The island is the one from [the previous post](/blog/how-the-spawnloft-island-is-built).
+The [Descent page](/lab/descent) is a single scroll. As you move down it, a camera dives through the SpawnLoft island and the world beneath it, and each feature of the app sits on the layer of the world it belongs to. The island is the one from [the previous post](/blog/how-the-spawnloft-island-is-built).
 
 The page is two files, about 250 lines of Vue and 260 lines of three.js. The first version generated its own block island in code. A follow-up replaced it with the authored Blender model, which meant retuning the camera path and the lighting for the new proportions. This post covers how the motion is put together.
 

@@ -66,7 +66,7 @@ Every object is parented to one of six empty groups at the origin: `World`, `Fou
 
 <figure class="post-figure">
   <img src="/img/blog/descent-pulled-apart.webp" width="560" height="580" alt="The island pulled apart: the grass surface, cabin and portal float above the stone foundation, with the server core hanging below.">
-  <figcaption>The same file on the <a href="/descent">Descent page</a>. The surface and portal lift, the foundation stays, and the server core drops out underneath.</figcaption>
+  <figcaption>The same file on the <a href="/lab/descent">Descent page</a>. The surface and portal lift, the foundation stays, and the server core drops out underneath.</figcaption>
 </figure>
 
 ## 46 meshes, 22 materials, no textures

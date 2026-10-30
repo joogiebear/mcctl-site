@@ -5,7 +5,7 @@ import { data as proof } from '../proof.data'
 
 // The one footer: where to go next, who made it, and the disclaimer Mojang asks for.
 const columns = [
-  { title: 'Product', links: [['What it does', '/features'], ['Download', '/download'], ['Changelog', '/changelog'], ['Roadmap', '/roadmap']] },
+  { title: 'Product', links: [['What it does', '/product'], ['Download', '/download'], ['Changelog', '/changelog'], ['Roadmap', '/roadmap']] },
   { title: 'Learn', links: [['Getting started', '/guide/getting-started'], ['The panel', '/guide/panel'], ['Security', '/guide/security'], ['Compare', '/guide/compare'], ['All docs', '/guide/']] },
   { title: 'Project', links: [['GitHub', 'https://github.com/joogiebear/spawnloft'], ['Discussions', 'https://github.com/joogiebear/spawnloft/discussions'], ['Issues', 'https://github.com/joogiebear/spawnloft/issues'], ['Blog', '/blog/'], ['RSS', '/blog/feed.xml'], ['Sponsor', 'https://github.com/sponsors/joogiebear']] },
 ]
