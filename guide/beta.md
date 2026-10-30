@@ -7,7 +7,7 @@ description: Download SpawnLoft for Windows, Apple Silicon Mac, and Linux (.deb 
 
 SpawnLoft ships for Windows, Apple Silicon Mac, and Linux on x64 and arm64. Every platform is built from one commit and installed and exercised on its own operating system before a release is published.
 
-<Download fine />
+<PlatformPicker />
 
 | Platform | Package | Requirement |
 | --- | --- | --- |

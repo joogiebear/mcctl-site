@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
+    "lint": "node tools/lint-theme.mjs",
+    "prebuild": "node tools/lint-theme.mjs",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "images": "node tools/images/build.mjs"
   },
   "devDependencies": {
     "@types/three": "^0.185.4",
+    "sharp": "^0.35.5",
     "vitepress": "^1.6.4",
     "vue": "^3.5.42"
   },

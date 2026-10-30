@@ -1,0 +1,72 @@
+/*
+  Design tokens. The only file in the theme that may contain a raw colour or a px font size.
+  Ink is the site; paper is a surface that redefines the same names, so a component never has
+  to know which one it is on. See README.md in this folder.
+*/
+:root {
+  color-scheme: dark;
+
+  /* Ink surface */
+  --bg: #090d0d; --bg-1: #10160f; --bg-2: #18201a; --bg-3: #222c22;
+  --fg: #efeee6; --fg-2: #b3bcad; --fg-3: #8c977f;
+  --line: rgba(239, 238, 230, .12); --line-strong: rgba(239, 238, 230, .24);
+  --accent: #c4f566; --accent-hover: #d4ff85; --accent-fg: #0b1206; --accent-text: #c4f566; --accent-wash: rgba(196, 245, 102, .10);
+  --ok: #4ade80; --warn: #f0b64d; --bad: #f87171;
+  --ok-wash: rgba(74, 222, 128, .14); --warn-wash: rgba(240, 182, 77, .16); --bad-wash: rgba(248, 113, 113, .14);
+  --shadow-frame: 0 30px 80px rgba(0, 0, 0, .45);
+
+  /* Paper surface, applied by .paper below */
+  --paper-0: #efeee6; --paper-1: #e5e5db; --paper-2: #d9dacd; --paper-3: #cfd0c2;
+  --paper-fg: #182113; --paper-fg-2: #4d5a46; --paper-fg-3: #5c6953;
+  --paper-accent-text: #3d641f; --paper-fg-hover: #0e140b;
+  --well: #111a10; --well-fg: #d6e6bf; --well-line: #314428;
+
+  /* Type */
+  --display: "Bricolage Grotesque", "Segoe UI Variable Display", system-ui, sans-serif;
+  --text: "Bricolage Grotesque", "Segoe UI Variable Text", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+  --t-display: clamp(44px, 5.6vw, 80px);
+  --t-h1: clamp(36px, 4.4vw, 64px);
+  --t-h2: clamp(30px, 3.4vw, 46px);
+  --t-h3: 22px;
+  --t-h4: 20px;
+  --t-doc-h1: clamp(34px, 3.8vw, 52px);
+  --t-doc-h2: 30px;
+  --t-lede: clamp(18px, 1.6vw, 21px);
+  --t-body: 17px;
+  --t-ui: 15px;
+  --t-small: 14px;
+  --t-code: 13px;
+  --t-caption: 12px;
+
+  /* Space, 4px base */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+  --r0: 0; --r1: 4px; --r2: 8px;
+  --max-text: 1200px; --max-wide: 1360px; --measure: 36em;
+  --gutter: max(20px, env(safe-area-inset-left, 0px)); --gutter-r: max(20px, env(safe-area-inset-right, 0px));
+  --header-h: 64px;
+
+  /* Motion: one easing, three durations */
+  --ease: cubic-bezier(.2, .7, .2, 1); --d1: 120ms; --d2: 240ms; --d3: 520ms;
+
+  --z-header: 40; --z-menu: 50;
+}
+
+/* The docs reading column and its local nav are paper too; the sidebar stays ink. */
+.paper, .sl-docs .VPContent, .sl-docs .VPLocalNav {
+  color-scheme: light;
+  --bg: var(--paper-0); --bg-1: var(--paper-1); --bg-2: var(--paper-2); --bg-3: var(--paper-3);
+  --fg: var(--paper-fg); --fg-2: var(--paper-fg-2); --fg-3: var(--paper-fg-3);
+  --line: rgba(24, 33, 19, .14); --line-strong: rgba(24, 33, 19, .3);
+  --accent-text: var(--paper-accent-text); --accent-wash: rgba(61, 100, 31, .08);
+  background: var(--bg); color: var(--fg);
+}
+
+/* Aliases the pages not yet on the system still read (Landing, Features, GetStarted, Changelog,
+   Roadmap, BlogIndex, FieldGuide, Download). Each goes when its page is rebuilt; none is new API. */
+:root {
+  --ui: var(--text); --lapis: var(--accent); --lapis-dim: var(--accent); --lapis-wash: var(--accent-wash);
+  --void: var(--bg); --surface: var(--bg-1); --raised: var(--bg-2); --recess: var(--bg-1); --sunken: var(--bg);
+  --ink: var(--fg); --ink-2: var(--fg-2); --ink-3: var(--fg-3); --edge: var(--line-strong);
+  --live: var(--ok); --r: var(--r2); --r-sm: var(--r1); --lift: none;
+}

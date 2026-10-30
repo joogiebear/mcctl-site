@@ -1,0 +1,58 @@
+/*
+  Base styles for the marketing shell (.sl): reset, type roles, layout helpers and motion.
+  Docs pages use .sl-docs instead and keep VitePress's prose styles; see docs.css.
+*/
+html { scroll-padding-top: calc(var(--header-h) + var(--s4)); }
+html:focus-within { scroll-behavior: smooth; }
+
+.sl { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--fg); font: 400 var(--t-body)/1.6 var(--text); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+.sl > .sl-main { flex: 1 0 auto; }
+.sl *, .sl *::before, .sl *::after { box-sizing: border-box; }
+.sl a { color: inherit; text-decoration: none; }
+.sl img, .sl video { max-width: 100%; height: auto; display: block; }
+.sl svg { max-width: 100%; }
+.sl button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.sl :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; }
+.sl ::selection { background: var(--accent); color: var(--accent-fg); }
+.sl code { font-family: var(--mono); font-size: .88em; color: var(--fg); background: var(--bg-2); padding: 1px 5px; border-radius: 3px; }
+
+/* Type roles. Headings carry their own margins only inside .prose. */
+.sl .eyebrow { margin: 0; font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); }
+.sl .eyebrow.accent { color: var(--accent-text); }
+.sl .display { margin: 0; font: 600 var(--t-display)/.96 var(--display); letter-spacing: -.04em; text-wrap: balance; }
+.sl .h1 { margin: 0; font: 600 var(--t-h1)/1.02 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+.sl .h2 { margin: 0; font: 600 var(--t-h2)/1.08 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+.sl .h3 { margin: 0; font: 600 var(--t-h3)/1.25 var(--display); letter-spacing: -.02em; }
+.sl .h4 { margin: 0; font: 600 var(--t-h4)/1.25 var(--display); letter-spacing: -.02em; }
+.sl .lede { margin: 0; font: 400 var(--t-lede)/1.5 var(--text); color: var(--fg-2); max-width: var(--measure); text-wrap: pretty; }
+.sl .body { margin: 0; color: var(--fg-2); max-width: var(--measure); text-wrap: pretty; }
+.sl .small { font-size: var(--t-small); line-height: 1.55; color: var(--fg-3); }
+.sl .mono { font-family: var(--mono); }
+.sl .tabular { font-variant-numeric: tabular-nums; }
+
+/* Layout helpers: words in 1200px, figures in 1360px, sections 96px inside. */
+.sl .wrap, .sl .wrap-wide { width: 100%; margin-inline: auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
+.sl .wrap { max-width: calc(var(--max-text) + var(--gutter) + var(--gutter-r)); }
+.sl .wrap-wide { max-width: calc(var(--max-wide) + var(--gutter) + var(--gutter-r)); }
+.sl .section { padding-block: var(--s9); }
+.sl .section-tight { padding-block: var(--s8); }
+.sl .hairline { border-top: 1px solid var(--line); }
+.sl .grid { display: grid; gap: var(--s5); }
+.sl .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sl .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sl .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 980px) { .sl .grid-3, .sl .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .sl .grid-2, .sl .grid-3, .sl .grid-4 { grid-template-columns: minmax(0, 1fr); } .sl .section { padding-block: var(--s8); } }
+
+/* Accessibility helpers */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Reveal: one rise of 12px on first view, below the fold only (v-reveal in index.ts). Nothing
+   stays hidden: the directive clears the pending state on a timer even if the observer never fires. */
+.rv { transition: opacity var(--d3) var(--ease), transform var(--d3) var(--ease); }
+.rv.rv-pending { opacity: 0; transform: translateY(12px); transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+  .sl *, .sl *::before, .sl *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+  .rv.rv-pending { opacity: 1; transform: none; }
+}

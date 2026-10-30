@@ -75,9 +75,10 @@ export default defineConfig({
   sitemap: { hostname: SITE, transformItems: items => items.filter(item => !item.url.includes('descent')) },
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500;600&display=swap' }],
+    // The two faces are self-hosted (public/fonts, .vitepress/theme/fonts.css); the latin files are
+    // preloaded because every page's first paint uses both.
+    ['link', { rel: 'preload', href: '/fonts/bricolage-grotesque-latin.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+    ['link', { rel: 'preload', href: '/fonts/jetbrains-mono-latin.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
@@ -151,12 +152,11 @@ ${items}
   themeConfig: {
     logo: '/brand/mark.svg',
     siteTitle: 'SpawnLoft',
+    // The visible header is SiteHeader.vue; this list feeds VitePress's own places (search, local nav).
     nav: [
-      { text: 'Features', link: '/features' },
-      { text: 'Get started', link: '/get-started' },
-      { text: 'Field guide', link: '/guide/', activeMatch: '^/(guide|reference)/' },
-      { text: 'Changelog', link: '/changelog' },
-      { text: 'Roadmap', link: '/roadmap' },
+      { text: 'Product', link: '/features' },
+      { text: 'Download', link: '/get-started' },
+      { text: 'Docs', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },
     ],
     sidebar: {

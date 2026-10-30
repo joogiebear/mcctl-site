@@ -6,7 +6,7 @@ description: "Install SpawnLoft, create or import a Minecraft server, and bring 
 
 Install SpawnLoft, create or import a Minecraft server, and bring your world online. Everything runs on your own PC.
 
-<Download fine />
+<PlatformPicker />
 
 ## Three steps
 
