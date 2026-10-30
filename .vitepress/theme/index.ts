@@ -1,44 +1,53 @@
-import DefaultTheme from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme-without-fonts'
 import type { Theme } from 'vitepress'
-import { h, defineComponent } from 'vue'
-import { useData } from 'vitepress'
-import BackToTop from './BackToTop.vue'
-import Landing from './Landing.vue'
-import Descent from './Descent.vue'
+import Layout from './Layout.vue'
 import Download from './Download.vue'
-import DocsChrome from './DocsChrome.vue'
-import './custom.css'
+import ArrowLink from './components/ArrowLink.vue'
+import Button from './components/Button.vue'
+import CodeBlock from './components/CodeBlock.vue'
+import Disclosure from './components/Disclosure.vue'
+import Eyebrow from './components/Eyebrow.vue'
+import Figure from './components/Figure.vue'
+import Notice from './components/Notice.vue'
+import PlatformPicker from './components/PlatformPicker.vue'
+import SectionHead from './components/SectionHead.vue'
+import Step from './components/Step.vue'
+import Steps from './components/Steps.vue'
+import './fonts.css'
+import './tokens.css'
+import './base.css'
 import './docs.css'
 
 export default {
   extends: DefaultTheme,
-  Layout: defineComponent({ setup() {
-    const { frontmatter } = useData()
-    return () => frontmatter.value.layout === 'showcase'
-      ? h(Landing)
-      : frontmatter.value.layout === 'descent'
-      ? h(Descent)
-      : h('div', { class: ['secondary-site', frontmatter.value.layout === 'page' ? 'editorial-site' : 'docs-site'] }, [h(DefaultTheme.Layout, null, {
-        'layout-bottom': () => h(BackToTop),
-        'doc-before': () => h(DocsChrome, { placement: 'before' }),
-        'doc-after': () => h(DocsChrome, { placement: 'after' }),
-        'sidebar-nav-before': () => h(DocsChrome, { placement: 'sidebar' }),
-        'nav-bar-content-after': () => h('a', { href: '/get-started', class: 'docs-download' }, 'Get SpawnLoft'),
-      })])
-  } }),
+  Layout,
   enhanceApp({ app }) {
-    app.component('Landing', Landing)
+    // Available in Markdown without an import. Pages compose these; see README.md in this folder.
+    app.component('PlatformPicker', PlatformPicker)
+    app.component('Notice', Notice)
+    app.component('Steps', Steps)
+    app.component('Step', Step)
+    app.component('Disclosure', Disclosure)
+    app.component('Figure', Figure)
+    app.component('CodeBlock', CodeBlock)
+    app.component('Button', Button)
+    app.component('ArrowLink', ArrowLink)
+    app.component('Eyebrow', Eyebrow)
+    app.component('SectionHead', SectionHead)
     app.component('Download', Download)
-    // v-reveal: the element fades up the first time it scrolls into view. One observer, no
-    // library, and nothing happens at all when the person has asked for reduced motion.
+    // v-reveal: one rise the first time an element scrolls into view. Nothing above the fold
+    // should carry it, nothing stays hidden (a timer clears the pending state regardless), and
+    // nothing happens at all when the person has asked for reduced motion.
     app.directive('reveal', {
       mounted(el: HTMLElement) {
         if (typeof window === 'undefined') return
+        el.classList.add('rv')
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-        el.classList.add('reveal')
-        const io = new IntersectionObserver((entries) => {
-          for (const e of entries) if (e.isIntersecting) { el.classList.add('in'); io.disconnect() }
-        }, { threshold: 0.12 })
+        if (el.getBoundingClientRect().top < window.innerHeight) return
+        el.classList.add('rv-pending')
+        const show = () => { el.classList.remove('rv-pending'); io.disconnect(); window.clearTimeout(timer) }
+        const io = new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) show() }, { threshold: 0.12 })
+        const timer = window.setTimeout(show, 4000)
         io.observe(el)
       },
     })

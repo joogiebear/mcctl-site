@@ -19,8 +19,20 @@ const post = computed(() => posts.find(p => p.url === '/' + page.value.relativeP
   <div v-else class="doc-support"><BrandIcon name="spark" :size="27" /><div><strong>Still working it out?</strong><p>Find a fix in troubleshooting, or ask the community.</p><a href="/guide/troubleshooting">Troubleshooting <BrandIcon name="arrow" :size="14" /></a><a href="https://github.com/joogiebear/spawnloft/discussions">Ask a question <BrandIcon name="external" :size="14" /></a></div></div>
 </template>
 <style scoped>
-.library-link { display:flex; align-items:center; gap:12px; padding:9px 0 28px; margin-bottom:12px; border-bottom:1px solid #c4f56630; color:#c4f566; }.library-link>span { flex:1; font:11px var(--mono); letter-spacing:.08em; }.library-link small { display:block; font:11px var(--ui); letter-spacing:0; color:#a7b29f; margin-top:7px; }.library-link:hover small { color:#efeee6; }
-.doc-breadcrumb { display:flex; align-items:center; gap:10px; font:11px var(--mono); margin-bottom:28px; color:#737d6b; }.doc-breadcrumb a { color:#3f6221; }.doc-breadcrumb a:hover { text-decoration:underline; }
-.post-byline { flex-wrap:wrap; row-gap:6px; }.post-byline span::before,.post-byline time+span::before { content:"·"; margin-right:10px; color:#9aa38f; }.post-byline time { color:#58634f; }
-.doc-support { display:flex; gap:18px; padding:28px 0; margin-top:32px; border-top:1px solid #c7ccbe; color:#304d23; }.doc-support strong { font:600 22px var(--display); letter-spacing:-.035em; color:#162014; }.doc-support p { color:#616b5a; font-size:13px; line-height:1.7; margin:9px 0 15px; }.doc-support a { display:inline-flex; align-items:center; gap:9px; margin:0 23px 8px 0; font-size:12px; text-decoration:underline; text-underline-offset:4px; }
+.library-link { display: flex; align-items: center; gap: var(--s3); padding: var(--s2) 0 var(--s5); margin-bottom: var(--s3); border-bottom: 1px solid var(--line); color: var(--accent-text); }
+.library-link > span { flex: 1; font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .08em; }
+.library-link small { display: block; font: 400 var(--t-caption)/1.5 var(--text); letter-spacing: 0; color: var(--fg-3); margin-top: var(--s1); }
+.library-link:hover small { color: var(--fg); }
+.doc-breadcrumb { display: flex; align-items: center; gap: var(--s2); font: 400 var(--t-caption)/1.5 var(--mono); margin-bottom: var(--s6); color: var(--fg-3); }
+.doc-breadcrumb a { color: var(--accent-text); }
+.doc-breadcrumb a:hover { text-decoration: underline; }
+.post-byline { flex-wrap: wrap; row-gap: var(--s1); }
+.post-byline span::before, .post-byline time + span::before { content: "·"; margin-right: var(--s2); color: var(--fg-3); }
+.post-byline time { color: var(--fg-2); }
+.doc-support { display: flex; gap: var(--s4); padding: var(--s6) 0 0; margin-top: var(--s7); border-top: 1px solid var(--line); color: var(--fg-2); }
+.doc-support svg { color: var(--accent-text); }
+.doc-support strong { font: 600 var(--t-h3)/1.25 var(--display); letter-spacing: -.02em; color: var(--fg); }
+.doc-support p { color: var(--fg-2); font-size: var(--t-small); line-height: 1.6; margin: var(--s2) 0 var(--s3); }
+.doc-support a { display: inline-flex; align-items: center; gap: var(--s2); margin: 0 var(--s5) var(--s2) 0; font-size: var(--t-small); color: var(--accent-text); text-decoration: underline; text-underline-offset: 4px; }
+.doc-support a:hover { color: var(--fg); }
 </style>

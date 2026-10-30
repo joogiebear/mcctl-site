@@ -78,7 +78,7 @@ a.platform:hover { background: #090d0d; color: #c4f566; text-decoration: none; }
 .more-linux a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .more-linux a:hover { text-decoration-thickness: 2px; }
 .fine { font: 12px/1.8 var(--ui); opacity: .75; }
-.fine a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.fine a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .setup-link { font: 12px var(--ui); color: inherit; text-underline-offset: 4px; }
 a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 @media(max-width:700px) { .platforms { grid-template-columns: 1fr; } }

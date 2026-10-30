@@ -1,0 +1,21 @@
+# Runs on every pull request: the theme lint, the build, and Lighthouse against the built site
+# with the budgets in lighthouserc.json. Vercel builds the preview separately.
+name: Site checks
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Lighthouse budgets
+        run: npx --yes @lhci/cli@0.15.1 autorun

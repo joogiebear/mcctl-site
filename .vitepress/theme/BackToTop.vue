@@ -39,24 +39,24 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   position: fixed;
   right: 20px;
   bottom: 20px;
-  z-index: var(--vp-z-index-local-nav);
+  z-index: calc(var(--z-header) - 1);
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--edge);
-  background: var(--raised);
-  color: var(--ink);
-  box-shadow: var(--lift), 0 10px 30px rgba(0, 0, 0, .45);
+  border: 1px solid var(--line-strong);
+  background: var(--bg-2);
+  color: var(--fg);
+  box-shadow: var(--shadow-frame);
   cursor: pointer;
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity .25s ease, transform .25s ease, border-color .15s;
+  transition: opacity var(--d2) var(--ease), transform var(--d2) var(--ease), border-color var(--d1) var(--ease);
 }
 .to-top.shown { opacity: 1; transform: none; pointer-events: auto; }
-.to-top:hover { border-color: var(--lapis); color: var(--lapis); }
-.to-top:focus-visible { outline: 2px solid var(--lapis); outline-offset: 2px; }
+.to-top:hover { border-color: var(--accent-text); color: var(--accent-text); }
+.to-top:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
 </style>
