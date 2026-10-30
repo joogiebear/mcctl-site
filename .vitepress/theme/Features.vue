@@ -26,7 +26,7 @@ const jobs = [
   {
     icon: 'terminal', label: '04 / WORK ON IT', title: 'Treat it like a project.',
     text: 'For the people writing the plugin rather than only running it. Clone a server into a disposable copy, drive everything from a terminal, or let an AI assistant you choose do the checking.',
-    points: ['Clone to a throwaway server on its own port', 'RCON command and reply, without the blocking shell', 'Structured JSON and CSV out of the command line', 'An MCP server for Claude or any MCP app'],
+    points: ['Clone to a throwaway server on its own port', 'RCON command and reply, without the blocking shell', 'Structured JSON and CSV out of the command line', 'An MCP server for Claude or any MCP app', 'A launcher that joins your own server in one click, in the 1.6 beta'],
     href: '/guide/ai-assistants', link: 'AI assistants and MCP',
   },
 ]
@@ -154,7 +154,7 @@ const limits = [
       <div class="plat-heading"><span class="feat-label">ONE RELEASE, THREE PLATFORMS</span><h2 id="platforms-title">Built and tested on each.</h2></div>
       <div class="plat-grid">
         <article><BrandIcon name="windows" :size="30" /><h3>Windows</h3><span>10 or 11 · x64</span><ul><li><BrandIcon name="check" :size="14" />Signed installer, per user</li><li><BrandIcon name="check" :size="14" />Managed MySQL and Garnet</li><li><BrandIcon name="check" :size="14" />Schedules via Task Scheduler</li></ul></article>
-        <article><BrandIcon name="cube" :size="30" /><h3>macOS</h3><span>13+ · Apple Silicon or Intel</span><ul><li><BrandIcon name="check" :size="14" />Signed, notarized and stapled</li><li><BrandIcon name="check" :size="14" />Managed MySQL needs macOS 15+</li><li><BrandIcon name="check" :size="14" />Schedules via launchd</li></ul></article>
+        <article><BrandIcon name="cube" :size="30" /><h3>macOS</h3><span>13+ · Apple Silicon · Intel stays on 1.4</span><ul><li><BrandIcon name="check" :size="14" />Signed, notarized and stapled</li><li><BrandIcon name="check" :size="14" />Managed MySQL needs macOS 15+</li><li><BrandIcon name="check" :size="14" />Schedules via launchd</li></ul></article>
         <article><BrandIcon name="terminal" :size="30" /><h3>Linux</h3><span>.deb and .rpm · x64 or arm64</span><ul><li><BrandIcon name="check" :size="14" />Hash-verified packages</li><li><BrandIcon name="check" :size="14" />Managed MySQL on x64 only</li><li><BrandIcon name="check" :size="14" />A command-line-only build for servers</li></ul></article>
       </div>
       <a class="plat-link" href="/guide/beta">The full platform matrix <BrandIcon name="arrow" :size="16" /></a>

@@ -7,7 +7,7 @@ import { defineLoader } from 'vitepress'
 export interface Proof { releases: number; commits: number; stars: number; downloads: number; latest: string; latestDate: string; live: boolean }
 
 const REPO = 'https://api.github.com/repos/joogiebear/spawnloft'
-const SNAPSHOT: Proof = { releases: 40, commits: 408, stars: 3, downloads: 94, latest: 'v1.4.0', latestDate: '2026-09-28T14:15:58Z', live: false }
+const SNAPSHOT: Proof = { releases: 41, commits: 408, stars: 3, downloads: 94, latest: 'v1.5.0', latestDate: '2026-10-26T03:01:35Z', live: false }
 const INSTALLER = /\.(exe|dmg|deb|rpm|AppImage)$/
 
 declare const data: Proof

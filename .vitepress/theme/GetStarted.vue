@@ -33,9 +33,9 @@ const platforms = [
     href: '/guide/getting-started#smartscreen', link: 'Why that warning appears',
   },
   {
-    id: 'mac', icon: 'cube', title: 'macOS', detail: '13 or later',
-    lines: ['Check Apple menu → About This Mac, then take the Apple Silicon DMG for an M-series chip or the Intel one otherwise.', 'Open the DMG and drag SpawnLoft into Applications. Both builds are Developer ID signed, hardened, Apple-notarized and stapled.'],
-    heads: 'Worth knowing', warn: 'The app runs on macOS 13 and later. Managed MySQL is the one feature that needs macOS 15 or later.',
+    id: 'mac', icon: 'cube', title: 'macOS', detail: '13 or later · Apple Silicon',
+    lines: ['Download the DMG, open it and drag SpawnLoft into Applications. The build is Developer ID signed, hardened, Apple-notarized and stapled.', 'Launch it from Applications and follow the Java check.'],
+    heads: 'Worth knowing', warn: 'The app runs on macOS 13 and later on Apple Silicon. Intel Macs stay on 1.4, the last version built for them. Managed MySQL is the one feature that needs macOS 15 or later.',
     href: '/guide/getting-started#install-on-mac', link: 'Mac setup steps',
   },
   {

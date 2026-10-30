@@ -16,7 +16,7 @@ Anyone on your home network can join straight away with your PC's local address 
 
 ## Does it work on Mac or Linux?
 
-Yes. SpawnLoft runs on Windows, Apple Silicon and Intel Macs, and Linux: a `.deb` for Ubuntu and Debian and an `.rpm` for Fedora and the RHEL family, each for x64 and arm64. The Mac app needs macOS 13+; managed MySQL needs macOS 15+ on a Mac and x64 on Linux. Schedules, automatic backups, managed Redis and automatic app updates work everywhere. For a Linux server with no screen there is `spawnloft-cli`, the command line on its own. See [downloads and platform support](/guide/beta).
+Yes. SpawnLoft runs on Windows, Apple Silicon Macs, and Linux: a `.deb` for Ubuntu and Debian and an `.rpm` for Fedora and the RHEL family, each for x64 and arm64. The Mac app needs macOS 13+ on Apple Silicon (Intel Macs stay on 1.4); managed MySQL needs macOS 15+ on a Mac and x64 on Linux. Schedules, automatic backups, managed Redis and automatic app updates work everywhere. For a Linux server with no screen there is `spawnloft-cli`, the command line on its own. See [downloads and platform support](/guide/beta).
 
 ## Can I match the app to the website?
 

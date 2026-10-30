@@ -44,7 +44,7 @@ The installer is signed, but Windows SmartScreen judges by reputation rather tha
 
 ## Install on Mac {#install-on-mac}
 
-Choose the DMG for your chip: check **Apple menu → About This Mac**, then pick Apple Silicon for an M-series chip or Intel for an Intel processor. Open the DMG, drag SpawnLoft into **Applications**, launch it, and follow the Java check. Both installers are Developer ID signed and Apple-notarized. Your application data lives outside the app bundle, and the app updates itself after installation.
+Open the DMG, drag SpawnLoft into **Applications**, launch it, and follow the Java check. The installer is for Apple Silicon and is Developer ID signed and Apple-notarized. Intel Macs stay on 1.4, the last version built for them. Your application data lives outside the app bundle, and the app updates itself after installation.
 
 ## Install on Linux
 

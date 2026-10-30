@@ -7,7 +7,7 @@ description: "What the SpawnLoft desktop app adds around the panel: a native fol
 A window around the [panel](/guide/panel), plus a native folder picker, first-run setup and
 update checking.
 
-SpawnLoft runs on Windows, Apple Silicon and Intel Mac, and Linux. See [downloads and platform support](/guide/beta).
+SpawnLoft runs on Windows, Apple Silicon Mac, and Linux. See [downloads and platform support](/guide/beta).
 
 ## Appearance
 

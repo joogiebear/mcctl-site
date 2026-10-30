@@ -21,7 +21,7 @@ the server its own database and user credentials.
 | Platform | Managed engine |
 | --- | --- |
 | Windows | MySQL 8.4 LTS; Redis-compatible Garnet |
-| macOS 15+ | MySQL 8.4 LTS and Redis-compatible Garnet, on Apple Silicon and Intel |
+| macOS 15+ | MySQL 8.4 LTS and Redis-compatible Garnet |
 | macOS 13–14 | Redis-compatible Garnet, or an external SQL database; managed MySQL requires macOS 15+ |
 | Linux x64 | MySQL 8.4 LTS and Redis-compatible Garnet; the libraries MySQL needs are fetched from your distribution without sudo |
 | Linux arm64 | Redis-compatible Garnet, or an external SQL database; Oracle publishes no small arm64 MySQL build |

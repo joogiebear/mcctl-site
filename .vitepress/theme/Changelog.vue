@@ -10,9 +10,12 @@ type Release = {
 const releases = ref<Release[]>([])
 const state = ref<'loading' | 'ok' | 'failed'>('loading')
 const visibleCount = ref(6)
-const featured = computed(() => releases.value[0])
-const archive = computed(() => releases.value.slice(1, visibleCount.value + 1))
-const remaining = computed(() => Math.max(0, releases.value.length - visibleCount.value - 1))
+// The latest stable release leads. Betas are published far more often and would otherwise
+// always be the headline; they stay in the archive with their pre-release label.
+const featured = computed(() => releases.value.find(release => !release.prerelease) ?? releases.value[0])
+const others = computed(() => releases.value.filter(release => release !== featured.value))
+const archive = computed(() => others.value.slice(0, visibleCount.value))
+const remaining = computed(() => Math.max(0, others.value.length - visibleCount.value))
 let request: AbortController | undefined
 const title = (release: Release) => {
   const match = /^\s*v?[\d.]+(?:-[\w.]+)?\s*[—–-]\s*(.+)$/.exec(release.name || '')
@@ -61,9 +64,10 @@ async function load() {
     state.value = 'ok'
     let hash = window.location.hash.slice(1)
     try { hash = decodeURIComponent(hash) } catch { /* Ignore a malformed link fragment. */ }
-    const linkedIndex = releases.value.findIndex(release => release.tag_name === hash)
-    if (linkedIndex >= 0) {
-      visibleCount.value = Math.max(visibleCount.value, linkedIndex)
+    const linkedIndex = others.value.findIndex(release => release.tag_name === hash)
+    if (linkedIndex >= 0 || hash === featured.value?.tag_name) {
+      // A linked release must be rendered before it can be opened and scrolled to.
+      visibleCount.value = Math.max(visibleCount.value, linkedIndex + 1)
       await nextTick()
       const element = document.getElementById(hash)
       if (element instanceof HTMLDetailsElement) element.open = true
@@ -74,7 +78,7 @@ async function load() {
   } finally { window.clearTimeout(timeout) }
 }
 async function showMore() {
-  const firstNew = releases.value[visibleCount.value + 1]?.tag_name
+  const firstNew = others.value[visibleCount.value]?.tag_name
   visibleCount.value += 6
   await nextTick()
   if (firstNew) document.getElementById(firstNew)?.querySelector('summary')?.focus({ preventScroll: true })
@@ -98,7 +102,7 @@ onBeforeUnmount(() => request?.abort())
     <template v-else>
       <section class="latest-band">
         <article :id="featured.tag_name" class="featured-release journal-wrap">
-          <aside class="release-index"><p class="journal-eyebrow"><span class="release-dot"></span> LATEST PUBLISHED</p><a class="featured-version" :href="'#' + featured.tag_name">{{ featured.tag_name }}</a><time :datetime="featured.published_at">{{ when(featured.published_at) }}</time><span class="release-channel">{{ featured.prerelease ? 'Pre-release' : 'Stable release' }}</span></aside>
+          <aside class="release-index"><p class="journal-eyebrow"><span class="release-dot"></span> {{ featured.prerelease ? 'LATEST PUBLISHED' : 'LATEST STABLE' }}</p><a class="featured-version" :href="'#' + featured.tag_name">{{ featured.tag_name }}</a><time :datetime="featured.published_at">{{ when(featured.published_at) }}</time><span class="release-channel">{{ featured.prerelease ? 'Pre-release' : 'Stable release' }}</span></aside>
           <div class="release-story"><h2>{{ title(featured) }}</h2><div v-if="featured.body?.trim()" class="release-prose" v-html="html(featured)"></div><p v-else class="no-notes">No release notes were included with this version.</p><div class="release-actions"><a v-if="featured.assets?.length" class="journal-button" :href="featured.html_url"><BrandIcon name="download" :size="17" /> Choose your download</a><a class="text-link" :href="featured.html_url">Read on GitHub <BrandIcon name="external" :size="16" /></a></div><p v-if="featured.prerelease" class="channel-note">This is a pre-release. Stable installations are not offered pre-release updates.</p></div>
         </article>
       </section>
