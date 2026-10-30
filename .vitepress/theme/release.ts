@@ -1,5 +1,6 @@
 // What the site knows about SpawnLoft's downloads. One place for the file names, the platform
-// words and the release check, used by PlatformPicker on every page that offers a download.
+// words and the release check, used by PlatformPicker and the hero on every page that offers a download.
+import { onMounted, ref } from 'vue'
 
 export const REPO = 'joogiebear/spawnloft'
 export const RELEASES_URL = `https://github.com/${REPO}/releases`
@@ -75,4 +76,33 @@ export async function fetchLatest(signal?: AbortSignal): Promise<Release> {
   if (found.some(({ item, asset }) => item.main && !asset)) throw new Error('Release still uploading')
   const downloads = found.flatMap(({ item, asset }) => asset ? [{ ...item, file: asset.name, size: asset.size }] : [])
   return { version: latest.tag_name, downloads, url: latest.html_url || `${RELEASES_URL}/tag/${latest.tag_name}` }
+}
+
+const state = {
+  version: ref(FALLBACK_VERSION),
+  downloads: ref<Download[]>(DOWNLOADS),
+  url: ref(`${RELEASES_URL}/latest`),
+  os: ref<Os | undefined>(undefined),
+  loaded: ref(false),
+}
+let started = false
+
+/**
+ * The release every component on a page shares: the verified fallback until the page is mounted,
+ * then the visitor's OS and, once GitHub answers, the latest stable release. Detection and the
+ * fetch start after mount so the first client render matches the server's.
+ */
+export function useRelease() {
+  onMounted(() => {
+    if (started) return
+    started = true
+    state.os.value = detectOs()
+    const controller = new AbortController()
+    const timeout = window.setTimeout(() => controller.abort(), 8000)
+    fetchLatest(controller.signal)
+      .then(latest => { state.version.value = latest.version; state.downloads.value = latest.downloads; state.url.value = latest.url })
+      .catch(() => { /* The verified fallback links work without an answer from GitHub. */ })
+      .finally(() => { window.clearTimeout(timeout); state.loaded.value = true })
+  })
+  return state
 }

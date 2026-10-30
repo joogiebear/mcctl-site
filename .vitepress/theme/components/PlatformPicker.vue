@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import BrandIcon from '../BrandIcon.vue'
 import Eyebrow from './Eyebrow.vue'
-import { DOWNLOADS, FALLBACK_VERSION, INTEL_MAC_URL, OS_NAMES, RELEASES_URL, detectOs, downloadUrl, fetchLatest, formatSize, type Os } from '../release'
+import { INTEL_MAC_URL, OS_NAMES, downloadUrl, formatSize, useRelease } from '../release'
 
 // The one component that can send someone the wrong file. It renders the verified fallback
-// links at build time, asks GitHub for the latest stable release once mounted, and moves the
-// visitor's own platform to the top. It never requires an asset that no longer ships.
-const props = withDefaults(defineProps<{ compact?: boolean; heading?: string }>(), { compact: false })
+// links at build time, takes the latest stable release from the shared state once mounted, and
+// moves the visitor's own platform to the top. It never requires an asset that no longer ships.
+withDefaults(defineProps<{ compact?: boolean; heading?: string }>(), { compact: false })
 
-const version = ref(FALLBACK_VERSION)
-const downloads = ref(DOWNLOADS)
-const releaseUrl = ref(`${RELEASES_URL}/latest`)
-const os = ref<Os | undefined>()
-let controller: AbortController | undefined
-
+const { version, downloads, url: releaseUrl, os } = useRelease()
 const main = computed(() => {
   const list = downloads.value.filter(item => item.main)
   if (!os.value) return list
@@ -22,21 +17,6 @@ const main = computed(() => {
 })
 const more = computed(() => downloads.value.filter(item => !item.main))
 const url = (file: string) => downloadUrl(version.value, file)
-
-onMounted(async () => {
-  os.value = detectOs()
-  controller = new AbortController()
-  const timeout = window.setTimeout(() => controller?.abort(), 8000)
-  try {
-    const latest = await fetchLatest(controller.signal)
-    version.value = latest.version
-    downloads.value = latest.downloads
-    releaseUrl.value = latest.url
-  } catch {
-    /* The verified fallback links work without an answer from GitHub. */
-  } finally { window.clearTimeout(timeout) }
-})
-onBeforeUnmount(() => controller?.abort())
 </script>
 
 <template>

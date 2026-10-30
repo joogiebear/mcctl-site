@@ -1,7 +1,6 @@
 import DefaultTheme from 'vitepress/theme-without-fonts'
 import type { Theme } from 'vitepress'
 import Layout from './Layout.vue'
-import Download from './Download.vue'
 import ArrowLink from './components/ArrowLink.vue'
 import Button from './components/Button.vue'
 import CodeBlock from './components/CodeBlock.vue'
@@ -34,7 +33,6 @@ export default {
     app.component('ArrowLink', ArrowLink)
     app.component('Eyebrow', Eyebrow)
     app.component('SectionHead', SectionHead)
-    app.component('Download', Download)
     // v-reveal: one rise the first time an element scrolls into view. Nothing above the fold
     // should carry it, nothing stays hidden (a timer clears the pending state regardless), and
     // nothing happens at all when the person has asked for reduced motion.
@@ -47,7 +45,7 @@ export default {
         el.classList.add('rv-pending')
         const show = () => { el.classList.remove('rv-pending'); io.disconnect(); window.clearTimeout(timer) }
         const io = new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) show() }, { threshold: 0.12 })
-        const timer = window.setTimeout(show, 4000)
+        const timer = window.setTimeout(show, 2500)
         io.observe(el)
       },
     })

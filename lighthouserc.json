@@ -4,7 +4,7 @@
       "staticDistDir": ".vitepress/dist",
       "url": [
         "http://localhost/index.html",
-        "http://localhost/get-started.html",
+        "http://localhost/download.html",
         "http://localhost/changelog.html",
         "http://localhost/guide/getting-started.html"
       ],
@@ -45,7 +45,7 @@
           }
         },
         {
-          "matchingUrlPattern": "/(get-started|changelog|guide/).*",
+          "matchingUrlPattern": "/(download|changelog|guide/).*",
           "assertions": {
             "resource-summary:total:size": [
               "warn",

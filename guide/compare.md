@@ -83,6 +83,6 @@ You do not have to move anything to try it. **Add one I already have** points Sp
 
 ## Ready to try it
 
-[Download SpawnLoft](/#download), or read the [getting started guide](/guide/getting-started) first. If you are leaving another tool, [Sharing your server](/guide/sharing) covers how friends join, and [How it works](/guide/how-it-works) explains what runs on your machine.
+[Download SpawnLoft](/download), or read the [getting started guide](/guide/getting-started) first. If you are leaving another tool, [Sharing your server](/guide/sharing) covers how friends join, and [How it works](/guide/how-it-works) explains what runs on your machine.
 
 Sources for the other tools: [Pterodactyl](https://pterodactyl.io/), [Crafty Controller](https://craftycontrol.com/) and [Aternos](https://aternos.org/).

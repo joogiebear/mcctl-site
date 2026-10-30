@@ -13,6 +13,8 @@ composition, not CSS.
 | `docs.css` | VitePress's default theme pointed at the tokens: ink sidebar, paper reading column, the default nav bar hidden in favour of `SiteHeader`. |
 | `Layout.vue` | One layout for every page. `page` and `showcase` pages get header, content, footer. Docs and blog posts keep VitePress's sidebar, outline and search inside the same header and footer. `descent` is the lab page with its own chrome, loaded only there. |
 | `components/` | The system. Each is a Vue single-file component that uses tokens only. |
+| `sections/` | The home page's sections (hero, compat strip, principles, tour, developers, limits, download). Each owns its copy and layout and composes components. |
+| `pages/` | One component per marketing page (`Home`, `DownloadPage`), imported by the Markdown file at the route. |
 | `release.ts` | What the site knows about downloads: file names, the platform words, OS detection and the release check. Bump `FALLBACK_VERSION` and the file names with each stable release. |
 | `proof.data.ts` | Build-time figures from GitHub (release count, latest version and date), with a snapshot when the API is unreachable. |
 
@@ -33,6 +35,7 @@ composition, not CSS.
 | `CodeBlock` | A dark well on both surfaces. Lines starting `$ ` are prompts, `# ` comments. |
 | `Figure` | A capture in a hairline frame with a caption. With `widths`, it builds a `srcset` from the files `tools/images/build.mjs` writes. |
 | `AppFrame` | The frame a capture or the live console sits in. `hero` adds the site's one shadow. |
+| `LiveConsole` | The hero: an HTML replica of the panel playing a real-shaped log. Still at rest under reduced motion. |
 | `PlatformPicker` | The download list: detected OS first, latest stable release from GitHub, verified fallback links otherwise. Use it anywhere a download is offered; nothing else may link an installer. |
 | `SiteHeader` / `SiteFooter` | The one header and footer. The nav links live in `SiteHeader.vue`. |
 | `Prose` | Reading styles for HTML that arrives from elsewhere (release notes). |
@@ -56,7 +59,6 @@ the outputs: Vercel's build does not run it. `Figure` reads them with `:widths="
 
 ## Pages still on the old styles
 
-`Landing`, `Features`, `GetStarted`, `Changelog`, `Roadmap`, `BlogIndex`, `FieldGuide`,
-`Download`, `DemoVideo`, `ProductExplorer`, `ProofStrip`, `WorldScene`, `PortalScene` and
-`Descent` predate the system. They render inside the shared header and footer through the legacy
+`Features`, `Changelog`, `Roadmap`, `BlogIndex`, `FieldGuide`, `Download`, `DemoVideo`,
+`ProductExplorer` and `Descent` predate the system. They render inside the shared header and footer through the legacy
 aliases at the bottom of `tokens.css`, and each is replaced as its page is rebuilt.
