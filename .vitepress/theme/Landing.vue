@@ -16,12 +16,12 @@ const layers = [
   { icon:'shield', title:'Keep the story going.', text:'Backups, scheduled restarts, and crash recovery. The quiet work behind a world that lasts.', caption:'SERVER CORE / LOOKING AFTER THE DETAILS' },
 ]
 const questions = [
-  { q:'What exactly is SpawnLoft?', a:'A desktop app for running Minecraft Java Edition servers on your own Windows PC or Mac. It brings server controls, plugins, worlds, backups, and more into one place.' },
+  { q:'What exactly is SpawnLoft?', a:'A desktop app for running Minecraft Java Edition servers on your own Windows, Mac or Linux machine. It brings server controls, plugins, worlds, backups, and more into one place.' },
   { q:'Can I bring my existing server?', a:'Yes. Point SpawnLoft at the server folder you already use. It adds the server in place without moving your world or rewriting its files.' },
   { q:'Can my friends join?', a:'Friends on your home network can use your local address. Friends elsewhere need a port forward or a tunnel you choose to set up. SpawnLoft does not automatically open your machine to the internet.', link:'/guide/security', label:'Read the connection and security guide' },
-  { q:'What do I need to get started?', a:'Windows 10 or 11, or macOS 13+, Java, and enough memory for the server you want to run. The app checks for Java and helps you find the right version. Current Minecraft needs Java 25.', link:'/guide/getting-started', label:'See the setup guide' },
+  { q:'What do I need to get started?', a:'Windows 10 or 11, macOS 13+ on Apple Silicon, or a current Linux, plus Java and enough memory for the server you want to run. The app checks for Java and helps you find the right version. Current Minecraft needs Java 25.', link:'/guide/getting-started', label:'See the setup guide' },
   { q:'How is it different from Aternos or Pterodactyl?', a:'Aternos hosts the server for you, and Pterodactyl is a panel for people running servers for others. SpawnLoft runs on your own computer, with no account and no queue. It needs your PC on, and it is honest about where the others are the better choice.', link:'/guide/compare', label:'See the comparison' },
-  { q:'What about Mac and Linux?', a:'Yes. SpawnLoft runs on Windows, Apple Silicon and Intel Mac, and Linux (.deb and .rpm, x64 and arm64), with automatic updates everywhere. There is also a command-line package for Linux servers with no screen.', link:'/guide/beta', label:'Choose your download' },
+  { q:'What about Mac and Linux?', a:'Yes. SpawnLoft runs on Windows, Apple Silicon Macs, and Linux (.deb and .rpm, x64 and arm64), with automatic updates everywhere. Intel Macs stay on 1.4, the last version built for them. There is also a command-line package for Linux servers with no screen.', link:'/guide/beta', label:'Choose your download' },
   { q:'Is the desktop app free?', a:'The current desktop app is a free download and open source under the MIT license. You can get started without creating an account.' },
 ]
 let stop = ()=>{}
@@ -116,7 +116,7 @@ onBeforeUnmount(()=>{ stopPortalTrip(); stop() })
     <main id="main">
       <section ref="hero" class="hero-journey" :style="{'--journey':heroProgress}">
         <div class="hero-screen">
-          <div class="hero-topline"><span><i class="status-dot"></i> MINECRAFT SERVERS. PERSONALLY YOURS.</span><span>BUILT FOR WINDOWS / MADE FOR WORLDS</span></div>
+          <div class="hero-topline"><span><i class="status-dot"></i> MINECRAFT SERVERS. PERSONALLY YOURS.</span><span>WINDOWS / MAC / LINUX</span></div>
           <h1 class="hero-wordmark">spawnloft<span aria-hidden="true">✳</span></h1>
           <div class="hero-halo" aria-hidden="true"></div>
           <div class="hero-world"><PortalScene :progress="heroProgress" /></div>

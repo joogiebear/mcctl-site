@@ -10,8 +10,10 @@ type Release = {
 const releases = ref<Release[]>([])
 const state = ref<'loading' | 'ok' | 'failed'>('loading')
 const visibleCount = ref(6)
-const featured = computed(() => releases.value[0])
-const archive = computed(() => releases.value.slice(1, visibleCount.value + 1))
+// The latest stable release leads. Betas are published far more often and would otherwise
+// always be the headline; they stay in the archive with their pre-release label.
+const featured = computed(() => releases.value.find(release => !release.prerelease) ?? releases.value[0])
+const archive = computed(() => releases.value.filter(release => release !== featured.value).slice(0, visibleCount.value))
 const remaining = computed(() => Math.max(0, releases.value.length - visibleCount.value - 1))
 let request: AbortController | undefined
 const title = (release: Release) => {

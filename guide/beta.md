@@ -1,11 +1,11 @@
 ---
 title: Downloads & platforms
-description: Download SpawnLoft for Windows, Apple Silicon and Intel Mac, and Linux (.deb and .rpm, x64 and arm64). Platform support, automatic updates, and beta builds.
+description: Download SpawnLoft for Windows, Apple Silicon Mac, and Linux (.deb and .rpm, x64 and arm64). Platform support, automatic updates, and beta builds.
 ---
 
 # Downloads & platforms
 
-SpawnLoft ships for Windows, Apple Silicon and Intel Mac, and Linux on x64 and arm64. Every platform is built from one commit and installed and exercised on its own operating system before a release is published.
+SpawnLoft ships for Windows, Apple Silicon Mac, and Linux on x64 and arm64. Every platform is built from one commit and installed and exercised on its own operating system before a release is published.
 
 <Download fine />
 
@@ -13,10 +13,11 @@ SpawnLoft ships for Windows, Apple Silicon and Intel Mac, and Linux on x64 and a
 | --- | --- | --- |
 | Windows | `SpawnLoft-Setup-<version>.exe` | Windows 10 or 11, x64 |
 | Mac, Apple Silicon | `SpawnLoft-<version>-mac-arm64.dmg` | macOS 13 or later |
-| Mac, Intel | `SpawnLoft-<version>-mac-x64.dmg` | macOS 13 or later |
 | Linux, Debian and Ubuntu | `SpawnLoft-<version>-linux-amd64.deb`, `-linux-arm64.deb` | Ubuntu 22.04+, Debian 12+ |
 | Linux, Fedora, RHEL family, openSUSE | `SpawnLoft-<version>-linux-x86_64.rpm`, `-linux-aarch64.rpm` | |
 | Linux, no desktop | `spawnloft-cli-<version>-linux-<arch>.deb` or `.rpm` | See [No screen](#no-screen) |
+
+Intel Macs stay on 1.4, the last version built for them; an Intel Mac is not offered 1.5 or later, and its update check says so.
 
 Java is separate on every platform, and which version depends on your Minecraft version. See [Getting started](/guide/getting-started#what-you-need).
 
@@ -26,7 +27,7 @@ Run the `.exe` installer. It installs per user, so no administrator prompt appea
 
 ## Install on Mac
 
-Choose Apple Silicon for an M-series chip or Intel for an Intel processor (**Apple menu → About This Mac**). Open the DMG and drag SpawnLoft into **Applications**. Both builds are Developer ID signed, hardened, Apple-notarized and stapled. Follow the [Mac setup steps](/guide/getting-started#install-on-mac).
+Open the DMG and drag SpawnLoft into **Applications**. The build is for Apple Silicon and is Developer ID signed, hardened, Apple-notarized and stapled. Follow the [Mac setup steps](/guide/getting-started#install-on-mac).
 
 Managed MySQL requires macOS 15 or later; the app itself runs on macOS 13 or later.
 
@@ -73,7 +74,7 @@ Then open `http://127.0.0.1:8770`. `spawnloft-cli` has no updater; install a new
 
 ## Platform support
 
-| Capability | Windows x64 | Mac Apple Silicon and Intel | Linux x64 and arm64 |
+| Capability | Windows x64 | Mac Apple Silicon | Linux x64 and arm64 |
 | --- | --- | --- | --- |
 | Server controls, console, backup and restore | Yes | Yes | Yes |
 | **Classic** and **SpawnLoft** themes | Yes | Yes | Yes |
@@ -106,4 +107,4 @@ Each release's notes are in the [changelog](/changelog). Recent highlights:
 
 ## Reporting a problem
 
-Include the version and source commit from **Settings → About**, your operating system and version, and your processor (x64 or arm64; Apple Silicon or Intel on a Mac). Describe the action, the expected result and the actual result. Never attach database passwords or private plugin configuration values. **Feedback → Something broke** fills most of this in.
+Include the version and source commit from **Settings → About**, your operating system and version, and your processor (x64 or arm64). Describe the action, the expected result and the actual result. Never attach database passwords or private plugin configuration values. **Feedback → Something broke** fills most of this in.
