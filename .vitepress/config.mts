@@ -71,6 +71,9 @@ export default defineConfig({
   lastUpdated: true,
   srcExclude: ['README.md', 'art/**', 'tools/**'],
   appearance: 'force-dark',
+  // The visible header is SiteHeader.vue (theme/Layout.vue); VitePress's own nav bar is not rendered
+  // anywhere, so its search box is not mounted twice on docs pages.
+  transformPageData(pageData) { pageData.frontmatter.navbar = false },
   // /descent is an unlisted preview of an alternative hero, so it stays out of the sitemap as well as out of search.
   sitemap: { hostname: SITE, transformItems: items => items.filter(item => !item.url.includes('descent')) },
   head: [

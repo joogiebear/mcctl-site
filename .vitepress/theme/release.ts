@@ -52,6 +52,8 @@ export function detectOs(): Os | undefined {
   const platform = (data?.platform || navigator.platform || '').toLowerCase()
   const agent = navigator.userAgent.toLowerCase()
   if (/iphone|ipad|android/.test(agent)) return undefined
+  // iPadOS reports itself as a Mac; the touch points give it away.
+  if (platform === 'macintel' && navigator.maxTouchPoints > 1) return undefined
   if (platform.startsWith('win') || agent.includes('windows')) return 'windows'
   if (platform.startsWith('mac') || agent.includes('mac os')) return 'mac'
   if (platform.includes('linux') || platform.includes('x11') || /linux|cros/.test(agent)) return 'linux'

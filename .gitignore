@@ -7,3 +7,5 @@ art/*.png
 art/*.log
 art/*.blend1
 demo-out/
+node_modules
+*.log

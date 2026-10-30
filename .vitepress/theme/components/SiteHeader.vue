@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { defineAsyncComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vitepress'
+import { VPNavBarSearch } from 'vitepress/theme-without-fonts'
 import BrandIcon from '../BrandIcon.vue'
 import Button from './Button.vue'
 
 // The one header. Sticky on marketing pages; fixed on docs pages, where VitePress's own bar is
 // hidden and the sidebar and local nav are laid out against --vp-nav-height instead.
-const props = withDefaults(defineProps<{ fixed?: boolean; search?: boolean; skipTo?: string }>(), { fixed: false, search: false, skipTo: '#main' })
-
-// VitePress's search button, loaded only on pages that ask for it (the docs).
-const VPNavBarSearch = defineAsyncComponent(() => import('vitepress/dist/client/theme-default/components/VPNavBarSearch.vue'))
+// `search` renders VitePress's search button (the docs). `skip` is the skip link; docs pages keep
+// VitePress's own instead.
+const props = withDefaults(defineProps<{ fixed?: boolean; search?: boolean; skip?: boolean; skipTo?: string }>(), { fixed: false, search: false, skip: true, skipTo: '#main' })
 
 const links = [
   { text: 'Product', href: '/features', match: /^\/(features|product)(\/|$)/ },
@@ -24,7 +24,22 @@ const extra = [
 ]
 const route = useRoute()
 const open = ref(false)
+const menuBtn = ref<HTMLButtonElement>()
+const menu = ref<HTMLElement>()
 const active = (match: RegExp) => match.test(route.path)
+
+// The router only scrolls a `#` link, so the skip link moves focus itself.
+const skipToContent = () => {
+  const target = document.querySelector<HTMLElement>(props.skipTo)
+  if (!target) return
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+  target.focus({ preventScroll: true })
+  target.scrollIntoView()
+}
+const toggleMenu = () => {
+  open.value = !open.value
+  nextTick(() => (open.value ? menu.value?.querySelector('a')?.focus() : menuBtn.value?.focus()))
+}
 
 watch(() => route.path, () => { open.value = false })
 watch(open, value => { if (typeof document !== 'undefined') document.documentElement.style.overflow = value ? 'hidden' : '' })
@@ -35,20 +50,20 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', onKey); if (open.v
 
 <template>
   <header class="site-header" :class="{ fixed, open }">
-    <a class="skip" :href="skipTo">Skip to content</a>
+    <a v-if="skip" class="skip" :href="skipTo" @click.prevent="skipToContent">Skip to content</a>
     <div class="bar">
       <a class="brand" href="/" aria-label="SpawnLoft home"><BrandIcon name="mark" :size="24" /><span>spawnloft</span></a>
       <nav class="links" aria-label="Main">
         <a v-for="link in links" :key="link.href" :href="link.href" :class="{ on: active(link.match) }" :aria-current="active(link.match) ? 'page' : undefined">{{ link.text }}</a>
       </nav>
       <div class="actions">
-        <ClientOnly><VPNavBarSearch v-if="search" class="search" /></ClientOnly>
+        <VPNavBarSearch v-if="search" class="search" />
         <a class="icon-link" href="https://github.com/joogiebear/spawnloft" aria-label="SpawnLoft on GitHub"><BrandIcon name="github" :size="20" /></a>
         <Button class="cta" href="/download" size="sm">Download</Button>
-        <button class="menu-btn" type="button" :aria-expanded="open" aria-controls="site-menu" @click="open = !open"><BrandIcon :name="open ? 'close' : 'menu'" :size="22" /><span class="sr-only">{{ open ? 'Close menu' : 'Menu' }}</span></button>
+        <button ref="menuBtn" class="menu-btn" type="button" :aria-expanded="open" :aria-controls="open ? 'site-menu' : undefined" @click="toggleMenu"><BrandIcon :name="open ? 'close' : 'menu'" :size="22" /><span class="sr-only">{{ open ? 'Close menu' : 'Menu' }}</span></button>
       </div>
     </div>
-    <nav v-if="open" id="site-menu" class="menu" aria-label="Main">
+    <nav v-if="open" id="site-menu" ref="menu" class="menu" aria-label="Main">
       <a v-for="link in links" :key="link.href" :href="link.href" class="menu-link" :class="{ on: active(link.match) }">{{ link.text }}</a>
       <span class="rule" aria-hidden="true"></span>
       <a v-for="link in extra" :key="link.href" :href="link.href" class="menu-link minor">{{ link.text }}</a>

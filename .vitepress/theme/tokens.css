@@ -14,12 +14,14 @@
   --ok: #4ade80; --warn: #f0b64d; --bad: #f87171;
   --ok-wash: rgba(74, 222, 128, .14); --warn-wash: rgba(240, 182, 77, .16); --bad-wash: rgba(248, 113, 113, .14);
   --shadow-frame: 0 30px 80px rgba(0, 0, 0, .45);
+  /* The one call to action on a view: lime on ink, ink on paper (see .paper below) */
+  --cta: var(--accent); --cta-hover: var(--accent-hover); --cta-fg: var(--accent-fg);
 
   /* Paper surface, applied by .paper below */
   --paper-0: #efeee6; --paper-1: #e5e5db; --paper-2: #d9dacd; --paper-3: #cfd0c2;
   --paper-fg: #182113; --paper-fg-2: #4d5a46; --paper-fg-3: #5c6953;
   --paper-accent-text: #3d641f; --paper-fg-hover: #0e140b;
-  --well: #111a10; --well-fg: #d6e6bf; --well-line: #314428;
+  --well: #111a10; --well-fg: #d6e6bf; --well-fg-2: #9fb292; --well-line: #314428;
 
   /* Type */
   --display: "Bricolage Grotesque", "Segoe UI Variable Display", system-ui, sans-serif;
@@ -59,6 +61,7 @@
   --fg: var(--paper-fg); --fg-2: var(--paper-fg-2); --fg-3: var(--paper-fg-3);
   --line: rgba(24, 33, 19, .14); --line-strong: rgba(24, 33, 19, .3);
   --accent-text: var(--paper-accent-text); --accent-wash: rgba(61, 100, 31, .08);
+  --cta: var(--paper-fg); --cta-hover: var(--paper-fg-hover); --cta-fg: var(--paper-0);
   background: var(--bg); color: var(--fg);
 }
 
