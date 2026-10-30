@@ -65,8 +65,8 @@
   background: var(--bg); color: var(--fg);
 }
 
-/* Aliases the pages not yet on the system still read (Landing, Features, GetStarted, Changelog,
-   Roadmap, BlogIndex, FieldGuide, Download). Each goes when its page is rebuilt; none is new API. */
+/* Aliases the pages not yet on the system still read (Features, Changelog,
+   Roadmap, BlogIndex, FieldGuide). Each goes when its page is rebuilt; none is new API. */
 :root {
   --ui: var(--text); --lapis: var(--accent); --lapis-dim: var(--accent); --lapis-wash: var(--accent-wash);
   --void: var(--bg); --surface: var(--bg-1); --raised: var(--bg-2); --recess: var(--bg-1); --sunken: var(--bg);

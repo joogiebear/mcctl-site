@@ -8,12 +8,11 @@ import BackToTop from './BackToTop.vue'
 import DocsChrome from './DocsChrome.vue'
 
 // One layout, one header, one footer, for every page.
-//  - `page` and `showcase` pages are the marketing shell (.sl): header, the page, footer.
+//  - `page` pages (home, download, product, changelog...) are the marketing shell (.sl): header, the page, footer.
 //  - docs (and blog posts) keep VitePress's sidebar, outline and search, inside the same header
 //    and footer, with the default nav bar hidden (docs.css).
 //  - `descent` is the lab page with its own chrome, loaded only there so three.js stays out of
 //    every other page's bundle.
-const Landing = defineAsyncComponent(() => import('./Landing.vue'))
 const Descent = defineAsyncComponent(() => import('./Descent.vue'))
 
 const { frontmatter, page } = useData()
@@ -23,12 +22,9 @@ const kind = computed<string>(() => (page.value.isNotFound ? 'doc' : frontmatter
 
 <template>
   <Descent v-if="kind === 'descent'" />
-  <div v-else-if="kind === 'showcase' || kind === 'page'" class="sl">
+  <div v-else-if="kind === 'page'" class="sl">
     <SiteHeader />
-    <div id="main" class="sl-main" tabindex="-1">
-      <Landing v-if="kind === 'showcase'" />
-      <Content v-else />
-    </div>
+    <div id="main" class="sl-main" tabindex="-1"><Content /></div>
     <SiteFooter />
   </div>
   <div v-else class="sl-docs">

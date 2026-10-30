@@ -84,7 +84,7 @@ const limits = [
         <h1>Everything a server needs.<br><span>Nothing it doesn’t.</span></h1>
         <p>SpawnLoft is a desktop app for running Minecraft Java Edition servers on your own Windows PC, Mac or Linux machine. Worlds, plugins, console, databases and backups in one window — for the people who want to play with friends, and the people writing the plugin.</p>
         <div class="feat-actions">
-          <a class="feat-primary" href="/get-started">Get SpawnLoft <BrandIcon name="arrow" :size="19" /></a>
+          <a class="feat-primary" href="/download">Get SpawnLoft <BrandIcon name="arrow" :size="19" /></a>
           <a class="feat-secondary" href="/guide/">Read the field guide <BrandIcon name="arrow" :size="15" /></a>
         </div>
         <span class="feat-fine">FREE · OPEN SOURCE · MIT LICENCE · NO ACCOUNT</span>
@@ -171,7 +171,7 @@ const limits = [
       <BrandIcon name="mark" :size="44" />
       <h2>Sounds like your kind of server?</h2>
       <p>Free, open source, and running on your machine in about ten minutes.</p>
-      <div class="cta-actions"><a class="feat-primary" href="/get-started">Get started <BrandIcon name="arrow" :size="19" /></a><a class="feat-secondary" href="https://github.com/joogiebear/spawnloft">Read the source <BrandIcon name="external" :size="15" /></a></div>
+      <div class="cta-actions"><a class="feat-primary" href="/download">Get started <BrandIcon name="arrow" :size="19" /></a><a class="feat-secondary" href="https://github.com/joogiebear/spawnloft">Read the source <BrandIcon name="external" :size="15" /></a></div>
     </section>
   </main>
 </template>

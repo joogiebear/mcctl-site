@@ -6,7 +6,7 @@ withDefaults(defineProps<{ title?: string; hero?: boolean }>(), { hero: false })
 <template>
   <div class="app-frame" :class="{ hero }">
     <div v-if="title" class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="title">{{ title }}</span></div>
-    <div class="body"><slot /></div>
+    <div class="app-body"><slot /></div>
   </div>
 </template>
 
@@ -17,5 +17,5 @@ withDefaults(defineProps<{ title?: string; hero?: boolean }>(), { hero: false })
 .dots { display: flex; gap: 6px; }
 .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
 .title { font: 400 var(--t-caption)/1 var(--mono); color: var(--fg-3); letter-spacing: .04em; }
-.body :deep(img) { display: block; width: 100%; height: auto; }
+.app-body :deep(img) { display: block; width: 100%; height: auto; }
 </style>

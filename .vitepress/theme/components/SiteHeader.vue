@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{ fixed?: boolean; search?: boolean; skip
 
 const links = [
   { text: 'Product', href: '/features', match: /^\/(features|product)(\/|$)/ },
-  { text: 'Download', href: '/get-started', match: /^\/(get-started|download)(\/|$)/ },
+  { text: 'Download', href: '/download', match: /^\/download(\/|$)/ },
   { text: 'Docs', href: '/guide/', match: /^\/(guide|reference)\// },
   { text: 'Blog', href: '/blog/', match: /^\/blog(\/|$)/ },
 ]
@@ -59,7 +59,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', onKey); if (open.v
       <div class="actions">
         <VPNavBarSearch v-if="search" class="search" />
         <a class="icon-link" href="https://github.com/joogiebear/spawnloft" aria-label="SpawnLoft on GitHub"><BrandIcon name="github" :size="20" /></a>
-        <Button class="cta" href="/get-started" size="sm">Download</Button>
+        <Button class="cta" href="/download" size="sm">Download</Button>
         <button ref="menuBtn" class="menu-btn" type="button" :aria-expanded="open" :aria-controls="open ? 'site-menu' : undefined" @click="toggleMenu"><BrandIcon :name="open ? 'close' : 'menu'" :size="22" /><span class="sr-only">{{ open ? 'Close menu' : 'Menu' }}</span></button>
       </div>
     </div>
@@ -67,7 +67,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', onKey); if (open.v
       <a v-for="link in links" :key="link.href" :href="link.href" class="menu-link" :class="{ on: active(link.match) }">{{ link.text }}</a>
       <span class="rule" aria-hidden="true"></span>
       <a v-for="link in extra" :key="link.href" :href="link.href" class="menu-link minor">{{ link.text }}</a>
-      <Button href="/get-started" size="lg" class="menu-cta"><template #icon><BrandIcon name="download" :size="16" /></template>Download SpawnLoft</Button>
+      <Button href="/download" size="lg" class="menu-cta"><template #icon><BrandIcon name="download" :size="16" /></template>Download SpawnLoft</Button>
     </nav>
   </header>
 </template>

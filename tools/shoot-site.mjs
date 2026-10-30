@@ -1,5 +1,5 @@
 // Renders site pages at a desktop and a mobile viewport, for the visual check before review.
-//   OUT=/tmp/shots node tools/shoot-site.mjs /features /get-started
+//   OUT=/tmp/shots node tools/shoot-site.mjs /features /download
 // Uses the Chromium that Playwright already downloaded; set PW_CHROME to point elsewhere.
 import { chromium } from 'playwright-core'
 import fs from 'node:fs'

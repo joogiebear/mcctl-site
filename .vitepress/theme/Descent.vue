@@ -136,7 +136,7 @@ onBeforeUnmount(() => { destroyed = true; cleanup() })
       <a class="descent-brand" href="/" aria-label="SpawnLoft home"><img src="/brand/mark.svg" alt="" width="26" height="26"><b>spawnloft</b></a>
       <nav aria-label="Main navigation">
         <a href="/guide/">Docs <BrandIcon name="arrow" :size="12" /></a>
-        <a class="descent-get" href="/#download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a>
+        <a class="descent-get" href="/download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a>
       </nav>
     </header>
 
@@ -156,7 +156,7 @@ onBeforeUnmount(() => { destroyed = true; cleanup() })
               <h2 v-if="i > 0">{{ chapter.title }}</h2>
               <h1 v-else>{{ chapter.title }}</h1>
               <p class="descent-body">{{ chapter.body }}</p>
-              <a v-if="chapter.cta" class="descent-cta" href="/#download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a>
+              <a v-if="chapter.cta" class="descent-cta" href="/download">Get SpawnLoft <BrandIcon name="arrow" :size="15" /></a>
             </div>
           </article>
 

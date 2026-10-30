@@ -158,7 +158,7 @@ ${items}
     // The visible header is SiteHeader.vue; this list feeds VitePress's own places (search, local nav).
     nav: [
       { text: 'Product', link: '/features' },
-      { text: 'Download', link: '/get-started' },
+      { text: 'Download', link: '/download' },
       { text: 'Docs', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },
     ],
