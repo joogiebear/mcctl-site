@@ -1,6 +1,6 @@
 ---
 title: The game launcher
-description: In the 1.6 betas. Play on your own SpawnLoft server from a launcher window. Setups by Minecraft version, Vanilla or Fabric, Microsoft sign-in on Microsoft's own page, and a Play button that starts the server first when it has to. In the 1.6 betas.
+description: In the 1.6 betas. Play on your own SpawnLoft server from a launcher window. Setups by Minecraft version, Vanilla or Fabric, Microsoft sign-in on Microsoft's own page, and a Play button that starts the server first when it has to.
 ---
 
 # The game launcher
