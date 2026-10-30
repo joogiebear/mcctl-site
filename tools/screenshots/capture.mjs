@@ -153,7 +153,7 @@ if (MODE === 'prepare') {
 
   if (want('plugins')) {
     await openOnly('tabPlugins', 'the plugins tool')
-    await waitFor(`/INSTALLED \(\d+\)/.test(document.body.innerText)`, 'the plugin list')
+    await waitFor(`/INSTALLED \\(\\d+\\)/.test(document.body.innerText)`, 'the plugin list')
     await clearToasts()
     await shot('plugins')
   }
