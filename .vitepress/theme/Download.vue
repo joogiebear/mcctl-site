@@ -52,9 +52,9 @@ onMounted(async () => {
       </div>
       <p class="more-linux">Other Linux:
         <template v-for="(item, index) in linux" :key="item.id"><a :href="release + version + '/' + item.file">{{ item.label }}</a><span v-if="index < linux.length - 1"> · </span></template>
-        · <a href="/guide/beta#no-screen">command line only, for a server</a>
+        <span v-if="linux.length"> · </span><a href="/guide/beta#no-screen">command line only, for a server</a>
       </p>
-      <span class="fine">Signed Windows and Mac installers · macOS 13+ on Apple Silicon · Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 · MIT licence<br>Managed MySQL needs macOS 15+ on Mac and x64 on Linux. Minecraft needs Java. Intel Macs stay on 1.4, the last version built for them.</span>
+      <span class="fine">Signed Windows and Mac installers · macOS 13+ on Apple Silicon · Ubuntu 22.04+, Debian 12+, Fedora, RHEL 9 · MIT licence<br>Managed MySQL needs macOS 15+ on Mac and x64 on Linux. Minecraft needs Java. Intel Macs stay on <a href="https://github.com/joogiebear/spawnloft/releases/download/v1.4.0/SpawnLoft-1.4.0-mac-x64.dmg">1.4</a>, the last version built for them.</span>
       <a class="setup-link" href="/guide/getting-started">First time here? Read the setup guide →</a>
     </template>
   </div>
@@ -78,6 +78,7 @@ a.platform:hover { background: #090d0d; color: #c4f566; text-decoration: none; }
 .more-linux a { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .more-linux a:hover { text-decoration-thickness: 2px; }
 .fine { font: 12px/1.8 var(--ui); opacity: .75; }
+.fine a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .setup-link { font: 12px var(--ui); color: inherit; text-underline-offset: 4px; }
 a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 @media(max-width:700px) { .platforms { grid-template-columns: 1fr; } }

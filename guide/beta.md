@@ -17,7 +17,7 @@ SpawnLoft ships for Windows, Apple Silicon Mac, and Linux on x64 and arm64. Ever
 | Linux, Fedora, RHEL family, openSUSE | `SpawnLoft-<version>-linux-x86_64.rpm`, `-linux-aarch64.rpm` | |
 | Linux, no desktop | `spawnloft-cli-<version>-linux-<arch>.deb` or `.rpm` | See [No screen](#no-screen) |
 
-Intel Macs stay on 1.4, the last version built for them; an Intel Mac is not offered 1.5 or later, and its update check says so.
+Intel Macs stay on 1.4, the last version built for them: [SpawnLoft-1.4.0-mac-x64.dmg](https://github.com/joogiebear/spawnloft/releases/download/v1.4.0/SpawnLoft-1.4.0-mac-x64.dmg). An Intel Mac is not offered 1.5 or later, and its update check says so.
 
 Java is separate on every platform, and which version depends on your Minecraft version. See [Getting started](/guide/getting-started#what-you-need).
 
