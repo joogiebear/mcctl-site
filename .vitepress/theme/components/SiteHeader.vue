@@ -12,7 +12,7 @@ import Button from './Button.vue'
 const props = withDefaults(defineProps<{ fixed?: boolean; search?: boolean; skip?: boolean; skipTo?: string }>(), { fixed: false, search: false, skip: true, skipTo: '#main' })
 
 const links = [
-  { text: 'Product', href: '/features', match: /^\/(features|product)(\/|$)/ },
+  { text: 'Product', href: '/product', match: /^\/product(\/|$)/ },
   { text: 'Download', href: '/download', match: /^\/download(\/|$)/ },
   { text: 'Docs', href: '/guide/', match: /^\/(guide|reference)\// },
   { text: 'Blog', href: '/blog/', match: /^\/blog(\/|$)/ },

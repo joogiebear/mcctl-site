@@ -15,6 +15,7 @@ const useCases = [
   { text: 'Paper, Fabric or NeoForge', link: '/guide/choose-software' },
   { text: 'Try things safely', link: '/guide/try-it-safely' },
   { text: 'Run a modpack', link: '/guide/modpack-server' },
+  { text: 'The game launcher', link: '/guide/launcher' },
 ]
 const guide = [
   { text: 'Getting started', link: '/guide/getting-started' },
@@ -74,7 +75,7 @@ export default defineConfig({
   // The visible header is SiteHeader.vue (theme/Layout.vue); VitePress's own nav bar is not rendered
   // anywhere, so its search box is not mounted twice on docs pages.
   transformPageData(pageData) { pageData.frontmatter.navbar = false },
-  // /descent is an unlisted preview of an alternative hero, so it stays out of the sitemap as well as out of search.
+  // /lab/descent is the 3D experiment, kept as a lab page: out of the nav, the sitemap and search.
   sitemap: { hostname: SITE, transformItems: items => items.filter(item => !item.url.includes('descent')) },
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
@@ -157,7 +158,7 @@ ${items}
     siteTitle: 'SpawnLoft',
     // The visible header is SiteHeader.vue; this list feeds VitePress's own places (search, local nav).
     nav: [
-      { text: 'Product', link: '/features' },
+      { text: 'Product', link: '/product' },
       { text: 'Download', link: '/download' },
       { text: 'Docs', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },

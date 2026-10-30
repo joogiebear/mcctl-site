@@ -31,7 +31,7 @@ function onKey(event: KeyboardEvent) {
   <section class="section tour" id="tour">
     <div class="wrap-wide">
       <SectionHead eyebrow="The panel" title="Every server and its tools, in one window.">
-        <template #aside><ArrowLink href="/features">Take the full tour</ArrowLink></template>
+        <template #aside><ArrowLink href="/product">Take the full tour</ArrowLink></template>
       </SectionHead>
       <div class="tabs" role="tablist" aria-label="Panel tour" @keydown="onKey">
         <button v-for="(tab, index) in tabs" :key="tab.id" :ref="(el) => { buttons[index] = el as HTMLButtonElement }" type="button" role="tab" :id="`tour-tab-${tab.id}`" :aria-selected="index === current" :aria-controls="`tour-panel-${tab.id}`" :tabindex="index === current ? 0 : -1" @click="select(index)">{{ tab.title }} <small>0{{ index + 1 }}</small></button>

@@ -5,6 +5,7 @@
       "url": [
         "http://localhost/index.html",
         "http://localhost/download.html",
+        "http://localhost/product.html",
         "http://localhost/changelog.html",
         "http://localhost/guide/getting-started.html"
       ],
@@ -45,7 +46,7 @@
           }
         },
         {
-          "matchingUrlPattern": "/(download|changelog|guide/).*",
+          "matchingUrlPattern": "/(download|product|changelog|roadmap|guide/).*",
           "assertions": {
             "resource-summary:total:size": [
               "error",

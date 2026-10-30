@@ -1,11 +1,12 @@
 <script setup lang="ts">
 // Native details, styled: a hairline row that opens. Works without JavaScript and in search.
-withDefaults(defineProps<{ summary: string; id?: string; open?: boolean }>(), { open: false })
+// `note` is a second, quieter line under the summary for a list where each row needs one.
+withDefaults(defineProps<{ summary: string; note?: string; id?: string; open?: boolean }>(), { open: false })
 </script>
 
 <template>
   <details class="disc" :id="id" :open="open || undefined">
-    <summary><span>{{ summary }}</span><i aria-hidden="true"></i></summary>
+    <summary><span class="sum"><span class="sum-title">{{ summary }}</span><span v-if="note" class="sum-note">{{ note }}</span></span><i aria-hidden="true"></i></summary>
     <div class="disc-body"><slot /></div>
   </details>
 </template>
@@ -15,6 +16,9 @@ withDefaults(defineProps<{ summary: string; id?: string; open?: boolean }>(), { 
 .disc:last-child { border-bottom: 1px solid var(--line); }
 summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: var(--s4); padding: var(--s4) 0; font: 600 var(--t-body)/1.3 var(--display); letter-spacing: -.01em; cursor: pointer; }
 summary::-webkit-details-marker { display: none; }
+.sum { display: grid; gap: var(--s1); min-width: 0; }
+.sum-note { font: 400 var(--t-small)/1.5 var(--text); letter-spacing: 0; color: var(--fg-3); }
+summary:hover .sum-title { color: var(--accent-text); }
 summary i { position: relative; flex: none; width: 14px; height: 14px; transition: transform var(--d2) var(--ease); }
 summary i::before, summary i::after { content: ""; position: absolute; inset: 50% auto auto 0; width: 14px; height: 2px; margin-top: -1px; background: var(--accent-text); }
 summary i::after { transform: rotate(90deg); }
