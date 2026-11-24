@@ -88,7 +88,7 @@ const library = [
           <p class="body">Follow the console. Add a plugin. Take a backup. Get familiar with the panel you will use every day.</p>
           <ArrowLink href="/guide/panel">Take a look around</ArrowLink>
         </div>
-        <Figure src="/img/tabs/console" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 900px, (min-width: 900px) 66vw, 100vw" alt="The SpawnLoft console, showing server controls and live logs." :width="2558" :height="1392" label="Console" caption="Captured from the app, not a mockup" detail="2558 × 1392" v-reveal />
+        <Figure src="/img/tabs/console" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 900px, (min-width: 900px) 66vw, 100vw" alt="The SpawnLoft console, showing server controls and live logs." :width="2558" :height="1392" label="Console" v-reveal />
       </div>
     </section>
 

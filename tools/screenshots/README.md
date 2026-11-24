@@ -5,6 +5,15 @@ captures in the "Meet your new control room" section, taken from the real SpawnL
 2558x1392 (a 1279x696 window at 2x, the size `ProductExplorer.vue` expects). Re-take them when the
 panel's look changes.
 
+> **SpawnLoft 2.0.** The current set (November 2026) comes from the 2.0 panel (Rust core, `v2`
+> branch) running Paper 26.3 on Java 25, in the default SpawnLoft theme. With 2.0 the steps below use
+> `spawnloft new|set|start|ui` instead of `node mcctl.mjs ...`, the data root is `SPAWNLOFT_DATA_ROOT`,
+> and `spawnloft ui --no-open` prints a one-time sign-in link that the browser must open first. The
+> panel now shows tools as tabs, so `capture.mjs` (written for 1.5) needs its selectors updated
+> before it can drive 2.0; the 2.0 set was taken with a small Playwright script against the same
+> tab ids (`tabConsole`, `tabPlugins`, `tabBackups`, `tabPerformance`, `cmd`). Run the server as a
+> normal user, not root, or Paper prints a root warning into the console.
+
 Nothing here needs a package install. It needs Node 22, a Chromium (Chrome preferred), and a
 checkout of the SpawnLoft app to run the panel from.
 

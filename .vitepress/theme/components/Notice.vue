@@ -14,7 +14,7 @@ withDefaults(defineProps<{ title?: string; tone?: 'info' | 'warn' }>(), { tone: 
 
 <style scoped>
 .notice { display: grid; grid-template-columns: 4px minmax(0, 1fr); gap: var(--s4); padding: var(--s4) var(--s4) var(--s4) 0; border: 1px solid var(--line); border-radius: var(--r1); background: var(--bg-1); }
-.notice::before { content: ""; background: var(--accent); border-radius: 0 2px 2px 0; }
+.notice::before { content: ""; background: var(--line-strong); border-radius: 0 2px 2px 0; }
 .notice.warn::before { background: var(--warn); }
 b { display: block; font: 600 var(--t-ui)/1.3 var(--display); margin-bottom: var(--s1); }
 .notice-body { font-size: var(--t-small); line-height: 1.55; color: var(--fg-2); }

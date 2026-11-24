@@ -37,7 +37,7 @@ function onKey(event: KeyboardEvent) {
         <button v-for="(tab, index) in tabs" :key="tab.id" :ref="(el) => { buttons[index] = el as HTMLButtonElement }" type="button" role="tab" :id="`tour-tab-${tab.id}`" :aria-selected="index === current" :aria-controls="`tour-panel-${tab.id}`" :tabindex="index === current ? 0 : -1" @click="select(index)">{{ tab.title }} <small>0{{ index + 1 }}</small></button>
       </div>
       <div v-for="(tab, index) in tabs" :key="tab.id" v-show="index === current" :id="`tour-panel-${tab.id}`" role="tabpanel" :aria-labelledby="`tour-tab-${tab.id}`" class="panel" tabindex="0">
-        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="tab.title" caption="Captured from the app, not a mockup" detail="2558 × 1392" :loading="index === 0 ? 'eager' : 'lazy'" />
+        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="tab.title" :loading="index === 0 ? 'eager' : 'lazy'" />
         <div class="copy">
           <Eyebrow>0{{ index + 1 }} · {{ tab.title }}</Eyebrow>
           <h3 class="h3">{{ tab.h }}</h3>
@@ -54,7 +54,7 @@ function onKey(event: KeyboardEvent) {
 .tabs { display: flex; gap: var(--s6); border-bottom: 1px solid var(--line); margin: var(--s6) 0; overflow-x: auto; scrollbar-width: none; }
 .tabs button { display: inline-flex; gap: var(--s2); align-items: baseline; padding: var(--s3) 0 var(--s4); border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; background: none; font: 600 var(--t-body)/1 var(--display); color: var(--fg-3); white-space: nowrap; cursor: pointer; transition: color var(--d1) var(--ease), border-color var(--d1) var(--ease); }
 .tabs button:hover { color: var(--fg-2); }
-.tabs button[aria-selected="true"] { color: var(--fg); border-color: var(--accent); }
+.tabs button[aria-selected="true"] { color: var(--fg); border-color: var(--fg); }
 .tabs button small { font: 400 var(--t-caption)/1 var(--mono); }
 .panel { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s7); align-items: start; animation: tour-in var(--d3) var(--ease); }
 .panel:focus-visible { outline-offset: 8px; }
@@ -62,7 +62,7 @@ function onKey(event: KeyboardEvent) {
 .copy { display: grid; gap: var(--s4); position: sticky; top: calc(var(--header-h) + var(--s6)); }
 .copy ul { list-style: none; padding: 0; margin: var(--s2) 0 0; display: grid; gap: var(--s2); }
 .copy li { display: flex; gap: var(--s3); align-items: baseline; color: var(--fg-2); font-size: var(--t-ui); }
-.copy li::before { content: ""; width: 10px; height: 1px; background: var(--accent); flex: none; transform: translateY(-4px); }
+.copy li::before { content: ""; width: 10px; height: 1px; background: var(--fg-3); flex: none; transform: translateY(-4px); }
 @media (max-width: 900px) { .panel { grid-template-columns: minmax(0, 1fr); gap: var(--s5); } .copy { position: static; } .tabs { gap: var(--s5); } }
 @media (max-width: 640px) { .tabs { flex-wrap: wrap; gap: var(--s2) var(--s5); overflow: visible; } }
 @media (prefers-reduced-motion: reduce) { .panel { animation: none; } }

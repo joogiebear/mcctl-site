@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import BrandIcon from '../BrandIcon.vue'
 import Eyebrow from './Eyebrow.vue'
-import { INTEL_MAC_URL, OS_NAMES, downloadUrl, formatSize, useRelease } from '../release'
+import { INTEL_MAC_URL, downloadUrl, formatSize, useRelease } from '../release'
 
 // The one component that can send someone the wrong file. It renders the verified fallback
 // links at build time, takes the latest stable release from the shared state once mounted, and
@@ -23,7 +23,6 @@ const url = (file: string) => downloadUrl(version.value, file)
   <div class="picker" :class="{ compact }">
     <div class="picker-head">
       <Eyebrow>{{ heading ?? `${version} · free · MIT licensed` }}</Eyebrow>
-      <span v-if="os" class="detected">Looks like {{ OS_NAMES[os] }}</span>
     </div>
     <div class="list" role="group" aria-label="Download SpawnLoft">
       <a v-for="item in main" :key="item.id" class="row" :class="{ primary: os && item.os === os }" :href="url(item.file)">
@@ -49,12 +48,14 @@ const url = (file: string) => downloadUrl(version.value, file)
 <style scoped>
 .picker { display: grid; gap: var(--s4); max-width: 480px; min-width: 0; }
 .picker-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s2) var(--s4); }
-.detected { font: 400 var(--t-caption)/1.5 var(--mono); color: var(--fg-3); }
 .list { display: grid; gap: var(--s3); }
 .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s4); align-items: center; padding: var(--s4) var(--s5); border: 1px solid var(--line-strong); border-radius: var(--r1); color: var(--fg); text-decoration: none; transition: border-color var(--d1) var(--ease), background var(--d1) var(--ease); }
 .row:hover { border-color: var(--fg); background: var(--accent-wash); color: var(--fg); }
-.row.primary { background: var(--cta); color: var(--cta-fg); border-color: var(--cta); }
-.row.primary:hover { background: var(--cta-hover); border-color: var(--cta-hover); color: var(--cta-fg); }
+.row.primary { background: var(--bg-2); color: var(--fg); border-color: var(--line-strong); }
+.row.primary:hover { background: var(--bg-3); border-color: var(--fg); color: var(--fg); }
+/* On /download the visitor's own platform is the page's one call to action. */
+.picker:not(.compact) .row.primary { background: var(--cta); color: var(--cta-fg); border-color: var(--cta); }
+.picker:not(.compact) .row.primary:hover { background: var(--cta-hover); border-color: var(--cta-hover); color: var(--cta-fg); }
 .row-words { display: grid; gap: 2px; min-width: 0; }
 .os { font: 600 var(--t-h4)/1.2 var(--display); letter-spacing: -.02em; }
 .file { font: 400 var(--t-caption)/1.5 var(--mono); color: var(--fg-2); overflow-wrap: anywhere; }

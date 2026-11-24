@@ -3,9 +3,9 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import BrandIcon from '../BrandIcon.vue'
 import Pill from './Pill.vue'
 
-// The hero: an HTML replica of the panel fed by a real-shaped Paper log. About 6 KB, crisp at any
-// pixel density, animated without video or WebGL, and still at rest when the person has asked for
-// reduced motion. The caption on the page says it is a replica; the layout mirrors the shipped panel.
+// The hero: the 2.0 panel's server page drawn in HTML and fed by a real-shaped Paper log, so it is
+// crisp at any pixel density, animates without video or WebGL, and is still at rest when the person
+// has asked for reduced motion. The layout mirrors the shipped panel (sidebar, server head, tools as tabs).
 type Line = { level: 'INFO' | 'WARN'; text: string; tone?: 'warn' | 'good' }
 const SCRIPT: Line[] = [
   { level: 'INFO', text: '[Chunky] Task running for world. Processed: 75183 chunks (97.99%), ETA: 0:00:02' },
@@ -26,7 +26,7 @@ const SCRIPT: Line[] = [
   { level: 'INFO', text: '<Wunga_> backups are on btw' },
   { level: 'INFO', text: 'There are 3 of a max of 10 players online: Wunga_, Kestrel_42, mossy_mina' },
 ]
-const KEEP = 14
+const KEEP = 11
 const lines = ref<(Line & { stamp: string; id: number })[]>([])
 const count = ref(214)
 const seconds = ref(24 * 60 + 25)
@@ -44,56 +44,67 @@ function add(agoMs = 0) {
 onMounted(() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   // The opening lines are backdated as if they had arrived one every 1.7 s.
-  const seed = reduced ? KEEP : 12
+  const seed = reduced ? KEEP : 10
   for (let i = 0; i < seed; i++) add((seed - 1 - i) * 1700)
   if (reduced) return
   timers.push(window.setInterval(add, 1700), window.setInterval(() => { seconds.value++ }, 1000))
 })
 onBeforeUnmount(() => timers.forEach(t => window.clearInterval(t)))
-const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'], ['world', 'Worlds'], ['backup', 'Backups'], ['players', 'Players'], ['stats', 'Stats'], ['clock', 'Schedule']]
+const tools = ['Console', 'Plugins', 'Files', 'Worlds', 'Backups', 'Activity', 'Players', 'Stats', 'Schedule', 'Settings']
 </script>
 
 <template>
-  <div class="console" role="img" aria-label="A replica of the SpawnLoft panel: a running Paper server named Weekend World, its live console, and the tools dock.">
-    <div class="tabs" aria-hidden="true">
-      <span class="brandmini"><BrandIcon name="mark" :size="16" />SpawnLoft</span>
-      <span class="tab on"><i></i>Weekend World</span>
-      <span class="tab">Creative Test</span>
-      <span class="tab dim">+</span>
-    </div>
-    <div class="head" aria-hidden="true">
-      <div class="title"><span class="name">Weekend World</span><Pill tone="ok">Running · {{ uptime() }}</Pill><span class="meta">Paper 1.21.10 · localhost:25565 · Java 21</span></div>
-      <div class="stats">
-        <div class="stat"><span class="k">Players</span><span class="v">3<small>/ 10</small></span></div>
-        <div class="stat"><span class="k">TPS</span><span class="v">20.0</span></div>
-        <div class="stat"><span class="k">Memory</span><span class="v">2.1<small>/ 4 GB</small></span><span class="bar"><i></i></span></div>
-        <div class="stat"><span class="k">Last backup</span><span class="v">10m<small>ago</small></span></div>
-      </div>
-    </div>
-    <div class="con-body" aria-hidden="true">
+  <div class="console" role="img" aria-label="The SpawnLoft panel: a running Paper server named Weekend World and its live console.">
+    <div class="top" aria-hidden="true"><span class="brandmini"><BrandIcon name="mark" :size="16" />SpawnLoft</span></div>
+    <div class="shell" aria-hidden="true">
+      <nav class="side">
+        <span class="nav"><BrandIcon name="grid" :size="15" />Overview</span>
+        <span class="nav"><BrandIcon name="play" :size="15" />Play</span>
+        <span class="group">Servers</span>
+        <span class="srv on"><b>W</b><span><span class="srv-name">Weekend World</span><span class="srv-meta">Paper 26.3 · 3 online</span></span><i></i></span>
+        <span class="srv"><b class="alt">C</b><span><span class="srv-name">Creative Test</span><span class="srv-meta">Fabric 26.3 · stopped</span></span></span>
+      </nav>
       <div class="main">
-        <div class="toolbar"><span>Console</span><span class="seg"><span class="on">All</span><span>Warnings</span><span>Errors</span></span><span class="count">{{ count }} lines</span></div>
+        <div class="head">
+          <div class="title"><span class="name">Weekend World</span><Pill tone="ok">Running · {{ uptime() }}</Pill><span class="meta">Paper 26.3 · localhost:25565 · Java 25</span></div>
+          <div class="stats">
+            <div class="stat"><span class="k">Players</span><span class="v">3<small>/ 10</small></span></div>
+            <div class="stat"><span class="k">TPS</span><span class="v">20.0</span></div>
+            <div class="stat"><span class="k">Memory</span><span class="v">2.1<small>/ 4 GB</small></span><span class="bar"><i></i></span></div>
+            <div class="stat"><span class="k">Last backup</span><span class="v">10m<small>ago</small></span></div>
+          </div>
+        </div>
+        <div class="tools"><span v-for="(tool, index) in tools" :key="tool" :class="{ on: index === 0 }">{{ tool }}</span></div>
+        <div class="toolbar"><span class="filter">Filter the console</span><span class="seg"><span class="on">All</span><span>Warnings</span><span>Errors</span></span><span class="count">{{ count }} lines</span></div>
         <div class="log">
           <span v-for="line in lines" :key="line.id" class="ln" :class="line.tone"><span class="t">[{{ line.stamp }} {{ line.level }}]:</span> {{ line.text }}</span>
         </div>
         <div class="input"><span class="field">Type a command<span class="caret"></span></span><span class="send">Send</span></div>
       </div>
-      <nav class="dock">
-        <a v-for="([icon, label], index) in dock" :key="label" :class="{ on: index === 0 }"><BrandIcon :name="icon" :size="18" />{{ label }}</a>
-      </nav>
     </div>
   </div>
 </template>
 
 <style scoped>
 .console { background: var(--bg); color: var(--fg); font: 400 var(--t-small)/1.4 var(--text); text-align: left; }
-.tabs { display: flex; align-items: center; gap: var(--s4); height: 44px; padding: 0 var(--s4); border-bottom: 1px solid var(--line); background: var(--bg-1); color: var(--fg-2); overflow: hidden; }
+.top { display: flex; align-items: center; height: 44px; padding: 0 var(--s4); border-bottom: 1px solid var(--line); background: var(--bg-1); }
 .brandmini { display: inline-flex; gap: var(--s2); align-items: center; font: 600 var(--t-small)/1 var(--display); color: var(--fg); }
 .brandmini svg { color: var(--accent); }
-.tab { display: inline-flex; align-items: center; gap: var(--s2); height: 44px; padding: 0 var(--s4); border-bottom: 2px solid transparent; white-space: nowrap; }
-.tab.on { color: var(--fg); border-color: var(--accent); }
-.tab.dim { color: var(--fg-3); }
-.tab i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); }
+.shell { display: grid; grid-template-columns: 200px minmax(0, 1fr); }
+.side { display: grid; align-content: start; gap: var(--s1); padding: var(--s3) var(--s2); border-right: 1px solid var(--line); background: var(--bg-1); }
+.nav { display: flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); color: var(--fg-2); }
+.group { padding: var(--s4) var(--s3) var(--s1); font: 500 var(--t-caption)/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+.srv { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s2); padding: var(--s2); border-radius: var(--r2); }
+.srv.on { background: var(--bg-3); }
+.srv b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: var(--r1); background: var(--bg-3); font: 600 var(--t-caption)/1 var(--display); color: var(--fg); }
+.srv.on b { background: var(--bg); }
+.srv-name { display: block; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.srv-meta { display: block; font-size: var(--t-caption); color: var(--fg-3); }
+.srv i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+.tools { display: flex; gap: var(--s5); padding: 0 var(--s5); border-bottom: 1px solid var(--line); color: var(--fg-2); overflow: hidden; white-space: nowrap; }
+.tools span { padding: var(--s3) 0; border-bottom: 2px solid transparent; }
+.tools span.on { color: var(--fg); border-color: var(--fg); }
+.filter { min-width: 140px; padding: var(--s1) var(--s3); border: 1px solid var(--line); border-radius: var(--r1); }
 .head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s4) var(--s6); align-items: center; padding: var(--s4) var(--s5); border-bottom: 1px solid var(--line); }
 .title { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2) var(--s4); min-width: 0; }
 .name { font: 600 var(--t-h3)/1.1 var(--display); letter-spacing: -.02em; }
@@ -105,15 +116,14 @@ const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'
 .stat .v small { font: 400 var(--t-caption)/1 var(--mono); color: var(--fg-3); margin-left: var(--s1); }
 .bar { width: 90px; height: 4px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
 .bar i { display: block; height: 100%; width: 52%; background: var(--accent); }
-.con-body { display: grid; grid-template-columns: minmax(0, 1fr) 112px; min-height: 340px; }
-.main { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; }
+.main { display: grid; grid-template-rows: auto auto auto 1fr auto; min-width: 0; }
 .toolbar { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) var(--s5); border-bottom: 1px solid var(--line); color: var(--fg-3); font-size: var(--t-code); }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r1); overflow: hidden; }
 .seg span { padding: var(--s1) var(--s3); }
 .seg span.on { background: var(--bg-3); color: var(--fg); }
 .count { margin-left: auto; font: 400 var(--t-caption)/1 var(--mono); }
 .log { position: relative; height: 264px; overflow: hidden; padding: var(--s3) var(--s5); font: 400 var(--t-code)/1.7 var(--mono); color: var(--fg-2); white-space: pre-wrap; word-break: break-word; display: flex; flex-direction: column; justify-content: flex-end; }
-.log::after { content: ""; position: absolute; inset: 0 0 auto; height: 28px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
+
 .ln { display: block; animation: ln-in var(--d2) var(--ease) both; }
 .ln .t { color: var(--fg-3); }
 .ln.warn { color: var(--warn); }
@@ -123,15 +133,12 @@ const dock = [['terminal', 'Console'], ['plugins', 'Plugins'], ['files', 'Files'
 .field { flex: 1; min-width: 0; height: 38px; display: flex; align-items: center; padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--r1); font: 400 var(--t-code)/1 var(--mono); color: var(--fg-3); }
 .caret { width: 1px; height: 16px; background: var(--accent); margin-left: 2px; animation: caret 1s steps(2) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
-.send { height: 38px; display: inline-flex; align-items: center; padding: 0 var(--s4); background: var(--accent); color: var(--accent-fg); border-radius: var(--r1); font: 600 var(--t-code)/1 var(--text); }
-.dock { border-left: 1px solid var(--line); display: grid; align-content: start; padding: var(--s2) 0; }
-.dock a { display: grid; justify-items: center; gap: var(--s1); padding: var(--s3) var(--s1); font: 500 var(--t-caption)/1 var(--mono); color: var(--fg-3); }
-.dock a.on { color: var(--accent-text); }
+.send { height: 38px; display: inline-flex; align-items: center; padding: 0 var(--s4); background: var(--bg-3); color: var(--fg); border-radius: var(--r1); font: 600 var(--t-code)/1 var(--text); }
 @media (max-width: 760px) {
   .head { grid-template-columns: minmax(0, 1fr); }
   .stats { gap: var(--s5); flex-wrap: wrap; }
-  .con-body { grid-template-columns: minmax(0, 1fr); }
-  .dock, .seg { display: none; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .side, .seg, .filter { display: none; }
   .log { height: 220px; font-size: var(--t-caption); }
 }
 @media (prefers-reduced-motion: reduce) { .ln, .caret { animation: none; } }

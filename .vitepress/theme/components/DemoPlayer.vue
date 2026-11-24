@@ -79,7 +79,7 @@ function tick() {
 .chapters li { border-top: 1px solid var(--line); }
 .chapters button { display: flex; gap: var(--s3); align-items: baseline; width: 100%; padding: var(--s3) 0 var(--s2); text-align: left; font: 600 var(--t-ui)/1.3 var(--display); color: var(--fg-3); transition: color var(--d1) var(--ease); }
 .chapters button:hover, .chapters button[aria-current="step"] { color: var(--fg); }
-.chapters li:has(button[aria-current="step"]) { border-top-color: var(--accent); }
+.chapters li:has(button[aria-current="step"]) { border-top-color: var(--fg); }
 .n { font-size: var(--t-caption); font-weight: 500; color: var(--accent-text); }
 @media (max-width: 760px) { .chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .play small { display: none; } }

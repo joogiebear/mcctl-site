@@ -7,8 +7,8 @@ composition, not CSS.
 
 | Path | What it is |
 | --- | --- |
-| `tokens.css` | Colour, type, space, radius and motion as custom properties. The only file allowed to contain a raw colour or a px font size. `.paper` redefines the same names for the light reading surface, so a component never knows which surface it is on. `--cta`/`--cta-fg`/`--cta-hover` is the one call-to-action fill (lime on ink, ink on paper). Paper's `--fg-3` passes AA on `--bg` and `--bg-1` only; use `--fg-2` for small text on `--bg-2`/`--bg-3`. |
-| `fonts.css` | `@font-face` for the two self-hosted faces in `public/fonts/`: Bricolage Grotesque (display and text, variable, with its optical size axis) and JetBrains Mono (captions and anything the computer said). |
+| `tokens.css` | Colour, type, space, radius and motion as custom properties. The only file allowed to contain a raw colour or a px font size. `.paper` redefines the same names for the light reading surface, so a component never knows which surface it is on. Neutrals are untinted graphite and off-white; lime (`--accent`) is kept for the logo, the one call to action on a view and live status, and links and labels use `--accent-text`, which is the text colour. `--cta`/`--cta-fg`/`--cta-hover` is the one call-to-action fill (lime on ink, ink on paper). Paper's `--fg-3` passes AA on `--bg` and `--bg-1` only; use `--fg-2` for small text on `--bg-2`/`--bg-3`. |
+| `fonts.css` | `@font-face` for the three self-hosted faces in `public/fonts/`: Bricolage Grotesque (headings, variable, with its optical size axis), Inter (body text, the app's UI face) and JetBrains Mono (captions and anything the computer said). |
 | `base.css` | Reset, type roles (`.eyebrow .display .h1 .h2 .h3 .lede .body .small .mono`; these names are reserved, so a structural wrapper is never called `body`), layout helpers (`.wrap` 1200px, `.wrap-wide` 1360px, `.section`, `.grid-2/3/4`) and the `v-reveal` motion, all scoped to the marketing shell `.sl`. |
 | `docs.css` | VitePress's default theme pointed at the tokens: ink sidebar, paper reading column; the default nav bar is turned off in `config.mts` (`navbar: false` on every page) in favour of `SiteHeader`. The `--vp-*` mapping lives on `:root` because the search box is teleported to `<body>`. |
 | `Layout.vue` | One layout for every page. `page` pages get header, content, footer. Docs and blog posts keep VitePress's sidebar, outline and search inside the same header and footer. `descent` is the lab page (`/lab/descent`) with its own chrome, loaded only there. |
@@ -24,7 +24,7 @@ composition, not CSS.
 | --- | --- |
 | `Button` | `variant` primary (the only lime fill on a view), secondary (hairline), quiet (text); `size` sm, md, lg; `href` makes it a link. Slots `icon` and `trailing`. |
 | `ArrowLink` | A text link with the arrow. `external` swaps the icon. |
-| `Eyebrow` | Twelve-pixel mono label above a heading. `accent` for lime. `as` sets the tag. |
+| `Eyebrow` | Small sentence-case label above a heading. `accent` uses `--accent-text`. `as` sets the tag. |
 | `Pill` | A state in a capsule. `tone` ok, warn, bad, off. |
 | `SectionHead` | Eyebrow, title, optional lede, optional `aside` slot, hairline. Every section opens with one. `level` h1 to h3. |
 | `Card` | Hairline frame on bg-1 with optional `eyebrow`, `title`, `href`. |

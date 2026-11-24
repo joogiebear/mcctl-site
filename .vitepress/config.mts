@@ -82,6 +82,7 @@ export default defineConfig({
     // The two faces are self-hosted (public/fonts, .vitepress/theme/fonts.css); the latin files are
     // preloaded because every page's first paint uses both.
     ['link', { rel: 'preload', href: '/fonts/bricolage-grotesque-latin.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+    ['link', { rel: 'preload', href: '/fonts/inter-latin.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
     ['link', { rel: 'preload', href: '/fonts/jetbrains-mono-latin.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'SpawnLoft' }],
