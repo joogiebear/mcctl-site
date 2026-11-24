@@ -48,6 +48,10 @@ spawnloft task add survival --do verify --weekly SUN --at 04:00
 
 Retention (`keep`, 1 to 365) removes only snapshots the same schedule produced, never one taken by hand or before a reset. Tasks run while you are signed in whether or not SpawnLoft is open; on Linux, turn on lingering for them to survive logout (`spawnloft task linger on`). See [How it works](/guide/how-it-works#scheduled-work).
 
+## Lock, annotate, download and leave out
+
+In the **Backups** tool a snapshot can be **locked**, so neither **Delete** nor a schedule's retention removes it; given a **note** ("before the 1.21 upgrade"); and **downloaded** as a `.tar.gz`. Each server has a leave-out list, paths with `*` wildcards one per line, that every backup of it skips, and the manifest records what was left out. Small safety copies kept before changes (a file edit in **Files**, an assistant's configuration change) are listed separately and can be removed after a number of days.
+
 ## Keep a second copy
 
 ```sh
@@ -69,7 +73,7 @@ spawnloft verify survival --all
 1. Stop the server. Restore is refused while it runs, because extracting over files a live server holds open corrupts a world.
 2. In **Backups**, choose the snapshot and **Restore**, or run `spawnloft restore survival [ref] --yes`. The default reference is `latest`.
 
-Restore extracts over the server in place and deletes nothing, so a file added after the snapshot was taken survives. To return to exactly what the snapshot holds, remove the members it lists first.
+Restore extracts over the server in place and deletes nothing, so a file added after the snapshot was taken survives. In the panel, **Clear first, so it ends up exactly as the backup was** removes what the snapshot holds before putting it back, after copying it aside as a `pre-restore` snapshot. From the command line, remove the members the snapshot lists yourself first.
 
 ## Databases
 
@@ -81,4 +85,4 @@ When an AI assistant changes a configuration file, that file is snapshotted alon
 
 ## Where snapshots live
 
-`backups/` under the data folder. **Settings** can point it at another drive; that changes where new snapshots go and never moves existing ones.
+`backups/` under the data folder. **Where backups are kept** in the **Backups** tool, or **Preferences**, can point it at another drive; that changes where new snapshots go and never moves existing ones.

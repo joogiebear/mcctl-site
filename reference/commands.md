@@ -8,13 +8,15 @@ description: "The full SpawnLoft command line reference: lifecycle, console, ins
 
 ## CLI setup {#preview-cli-setup}
 
-| Install | Command | Runtime |
+The command line is `spawnloft-core`, one native program with no Node inside it; `spawnloft` and `mcctl` are launchers for it.
+
+| Install | Command | Notes |
 | --- | --- | --- |
-| Windows desktop | `resources\bin\spawnloft.cmd` inside the SpawnLoft install directory (default `%LOCALAPPDATA%\Programs\SpawnLoft`), or add `resources\bin` to your user `PATH` | Bundled |
-| macOS desktop | `/Applications/SpawnLoft.app/Contents/Resources/bin/spawnloft` | Bundled |
-| Linux desktop `.deb` / `.rpm` | `spawnloft` on `PATH` | Bundled |
-| Linux `spawnloft-cli` `.deb` / `.rpm` | `spawnloft` on `PATH` | Bundled Node, no graphical dependencies |
-| Source checkout ([repository](https://github.com/joogiebear/spawnloft)) | `node spawnloft.mjs <command>`, `./spawnloft` (Linux, macOS), `spawnloft.cmd` (Windows) | Node 20 or later |
+| Windows desktop | `spawnloft` | The 2.0 installer puts `resources\bin` inside the install directory (default `%LOCALAPPDATA%\Programs\SpawnLoft`) on your user `PATH` and takes it off again on uninstall. Open a new terminal after installing. 1.x: run `resources\bin\spawnloft.cmd` there. |
+| macOS desktop | `/Applications/SpawnLoft.app/Contents/Resources/bin/spawnloft` | Add the folder to `PATH` (below). |
+| Linux desktop `.deb` / `.rpm` | `spawnloft` | On `PATH` at `/usr/bin/spawnloft`. |
+| Linux `spawnloft-cli` `.deb` / `.rpm` | `spawnloft` | The same program with no graphical dependencies. |
+| Source checkout ([repository](https://github.com/joogiebear/spawnloft)) | `rust/target/release/spawnloft-core <command>` | Build once with `cd rust && cargo build --release -p spawnloft-core`. There is no `spawnloft.mjs` any more. |
 
 macOS `PATH` for the current terminal session:
 
@@ -23,7 +25,9 @@ export PATH="/Applications/SpawnLoft.app/Contents/Resources/bin:$PATH"
 spawnloft status royalplugins --json
 ```
 
-Add the `export` line to your shell configuration to make it permanent. The app does not edit shell configuration; update the entry if you move the app. Do not symlink the launcher alone: it resolves its runtime relative to its own directory.
+Add the `export` line to your shell configuration to make it permanent. The app does not edit shell configuration; update the entry if you move the app. Do not symlink the launcher alone: it finds `spawnloft-core` relative to its own directory.
+
+Scripts, scheduled-task shims and MCP configurations written by 1.x call `... mcctl.mjs <command>` or `... spawnloft.mjs <command>`. They still work: when the first argument is one of those names, `spawnloft-core` drops it and never runs it, so the file does not need to exist. `spawnloft repair` rewrites every scheduled-task shim and each server's `start`, `console` and `stop` launchers to run the SpawnLoft that runs the command, for after installing another version over this one or going back to an older one.
 
 Run `spawnloft help` for usage. Unknown commands exit `2`.
 
@@ -232,12 +236,65 @@ Plugin configuration files are never written; copy credentials into them yoursel
 | `config set-instances <path>` | Put servers on a different drive. |
 | `config same-drive` | Create servers under the data root again. |
 | `config set-backup-mirror <path>\|off` | Copy every new snapshot to a second location; deletions follow. |
-| `ui [--port <n>] [--no-open]` (`panel`) | Serve the control panel on `127.0.0.1` (default port `8770`). |
+| `ui [--port <n>] [--no-open] [--launcher]` (`panel`) | Serve the control panel on `127.0.0.1` (default port `8770`) and sign your browser in to it. `--no-open` only prints the one-use link; `--launcher` opens the [game launcher](/guide/launcher) instead. |
+| `ui --link [--port <n>] [--launcher]` | Start nothing; print a new sign-in link for the panel that is already running. |
+| `data move <folder> [--yes]` | Move the whole data folder to another place or drive and leave a link where it was, so nothing stored needs changing. Shows the plan unless `--yes`. `data status`, `data finish` (deletes the parked original) and `data rollback` (puts an interrupted move back). Refuses while a server or database runs, and wants the app closed. |
+| `repair [--json]` | Rewrite scheduled-task shims and server launchers for this install. |
+| `diag <server> [--client <profile>] [--lines <n>] [--out <dir>] [--json]` | Write one zip with the console, daemon log, crash reports, `server.properties` (secrets removed) and the known-problem findings, with the game client's logs on the same timeline, for a bug report. Default destination: `backups/<server>/exports/`. |
+| `client ...` | The game client. See [Game client](#game-client). |
+| `bot ...` | Scripted test players for plugin testing. See [Test players](#test-players). |
+| `update ...` | The updater. See [Updates](#updates). |
 | `mcp [--allow-destructive] [--show-ips]` | MCP server on stdio. See [AI assistants](/guide/ai-assistants). |
-| `uninstall --yes [--data]` | Stop every server and remove every scheduled task; `--data` also deletes what SpawnLoft created. |
+| `uninstall --yes [--data]` | Stop every server and remove every scheduled task; `--data` also deletes the servers, jars, backups, templates and settings SpawnLoft created, and never a server you added from an existing folder. On Linux, run it before removing the package. |
 | `help` | Print usage. |
 
-Moving a location never moves existing data. Environment variables: `MCCTL_DATA_ROOT` overrides the data root for the process and its daemons; `MCCTL_RESTART_DELAY_MS` overrides the 10-second crash restart delay (used by tests); `JAVA_HOME` is consulted for Java discovery.
+Moving a location never moves existing data. Environment variables: `SPAWNLOFT_DATA_ROOT` overrides the data root for the process and its daemons (the older `MCCTL_DATA_ROOT` still works); `SPAWNLOFT_RESTART_DELAY_MS` (or `MCCTL_RESTART_DELAY_MS`) overrides the 10-second crash restart delay, used by tests; `JAVA_HOME` is consulted for Java discovery. `SPAWNLOFT_DAEMON`, `SPAWNLOFT_CORE_IMPL` and the `daemon` setting no longer mean anything: every server runs on `spawnloft-core daemon`.
+
+## Game client {#game-client}
+
+`spawnloft client` is the [game launcher](/guide/launcher) from a terminal: profiles, installs, launches and Microsoft sign-in for the real Minecraft client, pointed at one of your servers.
+
+| Command | Description |
+| --- | --- |
+| `client list` | Profiles, with running state. |
+| `client versions [--snapshots\|--all] [-n <n>]` | Minecraft versions, newest first, with a column per mod loader. |
+| `client new <name> --mc <v> [--loader vanilla\|fabric\|quilt\|forge\|neoforge] [--memory 2G] [--java <path>] [--server <server>] [--harness]` | Make a profile. |
+| `client set <name> key=value...` | Change `mc`, `loader`, `loaderVersion`, `memory`, `java`, `server`, `harness`, `account`, `assistantAccount` or `serverList`. |
+| `client install <name>` | Download what the profile needs, with progress on stderr. |
+| `client launch <name> [--as <player>] [--account <name>] [--server <server>] [--wait]` | Install if needed and start the game. Prints a `warning:` when the server is stopped. |
+| `client status <name>`, `client stop <name>` | Whether the game is running; stop it. |
+| `client logs <name> [-n <n>] [--latest]` | SpawnLoft's capture of the game process, or the game's own `latest.log`. |
+| `client login`, `client logout <name>`, `client accounts` | Sign in with a Microsoft account (a code you type on Microsoft's page), forget one, and list accounts. |
+| `client remove <name> [--purge]` | Delete a profile; `--purge` also removes its game folder. |
+
+Every subcommand takes `--json`. Linux arm64 is refused.
+
+## Test players {#test-players}
+
+| Command | Description |
+| --- | --- |
+| `bot setup` | Install the bot library into the data folder, once. Needs Node 22 or later and npm. |
+| `bot check <server> [--json]` | Say whether bots can join: offline mode, running, bound address. Exit `1` with the first problem when they cannot. |
+| `bot run <scenario.json> [--instance <server>] [--json]` | Join as the scenario's bots, run its steps, and print a report. Exit `1` when a step fails. |
+
+Test players are the one part of SpawnLoft that needs Node; Node is not bundled. The scenario format is in [BOTS.md](https://github.com/joogiebear/spawnloft/blob/v2/BOTS.md).
+
+## Updates {#updates}
+
+The desktop app updates itself; these commands do the same from a terminal and are how a machine with no screen updates.
+
+| Command | Description |
+| --- | --- |
+| `update check [--channel stable\|beta] [--json]` | Look for a newer release and verify its feed. |
+| `update status [--json]` | What the last check found, the channel and any hold. |
+| `update apply [--json] [--no-run]` | Download, verify and (Windows) install the pending update. On Linux it prints the `apt` or `dnf` command instead. |
+| `update list [--json]` | Releases below this one that can be rolled back to. |
+| `update rollback <version> [--json]` | Plan a rollback (writes a hold that pauses updates), then `update apply`. |
+| `update hold [clear]` | Show or clear the hold a rollback left. |
+| `update channel [stable\|beta]` | Show or choose the channel. |
+| `update log [-n <lines>]` | The last lines of `update.log`. |
+
+Exit `0` means answered (an update being available is `0` too), `1` that the feed could not be read or the action failed, and `3` that a newer release exists but is blocked.
 
 ## JSON output {#json-output-preview}
 

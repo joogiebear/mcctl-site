@@ -9,7 +9,7 @@ SpawnLoft can create a database for a Minecraft server or connect it to a databa
 already run. It provides connection details; **you configure your plugins yourself**.
 
 ::: info Windows, Mac and Linux
-New managed services use **MySQL or Redis** on Windows, macOS and Linux. Redis is provided by Microsoft Garnet. Plugin configuration stays manual.
+New managed services use **MySQL or Redis** on Windows, macOS and Linux x64 (Redis only on Linux arm64). Redis is provided by Microsoft Garnet. Plugin configuration stays manual.
 :::
 
 ## Create a database
@@ -28,7 +28,7 @@ the server its own database and user credentials.
 
 Engine downloads are checksum-verified and stored in SpawnLoft's engine store. You do not
 need Homebrew, a system service, or a separate MySQL installation. Existing databases are
-not silently moved to another engine or version. Garnet includes a private .NET runtime on both platforms; no separate runtime installation is needed.
+not silently moved to another engine or version. Garnet brings its own private runtime; no separate .NET installation is needed.
 
 ## Configure each plugin manually
 
@@ -92,9 +92,7 @@ the tools directory with `spawnloft db connect ... --tools <folder>`. See
 
 A server snapshot of `standard` or `full` scope carries a dump of its attached database as a `databases/` member. `verify` checks for it, and `restore` imports it back into the database it came from, which has to be running.
 
-::: info Added in 1.4
 A MySQL database has its own **Backups** tool, separate from the servers' snapshots. **Back up now** writes a plain SQL dump of the databases your servers use; each dump can be downloaded, put back (saving a dump of the current state first, so a restore can itself be undone) or deleted. Redis keeps its own checkpoints and has no dump; stop saves a checkpoint, and a failed save leaves it running with an error.
-:::
 
 Managed SQL backup/restore uses the engine's tools. Review backup results for skipped database
 dumps or warnings, especially in automation: a completed server archive does not guarantee

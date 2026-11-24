@@ -36,13 +36,13 @@ want 4G or more, and the machine has to have that to give.
 ## The disk is full
 
 The drive this server lives on has no room left, so saves and logs are failing. Free space, or
-move the data folder onto a drive that has some under **Settings**. `spawnloft prune` thins old
+move the data folder onto a drive that has some under **Preferences** or with `spawnloft data move`. `spawnloft prune` thins old
 snapshots.
 
 ## A plugin is missing a dependency
 
 A plugin depends on another plugin that is not installed; the lines above the error name it.
-Install the missing one from the Plugins tab, or disable the one that wants it.
+Install the missing one from the **Plugins** tab, or disable the one that wants it.
 
 ## A mod is missing a dependency
 
@@ -89,6 +89,8 @@ choosing a jar again under **Settings**, or restore the folder from a snapshot.
 
 **Windows protected your PC.** SmartScreen, not a problem with the installer. **More info**, then
 **Run anyway**. See [Questions](/guide/faq#windows-says-windows-protected-your-pc).
+
+**The panel says "Open SpawnLoft from the app, or run `spawnloft ui`".** The panel needs a sign-in, and this tab or bookmark has none. Open SpawnLoft from the app, or run `spawnloft ui` (or `spawnloft ui --link` for a new link while the panel is running). A tab left closed for 15 minutes is signed out. See [Security](/guide/security).
 
 **The server says `stale`.** Its supervisor died, usually because the machine restarted. SpawnLoft
 cleans it up on the next read; press Start.

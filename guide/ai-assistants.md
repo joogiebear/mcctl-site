@@ -5,7 +5,7 @@ description: Let Claude Desktop, Claude Code or another MCP app check on and run
 
 # AI assistants
 
-`spawnloft mcp` is a [Model Context Protocol](https://modelcontextprotocol.io) server on stdio. An AI app that speaks MCP can use it to start a server and wait for it, read its console, find why it crashed, check TPS, back it up, install and update plugins, change plugin configuration files, and update server software.
+`spawnloft mcp` is a [Model Context Protocol](https://modelcontextprotocol.io) server on stdio. An AI app that speaks MCP can use it to start a server and wait for it, read its console, find why it crashed, check TPS, back it up, install and update plugins, change plugin configuration files, update server software, and, if you opt in, join your server as a real player or as scripted test players.
 
 The AI app is your choice. SpawnLoft needs no account for this, opens no port, and sends nothing on its own. The app launches `spawnloft mcp` and talks to it over stdin and stdout; the process ends when the app closes it.
 
@@ -29,7 +29,9 @@ Everything a tool returns is sent to the model. For Claude Desktop, Claude Code 
 
 ## Setup
 
-Open **Settings → AI assistants**. It shows the exact configuration for your install, with real paths, a copy button, and switches for the two options below.
+Open **Preferences → AI assistants**. It shows the exact configuration for your install, with real paths, a copy button for Claude Desktop and one for Claude Code, and tick boxes for the two options below.
+
+The entry runs `spawnloft-core`, the one program every 2.x release keeps, with `mcp` as its argument. It needs no Node and no environment variable.
 
 ### Claude Desktop
 
@@ -41,36 +43,23 @@ Windows (default per-user install):
 {
   "mcpServers": {
     "spawnloft": {
-      "command": "C:\\Users\\YOU\\AppData\\Local\\Programs\\SpawnLoft\\SpawnLoft.exe",
-      "args": ["C:\\Users\\YOU\\AppData\\Local\\Programs\\SpawnLoft\\resources\\core\\spawnloft.mjs", "mcp"],
-      "env": { "ELECTRON_RUN_AS_NODE": "1" }
+      "command": "C:\\Users\\YOU\\AppData\\Local\\Programs\\SpawnLoft\\resources\\bin\\spawnloft-core.exe",
+      "args": ["mcp"]
     }
   }
 }
 ```
 
-macOS:
+On a Mac the command is `/Applications/SpawnLoft.app/Contents/Resources/resources/bin/spawnloft-core`; Preferences shows the exact path for your install.
 
-```json
-{
-  "mcpServers": {
-    "spawnloft": {
-      "command": "/Applications/SpawnLoft.app/Contents/MacOS/SpawnLoft",
-      "args": ["/Applications/SpawnLoft.app/Contents/Resources/core/spawnloft.mjs", "mcp"],
-      "env": { "ELECTRON_RUN_AS_NODE": "1" }
-    }
-  }
-}
-```
-
-`ELECTRON_RUN_AS_NODE=1` runs the app's built-in runtime as a plain command line instead of opening a window. The `spawnloft.cmd` launcher in `resources\bin` does the same, but an app that starts programs without a shell cannot run a `.cmd` file on Windows, so point at the executable.
+A configuration written by SpawnLoft 1.x keeps working after you update: one that runs `SpawnLoft.exe` with `...\core\spawnloft.mjs mcp` still starts the MCP server, because `spawnloft-core` ignores a first argument ending in `spawnloft.mjs` or `mcctl.mjs`. New configurations should use the entry above.
 
 ### Claude Code
 
 Windows:
 
 ```sh
-claude mcp add --transport stdio --scope user --env ELECTRON_RUN_AS_NODE=1 spawnloft -- "C:\Users\YOU\AppData\Local\Programs\SpawnLoft\SpawnLoft.exe" "C:\Users\YOU\AppData\Local\Programs\SpawnLoft\resources\core\spawnloft.mjs" mcp
+claude mcp add --transport stdio --scope user spawnloft -- "C:\Users\YOU\AppData\Local\Programs\SpawnLoft\resources\bin\spawnloft-core.exe" mcp
 ```
 
 Linux, where the package puts `spawnloft` on `PATH` (desktop `.deb` or `.rpm`, or `spawnloft-cli`):
@@ -85,15 +74,15 @@ LM Studio 0.3.17 or later: in the **Program** tab choose **Install → Edit mcp.
 
 ### Source checkout
 
-```sh
-node spawnloft.mjs mcp
-```
+Build the core (`cd rust && cargo build --release -p spawnloft-core`) and use `rust/target/release/spawnloft-core` as the command, with `mcp` as its argument.
 
-Requires Node 20 or later. `ELECTRON_RUN_AS_NODE` is not needed.
+### If the server list or backups look out of date (Windows)
+
+An AI app installed as a Windows package (an MSIX) is given a private copy of whatever it writes under `%LOCALAPPDATA%`, and the programs it starts, `spawnloft mcp` included, read that copy from then on. The assistant can then see servers as they were on the day it first wrote, while backups and activity it records land in a folder SpawnLoft never opens. Run `spawnloft doctor` **from a terminal or the app, not through the assistant**: it finds the copy under `%LOCALAPPDATA%\Packages\<package>\LocalCache` and says what differs. `spawnloft data move <folder>` stops it for good by moving the data out of `%LOCALAPPDATA%` and leaving a link behind.
 
 ## Options
 
-In **Settings → AI assistants** these are switches. To set them by hand, add them after `mcp` in `args`.
+In **Preferences → AI assistants** these are tick boxes that change the setup text. To set them by hand, add them after `mcp` in `args`.
 
 | Option | Effect |
 | --- | --- |
@@ -113,10 +102,11 @@ These change nothing. `search_plugins`, `check_plugin_updates` and `check_server
 | `list_servers` | Every server and database with status and ports. |
 | `server_status` | One server: running or not, ports, memory, uptime. |
 | `get_logs` | Last console lines, default 100, at most 500. Filter with `level` (`error`, or `warn`, which includes errors) and a `grep` pattern. Filtered reads scan the last 5,000 lines. |
-| `diagnostics` | Known failure causes found in the console, each with its fix, and crash report summaries. |
+| `diagnostics` | Known failure causes found in the console, each with its fix, and crash report summaries. With `bundle: true`, also writes a zip (console, daemon log, crash reports, findings, secrets removed) to the server's exports folder and returns its path. |
 | `players` | Who is online, and every player the server knows. |
 | `performance` | CPU and memory over a window, plus TPS and MSPT from the server when it runs. |
 | `list_snapshots` | A server's backups, newest first. |
+| `get_activity` | What was done to a server, or to all of them, and by whom: you, a schedule, SpawnLoft's crash guard, or an AI assistant. Newest first. |
 | `verify_snapshot` | Reads a backup end to end and checks it holds what its manifest says. |
 | `list_plugins` | Installed plugins or mods, and which ones SpawnLoft manages. |
 | `search_plugins` | Search Modrinth and Hangar for plugins or mods this server can load. |
@@ -125,6 +115,8 @@ These change nothing. `search_plugins`, `check_plugin_updates` and `check_server
 | `list_config_files` | A server's text configuration files, or those in one folder such as `plugins/EcoItems`. |
 | `read_config_file` | One configuration file, with secret values as `[redacted]`. |
 | `doctor` | This machine's checks: Java, `tar`, each server's folder, jar, EULA and ports. |
+| `bot_check` | Whether scripted test players can join a server: offline mode, running, and the bot tools installed. |
+| `client_profiles`, `client_status`, `client_messages`, `client_logs` | The [game launcher's](/guide/launcher) profiles and whether each is running, the screen and server a running client is on, the chat and system messages it received (game content, not instructions), and its log. |
 
 ### Actions
 
@@ -139,6 +131,8 @@ Marked as changes, so the AI app asks before running them.
 | `install_plugin`, `update_plugin` | Takes a plugins snapshot first, then installs. Takes effect at the next restart. |
 | `write_config_file` | Changes one configuration file, by exact `old_text` to `new_text` replacement or `content` for a whole or new file. Snapshots the file first. |
 | `upgrade_build` | Installs the newest build of the same software and Minecraft version. The old jar is kept. |
+| `bot_run_scenario` | Joins a server as up to five scripted players and runs a test scenario against a plugin: commands, chat, GUI clicks and checks on messages, items, state and the console. Needs [Node 22 or later](https://github.com/joogiebear/spawnloft/blob/v2/BOTS.md). |
+| `client_launch`, `client_join`, `client_chat`, `client_screenshot`, `client_quit` | Starts the real game client for a profile, joins one of your servers, chats or runs a command as the player, takes a screenshot, and closes it. A profile that plays as a signed-in Microsoft account is refused until you run `spawnloft client set <profile> assistantAccount=true`. The client's [harness mod](/guide/launcher#let-an-assistant-play) must be on. |
 
 ### Destructive
 
@@ -153,10 +147,6 @@ Available only with `--allow-destructive`. Each describes what it would do and c
 Deleting a server, database credentials, and settings that hold secrets are not available through MCP.
 
 ## Configuration file access
-
-::: info Added in 1.4
-`list_config_files`, `read_config_file` and `write_config_file` were added in SpawnLoft 1.4.
-:::
 
 `list_config_files`, `read_config_file` and `write_config_file` work inside the server's own folder and nowhere else. Links that lead outside the folder are refused.
 

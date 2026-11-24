@@ -7,9 +7,9 @@ description: "How SpawnLoft runs a Minecraft server: a supervisor for each one, 
 A Minecraft server is an interactive foreground process. Launched from a short-lived shell call it blocks, its stdin is unreachable, and its console output is lost. That makes the edit, restart, check loop painful to automate and impossible to put a window around. SpawnLoft puts a supervisor in front of each server so short-lived commands and the panel can start it, read what it printed, talk to it, and stop it cleanly.
 
 ```
-spawnloft / mcctl (short-lived CLI, or the panel)
+spawnloft / mcctl (short-lived CLI, or the panel; all one program, spawnloft-core)
    │
-   ├─ spawns detached ──▶ daemon (one per server)
+   ├─ spawns detached ──▶ spawnloft-core daemon (one per server)
    │                        ├─ owns the java child process
    │                        ├─ mirrors stdout/stderr ──▶ run/<name>/console.log
    │                        ├─ samples CPU and memory every 10 s ──▶ run/<name>/metrics.log
@@ -61,9 +61,10 @@ The daemon owns crash recovery because it is the only process alive when a serve
 
 | Item | Location |
 | --- | --- |
-| Settings file | Windows `%APPDATA%\mcctl\settings.json`; elsewhere `$XDG_CONFIG_HOME/mcctl/settings.json`, default `~/.config/mcctl/settings.json` |
-| Default data folder | Windows `%LOCALAPPDATA%\mcctl`; elsewhere `$XDG_DATA_HOME/mcctl`, default `~/.local/share/mcctl` |
-| Override | The `MCCTL_DATA_ROOT` environment variable, inherited by daemons |
+| Settings folder | Windows `%APPDATA%\spawnloft`; elsewhere `$XDG_CONFIG_HOME/spawnloft`, default `~/.config/spawnloft`. Holds `settings.json`, `panel.key` (the panel's sign-in key, readable by you alone) and `update.log`. |
+| Default data folder | Windows `%LOCALAPPDATA%\spawnloft`; elsewhere `$XDG_DATA_HOME/spawnloft`, default `~/.local/share/spawnloft` |
+| Older installs | A machine that only has the older `mcctl` folders keeps using them, so nothing moves and nothing is lost |
+| Override | The `SPAWNLOFT_DATA_ROOT` environment variable (`MCCTL_DATA_ROOT` still works), inherited by daemons |
 
 | Path in the data folder | Contents |
 | --- | --- |
@@ -108,6 +109,8 @@ The operating system holds only a trigger that calls `spawnloft task run <id>`. 
 
 Tasks run whether or not SpawnLoft is open, as the signed-in user, with no stored password and no elevation.
 
-## Zero dependencies
+## One native program
 
-The engine is plain Node and the operating system's `tar`. There is no framework, no build step, and no package to go stale. The panel is one HTML file served by Node's own `http` module. The desktop app runs the engine inside the Electron process, so there is one process, no second Node to ship, and no orphaned child if the window dies. Installed packages include `spawnloft` and `mcctl` launchers that use the bundled runtime; both run the same commands.
+SpawnLoft 2.0 is one program, `spawnloft-core`, written in Rust, with no Node.js inside it and none installed beside it. The command line, the per-server supervisors, the panel's web server, the game launcher and the MCP server are all that one binary; `spawnloft` and `mcctl` are launchers for it. It uses the operating system's own `tar`, and a zip reader and writer of its own where that `tar` cannot handle zips. The panel's pages are compiled into the binary, so it works offline. The desktop window is a Tauri 2 shell around the panel `spawnloft-core ui` serves, using the system's web view.
+
+Scripts, scheduled tasks and AI assistant configurations written by 1.x call `mcctl.mjs` or `spawnloft.mjs`. They keep working: `spawnloft-core` ignores a first argument with one of those names, so the file does not need to exist. Only test players (`spawnloft bot`) use Node, one you install yourself.
