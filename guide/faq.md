@@ -16,12 +16,11 @@ Anyone on your home network can join straight away with your PC's local address 
 
 ## Does it work on Mac or Linux?
 
-Yes. SpawnLoft runs on Windows, Apple Silicon Macs, and Linux: a `.deb` for Ubuntu and Debian and an `.rpm` for Fedora and the RHEL family, each for x64 and arm64. The Mac app needs macOS 13+ on Apple Silicon (Intel Macs stay on 1.4); managed MySQL needs macOS 15+ on a Mac and x64 on Linux. Schedules, automatic backups, managed Redis and automatic app updates work everywhere. For a Linux server with no screen there is `spawnloft-cli`, the command line on its own. See [downloads and platform support](/guide/beta).
+Yes. SpawnLoft runs on Windows, Apple Silicon Macs, and Linux: a `.deb` for Ubuntu and Debian and an `.rpm` for Fedora and the RHEL family, each for x64 and arm64. The Mac app needs macOS 13+ on Apple Silicon (Intel Macs are not supported; 1.4 is the last version built for them); managed MySQL needs macOS 15+ on a Mac and x64 on Linux. Schedules, automatic backups, managed Redis and automatic app updates work everywhere. For a Linux server with no screen there is `spawnloft-cli`, the command line on its own. See [downloads and platform support](/guide/beta).
 
-## Can I match the app to the website?
+## Can I change how the app looks?
 
-**Settings → Appearance** offers **Classic** and **SpawnLoft**.
-Classic keeps the original palette; SpawnLoft follows the website's look.
+**Preferences → Appearance** offers **SpawnLoft** (charcoal, warm white and lime, the default) and **Classic**, the original blue palette.
 
 ## Can an AI assistant run my server?
 
@@ -29,7 +28,7 @@ If you connect one. `spawnloft mcp` lets an AI app you choose (Claude Desktop, C
 
 ## Does SpawnLoft update itself?
 
-Yes. It checks 20 seconds after it starts and every six hours, downloads in the background, and asks you to **Restart to update**. Servers keep running through it. **Settings → Updates → Get beta builds** follows the betas. On a Linux machine with no desktop, `spawnloft-cli` has no updater; install a newer package. See [Downloads & platforms](/guide/beta#automatic-updates-and-beta-builds).
+Yes. It checks 20 seconds after it starts and every six hours, downloads in the background, and asks you to **Restart to update**. Servers keep running through it. Every update is checked against SpawnLoft's own signing key first. **Preferences → Updates → Get beta builds** follows the betas, and **Reinstall a previous version** goes back to an earlier 2.x release. On Linux the package manager installs updates and SpawnLoft shows the command; `spawnloft-cli` has no updater, so install a newer package. See [Downloads & platforms](/guide/beta#automatic-updates-and-beta-builds).
 
 ## How do I back up my world?
 
@@ -72,7 +71,7 @@ tomorrow, and they are still running with their consoles intact.
 ## Where is my data?
 
 In folders on your disk. Servers, worlds, backups and the jar store live in the data folder,
-which **Settings** can move. Nothing is uploaded anywhere.
+which **Preferences** can move. Nothing is uploaded anywhere.
 
 ## Windows says "Windows protected your PC"
 
@@ -84,8 +83,7 @@ Windows installers are signed, and Mac installers are Developer ID signed and Ap
 
 ## Is it safe to leave the panel open?
 
-The panel only answers the machine it runs on, and refuses requests from any page that is not
-itself, port included. There is no way to bind it to another address. See
+The panel only answers you: it needs a sign-in (the app signs itself in, `spawnloft ui` signs your browser in), only the machine it runs on can reach it, and it refuses requests from any page that is not itself, port included. There is no way to bind it to another address. See
 [Security](/guide/security) for local access controls, downloads, and optional sharing.
 
 ## Something broke. Where do I report it?

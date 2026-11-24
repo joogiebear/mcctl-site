@@ -4,9 +4,7 @@ The project site for [SpawnLoft](https://github.com/joogiebear/spawnloft), serve
 [spawnloft.com](https://www.spawnloft.com): a landing page and the docs, built with
 [VitePress](https://vitepress.dev) and deployed by Vercel on every push to `main`.
 
-The product is SpawnLoft. In the development preview, `spawnloft` is the preferred command;
-`mcctl` remains a supported alias. Stable examples retain `mcctl`. The field guide explicitly
-separates stable features from preview features; `guide/beta.md` tracks the reviewed preview.
+The product is SpawnLoft, and `spawnloft` is its command (`mcctl` remains a supported alias). The docs in `guide/` and `reference/` describe SpawnLoft 2.0 (a native Rust core, a Tauri 2 window, no Node), and say so on the pages that differ from the stable 1.5.0 the download button still points at. Once 2.0 is published, drop those notes from `guide/getting-started.md`, `guide/beta.md` and `guide/launcher.md`, and bump `FALLBACK_VERSION` in `.vitepress/theme/release.ts`.
 
 ```bash
 npm install

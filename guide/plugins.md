@@ -44,7 +44,7 @@ SpawnLoft records provenance for what it installs, in the plugins folder. The pa
 
 ## Change plugin settings
 
-SpawnLoft does not edit plugin configuration in the panel. Edit the files in the server's `plugins/<Plugin>/` folder with an editor, or ask an [AI assistant](/guide/ai-assistants#configuration-file-access) to change them: it reads the file, changes the lines it means to, and snapshots the file first. Passwords and tokens in those files are hidden from the assistant and cannot be changed through it.
+SpawnLoft does not have a settings screen for each plugin. Open the server's **Files** tool, go to `plugins/<Plugin>/`, and edit the text file there: it colours YAML, JSON and properties files, refuses a save if the file changed since you opened it, and snapshots the file first so **Backups** can put it back. Or edit it with your own editor, or ask an [AI assistant](/guide/ai-assistants#configuration-file-access) to change them: it reads the file, changes the lines it means to, and snapshots the file first. Passwords and tokens in those files are hidden from the assistant and cannot be changed through it.
 
 ## Plugins that need a database
 

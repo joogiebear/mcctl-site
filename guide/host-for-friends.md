@@ -14,7 +14,7 @@ Two things to know first, because they decide whether this is the right setup fo
 
 ## 1. Create the server
 
-Open SpawnLoft, choose **Add a server**, and pick **Create a new one**. Paper is the default and is what most friend servers want: it runs plugins and is fast. Leave **Who can join** on **Require a Minecraft account**, which matches a real server and is the safe default.
+Open SpawnLoft, choose **Add a server** (the **+** beside **Servers**), and pick **Create a new one**. Paper is the default and is what most friend servers want: it runs plugins and is fast. Leave **Who can join** on **Require a Minecraft account**, which matches a real server and is the safe default.
 
 If you are not sure between Paper, Fabric and NeoForge, read [choosing your server software](/guide/choose-software).
 
@@ -40,12 +40,12 @@ This is the part you choose, and the [sharing guide](/guide/sharing) has the det
 Before anyone outside joins, do these three things:
 
 1. **Keep `online-mode=true`.** It is the default. Offline mode lets anyone join under any name, including yours.
-2. **Turn the whitelist on.** In **Settings**, then run `whitelist add <name>` in the console for each friend.
-3. **Check that only the game port is forwarded.** RCON, the remote console, has no encryption or rate limiting and must never face the internet. The panel itself only answers your own machine and can never be forwarded.
+2. **Turn the whitelist on.** In the server's **Settings** tab, then run `whitelist add <name>` in the console for each friend.
+3. **Check that only the game port is forwarded.** RCON, the remote console, has no encryption or rate limiting and must never face the internet. The panel itself needs a sign-in, only answers your own machine, and can never be forwarded.
 
 ## 5. Make it look after itself
 
-Open **Schedule** and add two tasks:
+Open the server's **Schedule** tab and add two tasks (or one chained task: tell the players, count down, back up, restart):
 
 - **A nightly backup.** A running server is flushed first, so the snapshot is complete. Keep the last week or two.
 - **A morning restart that warns players first.** With a warning set, the countdown is announced in chat.
