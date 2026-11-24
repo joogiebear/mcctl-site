@@ -17,11 +17,11 @@ html { scroll-padding-top: calc(var(--header-h) + var(--s4)); }
 .sl code { font-family: var(--mono); font-size: .88em; color: var(--fg); background: var(--bg-2); padding: 1px 5px; border-radius: 3px; }
 
 /* Type roles. Headings carry their own margins only inside .prose. */
-.sl .eyebrow { margin: 0; font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); }
+.sl .eyebrow { margin: 0; font: 500 var(--t-small)/1.5 var(--text); letter-spacing: 0; color: var(--fg-3); }
 .sl .eyebrow.accent { color: var(--accent-text); }
-.sl .display { margin: 0; font: 600 var(--t-display)/.96 var(--display); letter-spacing: -.04em; text-wrap: balance; }
-.sl .h1 { margin: 0; font: 600 var(--t-h1)/1.02 var(--display); letter-spacing: -.035em; text-wrap: balance; }
-.sl .h2 { margin: 0; font: 600 var(--t-h2)/1.08 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+.sl .display { margin: 0; font: 500 var(--t-display)/.96 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+.sl .h1 { margin: 0; font: 500 var(--t-h1)/1.02 var(--display); letter-spacing: -.025em; text-wrap: balance; }
+.sl .h2 { margin: 0; font: 500 var(--t-h2)/1.08 var(--display); letter-spacing: -.02em; text-wrap: balance; }
 .sl .h3 { margin: 0; font: 600 var(--t-h3)/1.25 var(--display); letter-spacing: -.02em; }
 .sl .h4 { margin: 0; font: 600 var(--t-h4)/1.25 var(--display); letter-spacing: -.02em; }
 .sl .lede { margin: 0; font: 400 var(--t-lede)/1.5 var(--text); color: var(--fg-2); max-width: var(--measure); text-wrap: pretty; }

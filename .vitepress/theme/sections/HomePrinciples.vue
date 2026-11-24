@@ -44,7 +44,7 @@ const points = [
 .three .figure { margin-top: var(--s2); }
 .crop { aspect-ratio: 16 / 9; overflow: hidden; }
 .crop img { display: block; width: 160%; max-width: none; height: auto; }
-.crop.c2 img { transform: translate(-20%, -30%); }
-.crop.c3 img { transform: translate(-19%, -37%); }
+.crop.c2 img { transform: translate(-18.5%, -44%); }
+.crop.c3 img { transform: translate(-18.5%, -42.5%); }
 @media (max-width: 900px) { .three { grid-template-columns: minmax(0, 1fr); gap: var(--s6); } }
 </style>

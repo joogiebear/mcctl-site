@@ -36,7 +36,6 @@ const fine = computed(() => {
     </div>
     <div class="wrap-wide">
       <AppFrame hero class="frame"><LiveConsole /></AppFrame>
-      <p class="small caption">A replica of the panel in HTML, playing a scripted log shaped like a real one. The captures further down are the app itself.</p>
     </div>
   </section>
 </template>
@@ -50,6 +49,5 @@ const fine = computed(() => {
 .cta-row { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s5); align-items: center; margin-top: var(--s7); }
 .fine { margin-top: var(--s4); }
 .frame { margin-top: var(--s7); }
-.caption { margin-top: var(--s3); text-align: right; }
-@media (max-width: 640px) { .home-hero { padding-block: var(--s8) var(--s7); } .cta-row :deep(.btn) { width: 100%; } .caption { text-align: left; } }
+@media (max-width: 640px) { .home-hero { padding-block: var(--s8) var(--s7); } .cta-row :deep(.btn) { width: 100%; } }
 </style>

@@ -20,6 +20,7 @@ const outlines: Record<string, string[]> = {
   close: ['M5 5 19 19M19 5 5 19'],
   menu: ['M3 6h18M3 12h18M3 18h12'],
   play: ['M7 3v18l14-9Z'],
+  grid: ['M3 3h7v7H3Z', 'M14 3h7v7h-7Z', 'M3 14h7v7H3Z', 'M14 14h7v7h-7Z'],
   download: ['M12 2v13m-5-5 5 5 5-5', 'M3 15v6h18v-6'],
   external: ['M13 3h8v8M21 3 10 14', 'M9 3H3v18h18v-6'],
   spark: ['m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z'],

@@ -215,7 +215,7 @@ onBeforeUnmount(() => { window.removeEventListener('hashchange', onHash); reques
 .story .actions { margin-top: 0; }
 .notes { max-width: 44em; overflow-wrap: anywhere; }
 .toggle { display: inline-flex; align-items: center; gap: var(--s2); font: 500 var(--t-ui)/1.3 var(--text); color: var(--fg-2); cursor: pointer; }
-.toggle input { width: 18px; height: 18px; margin: 0 var(--s1) 0 0; accent-color: var(--accent); cursor: pointer; }
+.toggle input { width: 18px; height: 18px; margin: 0 var(--s1) 0 0; accent-color: var(--fg); cursor: pointer; }
 .toggle:hover { color: var(--fg); }
 .empty { margin-top: var(--s6); }
 .releases { margin-top: var(--s4); }

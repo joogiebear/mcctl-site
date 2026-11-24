@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// A capture in a hairline frame with a caption: a bold label, a sentence, and a mono detail on
-// the right. With `widths`, the image comes from the responsive set that tools/images/build.mjs
+// A capture in a hairline frame with a caption: a bold label, a sentence, and an optional mono
+// detail on the right. With `widths`, the image comes from the responsive set that tools/images/build.mjs
 // writes next to the master (<src>-<width>.avif and .webp), so a phone never downloads a 2558px file.
 const props = withDefaults(defineProps<{
   src?: string

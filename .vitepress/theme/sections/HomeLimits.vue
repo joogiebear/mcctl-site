@@ -14,7 +14,6 @@ const limits = [
   <section class="section paper" id="limits">
     <div class="wrap">
       <SectionHead eyebrow="Worth knowing before you download" title="Three things it does not do.">
-        <template #aside><p class="lede aside">A page that only says yes is one people stop believing.</p></template>
       </SectionHead>
       <div class="limits">
         <article v-for="limit in limits" :key="limit.title" v-reveal>
@@ -28,7 +27,6 @@ const limits = [
 </template>
 
 <style scoped>
-.aside { max-width: 24em; font-size: var(--t-body); }
 .limits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7) var(--s6); margin-top: var(--s7); }
 .limits article { display: grid; gap: var(--s3); align-content: start; padding-top: var(--s5); border-top: 1px solid var(--line-strong); }
 @media (max-width: 900px) { .limits { grid-template-columns: minmax(0, 1fr); gap: var(--s6); } }

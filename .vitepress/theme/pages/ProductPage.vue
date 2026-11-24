@@ -103,9 +103,7 @@ function jumpTo(href: string) {
 
     <section class="section hairline" id="jobs">
       <div class="wrap">
-        <SectionHead eyebrow="Four things people come here for" title="Pick the job, not the feature list.">
-          <template #aside><p class="lede aside">Capabilities in the shipped app, grouped by what you came to do.</p></template>
-        </SectionHead>
+        <SectionHead eyebrow="What it does" title="Four jobs, one app." />
         <div class="jobs">
           <article v-for="job in jobs" :key="job.label" v-reveal>
             <Eyebrow>{{ job.label }}</Eyebrow>
@@ -121,7 +119,7 @@ function jumpTo(href: string) {
     <section class="section band" id="demo">
       <div class="wrap">
         <SectionHead eyebrow="See it run" title="From nothing to a running server.">
-          <template #aside><p class="lede aside">The real app on a fresh install. The waiting has been sped up, and nothing else has been changed.</p></template>
+          <template #aside><p class="lede aside">A fresh install to a running server, with a plugin and a backup on the way.</p></template>
         </SectionHead>
         <DemoPlayer class="player" />
       </div>
@@ -129,18 +127,18 @@ function jumpTo(href: string) {
 
     <section class="section paper" id="screens">
       <div class="wrap-wide">
-        <SectionHead eyebrow="Actual screens, not mockups" title="This is the app.">
+        <SectionHead eyebrow="The panel" title="Every tool in one window.">
           <template #aside><ArrowLink href="/guide/panel">A tour of the panel</ArrowLink></template>
         </SectionHead>
         <div class="grid grid-2 screens">
-          <Figure v-for="screen in screens" :key="screen.id" :src="`/img/tabs/${screen.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 660px, (min-width: 640px) 50vw, 100vw" :alt="`The SpawnLoft ${screen.label.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="screen.label" :caption="screen.caption" detail="2558 × 1392" v-reveal />
+          <Figure v-for="screen in screens" :key="screen.id" :src="`/img/tabs/${screen.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 660px, (min-width: 640px) 50vw, 100vw" :alt="`The SpawnLoft ${screen.label.toLowerCase()} panel.`" :width="2558" :height="1392" :label="screen.label" :caption="screen.caption" v-reveal />
         </div>
       </div>
     </section>
 
     <section class="section" id="integrations">
       <div class="wrap">
-        <SectionHead eyebrow="The integration surface" title="What it works with." lede="The software it can run, the registries it can search, the services it can manage, and the ways you can drive it from somewhere other than the window." />
+        <SectionHead eyebrow="Compatibility" title="What it works with." lede="The software it can run, the registries it can search, the services it can manage, and the ways you can drive it from somewhere other than the window." />
         <div class="grid grid-2 cards">
           <Card v-for="group in integrations" :key="group.title" :eyebrow="group.eyebrow" :title="group.title" v-reveal>
             <ul class="chips" :aria-label="group.title"><li v-for="item in group.items" :key="item"><Pill>{{ item }}</Pill></li></ul>
@@ -158,7 +156,7 @@ function jumpTo(href: string) {
           <h2 class="h2">Press Play on your own server.</h2>
           <p class="body">A window for the real Minecraft client, already pointed at one of your SpawnLoft servers. It is a developer's tool that goes with the app: make a setup, press Play, test the plugin you are writing as a player. Nothing is drawn or patched by SpawnLoft; it downloads the client Mojang ships and runs it.</p>
           <ul class="ticks"><li v-for="point in launcher" :key="point">{{ point }}</li></ul>
-          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it, and the sign-in inside the packaged desktop app is still being verified.</p>
+          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it.</p>
           <div class="links"><ArrowLink href="/guide/launcher">How the launcher works</ArrowLink><ArrowLink href="/guide/beta#automatic-updates-and-beta-builds">Get the beta builds</ArrowLink></div>
         </div>
         <div class="sketch-col" v-reveal>
@@ -172,7 +170,6 @@ function jumpTo(href: string) {
               </div>
             </div>
           </AppFrame>
-          <p class="small caption">A sketch of the launcher's one screen, drawn in HTML to the same layout. Not a capture.</p>
         </div>
       </div>
     </section>
@@ -227,7 +224,7 @@ section:focus { outline: 0; }
 .jobs .body { margin-bottom: var(--s1); }
 .jobs ul, .ticks { list-style: none; padding: 0; margin: 0 0 var(--s2); display: grid; gap: var(--s2); }
 .jobs li, .ticks li { display: flex; gap: var(--s3); align-items: baseline; color: var(--fg-2); font-size: var(--t-ui); line-height: 1.5; }
-.jobs li::before, .ticks li::before { content: ""; width: 10px; height: 1px; background: var(--accent); flex: none; transform: translateY(-4px); }
+.jobs li::before, .ticks li::before { content: ""; width: 10px; height: 1px; background: var(--fg-3); flex: none; transform: translateY(-4px); }
 
 .band { background: var(--bg-1); }
 .player { margin-top: var(--s7); }
@@ -259,7 +256,6 @@ section:focus { outline: 0; }
 .sk-field { display: flex; align-items: center; gap: var(--s2); min-height: 40px; padding: 0 var(--s3); border: 1px solid var(--line-strong); border-radius: var(--r1); background: var(--bg-1); font: 500 var(--t-small)/1 var(--mono); color: var(--fg); }
 .sk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); flex: none; }
 .sk-note { margin-left: auto; font-weight: 400; color: var(--fg-3); }
-.caption { max-width: 36em; }
 
 .plats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7) var(--s6); margin-top: var(--s7); }
 .plats article { display: grid; gap: var(--s3); align-content: start; padding-top: var(--s5); border-top: 1px solid var(--line-strong); }

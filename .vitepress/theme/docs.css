@@ -13,7 +13,7 @@
   --vp-font-family-base: var(--text); --vp-font-family-mono: var(--mono);
   --vp-c-bg: var(--bg); --vp-c-bg-alt: var(--bg-1); --vp-c-bg-elv: var(--bg-2); --vp-c-bg-soft: var(--bg-1);
   --vp-c-text-1: var(--fg); --vp-c-text-2: var(--fg-2); --vp-c-text-3: var(--fg-3);
-  --vp-c-brand-1: var(--accent); --vp-c-brand-2: var(--accent-hover); --vp-c-brand-3: var(--accent); --vp-c-brand-soft: var(--accent-wash);
+  --vp-c-brand-1: var(--fg); --vp-c-brand-2: var(--fg-2); --vp-c-brand-3: var(--fg); --vp-c-brand-soft: var(--accent-wash);
   --vp-c-divider: var(--line); --vp-c-border: var(--line-strong); --vp-c-gutter: var(--line);
   --vp-sidebar-bg-color: var(--bg); --vp-local-nav-bg-color: var(--bg-1);
   --vp-c-green-1: var(--ok); --vp-c-yellow-1: var(--warn); --vp-c-red-1: var(--bad);
@@ -40,7 +40,7 @@ body { margin: 0; background: var(--bg); }
 .sl-docs .VPSidebar .group { border: 0; padding: var(--s2) 0 var(--s4); }
 .sl-docs .VPSidebarItem.level-0 > .item > .text { font: 500 var(--t-caption)/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); margin-bottom: var(--s2); }
 .sl-docs .VPSidebarItem.level-1 > .item { border-left: 2px solid transparent; padding: 3px 0 3px var(--s3); margin-left: -2px; transition: background var(--d1) var(--ease); }
-.sl-docs .VPSidebarItem.level-1.is-active > .item { border-left-color: var(--accent); background: var(--accent-wash); }
+.sl-docs .VPSidebarItem.level-1.is-active > .item { border-left-color: var(--fg); background: var(--accent-wash); }
 .sl-docs .VPSidebarItem.level-1 > .item:hover { background: var(--accent-wash); }
 .sl-docs .VPSidebarItem.level-1 > .item .text { font-size: var(--t-small); line-height: 1.7; color: var(--fg-2); }
 .sl-docs .VPSidebarItem.level-1.is-active > .item .text, .sl-docs .VPSidebarItem.level-1 > .item:hover .text { color: var(--fg); }
@@ -122,15 +122,15 @@ body { margin: 0; background: var(--bg); }
 .sl-docs .VPDocFooter .desc { font: 500 var(--t-caption)/1.5 var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--fg-3); margin-bottom: var(--s2); }
 
 /* The floating back-to-top button (BackToTop.vue) in the system's colours. */
-.sl-docs .to-top { border-radius: var(--r1); box-shadow: none; background: var(--accent); color: var(--accent-fg); border: 1px solid var(--accent); }
-.sl-docs .to-top:hover { background: var(--accent-hover); color: var(--accent-fg); }
+.sl-docs .to-top { border-radius: var(--r1); box-shadow: none; background: var(--bg-2); color: var(--fg); border: 1px solid var(--line-strong); }
+.sl-docs .to-top:hover { background: var(--bg-3); color: var(--fg); }
 
 /* Blog posts: figures sit on the dark shell colour, because the island posters are transparent renders made for a dark page. */
 .sl-docs .vp-doc .post-figure { margin: var(--s6) 0; background: var(--paper-fg); border: 1px solid var(--line-strong); border-radius: var(--r1); overflow: hidden; }
 .sl-docs .vp-doc .post-figure img { display: block; border: 0; border-radius: 0; width: 100%; max-width: 100%; max-height: 520px; height: auto; margin: 0 auto; object-fit: contain; }
 .sl-docs .vp-doc .post-figure.is-poster img { width: auto; }
 .sl-docs .vp-doc .post-figure figcaption { padding: var(--s3) var(--s4); border-top: 1px solid var(--line-strong); font: 400 var(--t-caption)/1.6 var(--mono); color: var(--paper-1); }
-.sl-docs .vp-doc .post-figure figcaption a { color: var(--accent); }
+.sl-docs .vp-doc .post-figure figcaption a { color: var(--fg); text-decoration: underline; }
 
 @media (min-width: 1280px) {
   .sl-docs .VPDoc .content { min-width: 0; padding-right: var(--s6); padding-left: var(--s5); }

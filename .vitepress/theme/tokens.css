@@ -7,26 +7,26 @@
   color-scheme: dark;
 
   /* Ink surface */
-  --bg: #090d0d; --bg-1: #10160f; --bg-2: #18201a; --bg-3: #222c22;
-  --fg: #efeee6; --fg-2: #b3bcad; --fg-3: #8c977f;
-  --line: rgba(239, 238, 230, .12); --line-strong: rgba(239, 238, 230, .24);
-  --accent: #c4f566; --accent-hover: #d4ff85; --accent-fg: #0b1206; --accent-text: #c4f566; --accent-wash: rgba(196, 245, 102, .10);
+  --bg: #0c0c0d; --bg-1: #121214; --bg-2: #1a1a1d; --bg-3: #242428;
+  --fg: #ededeb; --fg-2: #a9a9a6; --fg-3: #85857f;
+  --line: rgba(237, 237, 235, .09); --line-strong: rgba(237, 237, 235, .2);
+  --accent: #c4f566; --accent-hover: #d4ff85; --accent-fg: #0b1206; --accent-text: var(--fg); --accent-wash: rgba(237, 237, 235, .04);
   --ok: #4ade80; --warn: #f0b64d; --bad: #f87171;
   --ok-wash: rgba(74, 222, 128, .14); --warn-wash: rgba(240, 182, 77, .16); --bad-wash: rgba(248, 113, 113, .14);
   --shadow-frame: 0 30px 80px rgba(0, 0, 0, .45);
-  /* The one call to action on a view: lime on ink, ink on paper (see .paper below) */
+  /* Lime is for the logo, the one call to action on a view (lime on ink, ink on paper; see .paper below) and live status. Links and labels use --accent-text, which is the text colour. */
   --cta: var(--accent); --cta-hover: var(--accent-hover); --cta-fg: var(--accent-fg);
 
   /* Paper surface, applied by .paper below */
-  --paper-0: #efeee6; --paper-1: #e5e5db; --paper-2: #d9dacd; --paper-3: #cfd0c2;
-  --paper-fg: #182113; --paper-fg-2: #4d5a46; --paper-fg-3: #5c6953;
-  --paper-accent-text: #3d641f; --paper-fg-hover: #0e140b;
+  --paper-0: #f3f2ef; --paper-1: #eae9e5; --paper-2: #dfded9; --paper-3: #d3d2cc;
+  --paper-fg: #161618; --paper-fg-2: #4a4a4d; --paper-fg-3: #5d5d60;
+  --paper-accent-text: var(--paper-fg); --paper-fg-hover: #000;
   --code-comment: #8b949e; /* github-dark comments (#6a737d) are 3.7:1 on the well; this is 5.8:1 */
-  --well: #111a10; --well-fg: #d6e6bf; --well-fg-2: #9fb292; --well-line: #314428;
+  --well: #111113; --well-fg: #d9d9d6; --well-fg-2: #9c9c98; --well-line: #26262a;
 
   /* Type */
   --display: "Bricolage Grotesque", "Segoe UI Variable Display", system-ui, sans-serif;
-  --text: "Bricolage Grotesque", "Segoe UI Variable Text", system-ui, sans-serif;
+  --text: "Inter", "Segoe UI Variable Text", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
   --t-display: clamp(44px, 5.6vw, 80px);
   --t-h1: clamp(36px, 4.4vw, 64px);
@@ -60,8 +60,8 @@
   color-scheme: light;
   --bg: var(--paper-0); --bg-1: var(--paper-1); --bg-2: var(--paper-2); --bg-3: var(--paper-3);
   --fg: var(--paper-fg); --fg-2: var(--paper-fg-2); --fg-3: var(--paper-fg-3);
-  --line: rgba(24, 33, 19, .14); --line-strong: rgba(24, 33, 19, .3);
-  --accent-text: var(--paper-accent-text); --accent-wash: rgba(61, 100, 31, .08);
+  --line: rgba(22, 22, 24, .12); --line-strong: rgba(22, 22, 24, .28);
+  --accent-text: var(--paper-accent-text); --accent-wash: rgba(22, 22, 24, .04);
   --cta: var(--paper-fg); --cta-hover: var(--paper-fg-hover); --cta-fg: var(--paper-0);
   background: var(--bg); color: var(--fg);
 }

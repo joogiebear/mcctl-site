@@ -59,7 +59,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', onKey); if (open.v
       <div class="actions">
         <VPNavBarSearch v-if="search" class="search" />
         <a class="icon-link" href="https://github.com/joogiebear/spawnloft" aria-label="SpawnLoft on GitHub"><BrandIcon name="github" :size="20" /></a>
-        <Button class="cta" href="/download" size="sm">Download</Button>
+        <Button class="cta" href="/download" size="sm" variant="secondary">Download</Button>
         <button ref="menuBtn" class="menu-btn" type="button" :aria-expanded="open" :aria-controls="open ? 'site-menu' : undefined" @click="toggleMenu"><BrandIcon :name="open ? 'close' : 'menu'" :size="22" /><span class="sr-only">{{ open ? 'Close menu' : 'Menu' }}</span></button>
       </div>
     </div>
@@ -86,7 +86,7 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', onKey); if (open.v
 .links { display: flex; gap: var(--s5); margin-left: var(--s2); }
 .links a { color: var(--fg-2); font: 500 var(--t-ui)/1 var(--text); text-decoration: none; padding: var(--s2) 0; transition: color var(--d1) var(--ease); }
 .links a:hover, .links a.on { color: var(--fg); }
-.links a.on { box-shadow: inset 0 -2px 0 var(--accent); }
+.links a.on { box-shadow: inset 0 -1px 0 var(--fg); }
 .actions { display: flex; align-items: center; gap: var(--s3); margin-left: auto; }
 .icon-link { display: inline-flex; padding: var(--s2); color: var(--fg-2); transition: color var(--d1) var(--ease); }
 .icon-link:hover { color: var(--fg); }
