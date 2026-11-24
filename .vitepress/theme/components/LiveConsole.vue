@@ -100,6 +100,7 @@ const tools = ['Console', 'Plugins', 'Files', 'Worlds', 'Backups', 'Activity', '
 .srv.on b { background: var(--bg); }
 .srv-name { display: block; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .srv-meta { display: block; font-size: var(--t-caption); color: var(--fg-3); }
+.srv.on .srv-meta { color: var(--fg-2); }
 .srv i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
 .tools { display: flex; gap: var(--s5); padding: 0 var(--s5); border-bottom: 1px solid var(--line); color: var(--fg-2); overflow: hidden; white-space: nowrap; }
 .tools span { padding: var(--s3) 0; border-bottom: 2px solid transparent; }
@@ -134,12 +135,17 @@ const tools = ['Console', 'Plugins', 'Files', 'Worlds', 'Backups', 'Activity', '
 .caret { width: 1px; height: 16px; background: var(--accent); margin-left: 2px; animation: caret 1s steps(2) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 .send { height: 38px; display: inline-flex; align-items: center; padding: 0 var(--s4); background: var(--bg-3); color: var(--fg); border-radius: var(--r1); font: 600 var(--t-code)/1 var(--text); }
+/* Keep the newest lines whole when long ones wrap, and give the head room once the sidebar would squeeze it. */
+@media (max-width: 1100px) { .ln:nth-last-child(n+10) { display: none; } }
+@media (max-width: 1000px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
 @media (max-width: 760px) {
+  .ln:nth-last-child(n+5) { display: none; }
+  .tools span:nth-child(n+5) { display: none; }
   .head { grid-template-columns: minmax(0, 1fr); }
   .stats { gap: var(--s5); flex-wrap: wrap; }
   .shell { grid-template-columns: minmax(0, 1fr); }
   .side, .seg, .filter { display: none; }
-  .log { height: 220px; font-size: var(--t-caption); }
+  .log { height: auto; min-height: 240px; font-size: var(--t-caption); }
 }
 @media (prefers-reduced-motion: reduce) { .ln, .caret { animation: none; } }
 </style>

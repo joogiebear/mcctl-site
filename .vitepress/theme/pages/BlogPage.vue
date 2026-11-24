@@ -37,7 +37,7 @@ import { formatDate } from '../posts'
 .post { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--s6); padding: var(--s6) 0; border-bottom: 1px solid var(--line); }
 .meta { display: grid; gap: var(--s1); padding-top: 6px; }
 .post-words { display: grid; gap: var(--s3); justify-items: start; min-width: 0; }
-.post-words h2 a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--accent); }
+.post-words h2 a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--fg-3); }
 .tags { list-style: none; margin: var(--s1) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2); }
 @media (max-width: 760px) { .post { grid-template-columns: minmax(0, 1fr); gap: var(--s3); } .meta { display: flex; gap: var(--s4); padding: 0; } }
 </style>

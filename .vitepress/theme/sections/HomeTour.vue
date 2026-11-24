@@ -37,7 +37,7 @@ function onKey(event: KeyboardEvent) {
         <button v-for="(tab, index) in tabs" :key="tab.id" :ref="(el) => { buttons[index] = el as HTMLButtonElement }" type="button" role="tab" :id="`tour-tab-${tab.id}`" :aria-selected="index === current" :aria-controls="`tour-panel-${tab.id}`" :tabindex="index === current ? 0 : -1" @click="select(index)">{{ tab.title }} <small>0{{ index + 1 }}</small></button>
       </div>
       <div v-for="(tab, index) in tabs" :key="tab.id" v-show="index === current" :id="`tour-panel-${tab.id}`" role="tabpanel" :aria-labelledby="`tour-tab-${tab.id}`" class="panel" tabindex="0">
-        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="tab.title" :loading="index === 0 ? 'eager' : 'lazy'" />
+        <Figure class="figure" :src="`/img/tabs/${tab.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 1000px, (min-width: 900px) calc(100vw - 400px), 100vw" :alt="`The SpawnLoft ${tab.title.toLowerCase()} panel.`" :width="2558" :height="1392" :label="tab.title" :loading="index === 0 ? 'eager' : 'lazy'" />
         <div class="copy">
           <Eyebrow>0{{ index + 1 }} · {{ tab.title }}</Eyebrow>
           <h3 class="h3">{{ tab.h }}</h3>

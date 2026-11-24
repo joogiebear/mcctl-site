@@ -14,7 +14,6 @@ const limits = [
   <section class="section paper" id="limits">
     <div class="wrap">
       <SectionHead eyebrow="Worth knowing before you download" title="Three things it does not do.">
-        
       </SectionHead>
       <div class="limits">
         <article v-for="limit in limits" :key="limit.title" v-reveal>

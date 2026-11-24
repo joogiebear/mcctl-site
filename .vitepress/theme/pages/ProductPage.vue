@@ -131,7 +131,7 @@ function jumpTo(href: string) {
           <template #aside><ArrowLink href="/guide/panel">A tour of the panel</ArrowLink></template>
         </SectionHead>
         <div class="grid grid-2 screens">
-          <Figure v-for="screen in screens" :key="screen.id" :src="`/img/tabs/${screen.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 660px, (min-width: 640px) 50vw, 100vw" :alt="`The SpawnLoft ${screen.label.toLowerCase()} panel, captured from the running app.`" :width="2558" :height="1392" :label="screen.label" :caption="screen.caption" v-reveal />
+          <Figure v-for="screen in screens" :key="screen.id" :src="`/img/tabs/${screen.id}`" :widths="[800, 1280, 2558]" sizes="(min-width: 1400px) 660px, (min-width: 640px) 50vw, 100vw" :alt="`The SpawnLoft ${screen.label.toLowerCase()} panel.`" :width="2558" :height="1392" :label="screen.label" :caption="screen.caption" v-reveal />
         </div>
       </div>
     </section>
@@ -156,7 +156,7 @@ function jumpTo(href: string) {
           <h2 class="h2">Press Play on your own server.</h2>
           <p class="body">A window for the real Minecraft client, already pointed at one of your SpawnLoft servers. It is a developer's tool that goes with the app: make a setup, press Play, test the plugin you are writing as a player. Nothing is drawn or patched by SpawnLoft; it downloads the client Mojang ships and runs it.</p>
           <ul class="ticks"><li v-for="point in launcher" :key="point">{{ point }}</li></ul>
-          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it, and the sign-in inside the packaged desktop app is still being verified.</p>
+          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it.</p>
           <div class="links"><ArrowLink href="/guide/launcher">How the launcher works</ArrowLink><ArrowLink href="/guide/beta#automatic-updates-and-beta-builds">Get the beta builds</ArrowLink></div>
         </div>
         <div class="sketch-col" v-reveal>
@@ -170,7 +170,6 @@ function jumpTo(href: string) {
               </div>
             </div>
           </AppFrame>
-          
         </div>
       </div>
     </section>
@@ -225,7 +224,7 @@ section:focus { outline: 0; }
 .jobs .body { margin-bottom: var(--s1); }
 .jobs ul, .ticks { list-style: none; padding: 0; margin: 0 0 var(--s2); display: grid; gap: var(--s2); }
 .jobs li, .ticks li { display: flex; gap: var(--s3); align-items: baseline; color: var(--fg-2); font-size: var(--t-ui); line-height: 1.5; }
-.jobs li::before, .ticks li::before { content: ""; width: 10px; height: 1px; background: var(--accent); flex: none; transform: translateY(-4px); }
+.jobs li::before, .ticks li::before { content: ""; width: 10px; height: 1px; background: var(--fg-3); flex: none; transform: translateY(-4px); }
 
 .band { background: var(--bg-1); }
 .player { margin-top: var(--s7); }
