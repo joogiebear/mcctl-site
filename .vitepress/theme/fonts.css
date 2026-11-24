@@ -1,6 +1,7 @@
 /* Self-hosted subsets of the three faces, all variable. Headings use Bricolage at 500 and 600
    only, so its Latin file keeps the optical size axis (12 to 96) and just that weight range; body
-   text is Inter cut to its text optical size and weights 400 to 700; JetBrains Mono is 400 to 700.
+   text is Inter cut to its text optical size and weights 400 to 700; JetBrains Mono is 400 to 700
+   without its coding ligatures, so code reads exactly as typed.
    The Latin files are also trimmed to the layout features the site uses (fontTools subset), which
    keeps the Lighthouse page-weight budget. Both Bricolage faces still declare 300 to 800: Chrome
    only treats unicode-range segments as one family when their descriptors match, and the trimmed
