@@ -7,7 +7,7 @@ export const RELEASES_URL = `https://github.com/${REPO}/releases`
 export const LATEST_API = `https://api.github.com/repos/${REPO}/releases/latest`
 
 // The version the links point at until GitHub answers. Bump it as part of each stable release.
-export const FALLBACK_VERSION = 'v1.5.0'
+export const FALLBACK_VERSION = 'v2.0.0'
 
 export type Os = 'windows' | 'mac' | 'linux'
 
@@ -24,12 +24,12 @@ export interface Download {
 }
 
 export const DOWNLOADS: Download[] = [
-  { id: 'windows', os: 'windows', title: 'Windows', detail: '10 or 11 · x64 · signed installer', file: 'SpawnLoft-Setup-1.5.0.exe', match: /^SpawnLoft-Setup-[\d.]+\.exe$/, main: true },
-  { id: 'mac-arm64', os: 'mac', title: 'macOS', detail: 'Apple Silicon · macOS 13 or later', file: 'SpawnLoft-1.5.0-mac-arm64.dmg', match: /^SpawnLoft-[\d.]+-mac-arm64\.dmg$/, main: true },
-  { id: 'deb-x64', os: 'linux', title: 'Linux', detail: 'Ubuntu, Debian · x64 · .deb', file: 'SpawnLoft-1.5.0-linux-amd64.deb', match: /^SpawnLoft-[\d.]+-linux-amd64\.deb$/, main: true },
-  { id: 'deb-arm64', os: 'linux', title: 'Ubuntu, Debian', detail: 'arm64 · .deb', file: 'SpawnLoft-1.5.0-linux-arm64.deb', match: /^SpawnLoft-[\d.]+-linux-arm64\.deb$/ },
-  { id: 'rpm-x64', os: 'linux', title: 'Fedora, RHEL', detail: 'x64 · .rpm', file: 'SpawnLoft-1.5.0-linux-x86_64.rpm', match: /^SpawnLoft-[\d.]+-linux-x86_64\.rpm$/ },
-  { id: 'rpm-arm64', os: 'linux', title: 'Fedora, RHEL', detail: 'arm64 · .rpm', file: 'SpawnLoft-1.5.0-linux-aarch64.rpm', match: /^SpawnLoft-[\d.]+-linux-aarch64\.rpm$/ },
+  { id: 'windows', os: 'windows', title: 'Windows', detail: '10 or 11 · x64 · signed installer', file: 'SpawnLoft-Setup-2.0.0.exe', match: /^SpawnLoft-Setup-[\d.]+\.exe$/, main: true },
+  { id: 'mac-arm64', os: 'mac', title: 'macOS', detail: 'Apple Silicon · macOS 13 or later', file: 'SpawnLoft-2.0.0-mac-arm64.dmg', match: /^SpawnLoft-[\d.]+-mac-arm64\.dmg$/, main: true },
+  { id: 'deb-x64', os: 'linux', title: 'Linux', detail: 'Ubuntu, Debian · x64 · .deb', file: 'SpawnLoft-2.0.0-linux-amd64.deb', match: /^SpawnLoft-[\d.]+-linux-amd64\.deb$/, main: true },
+  { id: 'deb-arm64', os: 'linux', title: 'Ubuntu, Debian', detail: 'arm64 · .deb', file: 'SpawnLoft-2.0.0-linux-arm64.deb', match: /^SpawnLoft-[\d.]+-linux-arm64\.deb$/ },
+  { id: 'rpm-x64', os: 'linux', title: 'Fedora, RHEL', detail: 'x64 · .rpm', file: 'SpawnLoft-2.0.0-linux-x86_64.rpm', match: /^SpawnLoft-[\d.]+-linux-x86_64\.rpm$/ },
+  { id: 'rpm-arm64', os: 'linux', title: 'Fedora, RHEL', detail: 'arm64 · .rpm', file: 'SpawnLoft-2.0.0-linux-aarch64.rpm', match: /^SpawnLoft-[\d.]+-linux-aarch64\.rpm$/ },
 ]
 
 // The last build for Intel Macs. 1.5 and later are Apple Silicon only.
