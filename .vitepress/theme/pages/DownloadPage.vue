@@ -82,10 +82,10 @@ const next = [
             <Notice title="Worth knowing"><p>Managed MySQL is the one feature that needs macOS 15 or later. Intel Macs stay on <a :href="INTEL_MAC_URL">1.4</a>, the last version built for them; an Intel Mac is not offered 1.5 or later, and its update check says so. <a href="/guide/getting-started#install-on-mac">Mac setup steps</a></p></Notice>
           </Disclosure>
           <Disclosure id="linux" summary="Linux, .deb or .rpm, x64 or arm64">
-            <CodeBlock code="# Ubuntu 22.04+, Debian 12+&#10;$ sudo apt install ./SpawnLoft-1.5.0-linux-amd64.deb&#10;# Fedora, the RHEL family, openSUSE&#10;$ sudo dnf install ./SpawnLoft-1.5.0-linux-x86_64.rpm" />
+            <CodeBlock code="# Ubuntu 22.04+, Debian 12+&#10;$ sudo apt install ./SpawnLoft-2.0.0-linux-amd64.deb&#10;# Fedora, the RHEL family&#10;$ sudo dnf install ./SpawnLoft-2.0.0-linux-x86_64.rpm&#10;# openSUSE&#10;$ sudo zypper install ./SpawnLoft-2.0.0-linux-x86_64.rpm" />
             <p>Everything installs to <code>/opt/SpawnLoft</code>. Open SpawnLoft from the applications menu, or run <code>spawnloft-desktop</code>; <code>spawnloft</code> is the command line. Neither needs Node.</p>
             <Notice title="Read this one" tone="warn"><p>Schedules and automatic backups run on systemd user timers, and they stop when you log out unless lingering is on for your account. Turn on <b>Keep running after logout</b> in the Backups or Schedule tool, or run <code>spawnloft task linger on</code>. On a machine you reach over SSH, that is the difference between a nightly backup and none. <a href="/guide/beta#install-on-linux">Linux notes in full</a></p></Notice>
-            <p>Managed MySQL runs on x64 only. Running a server with no screen? There is a command-line-only package, about 30 MB, with its own runtime. <a href="/guide/beta#no-screen">Set that up instead</a>.</p>
+            <p>Managed MySQL runs on x64 only. Running a server with no screen? There is a command-line-only package, about 4 MB, with no desktop and no runtime to install. <a href="/guide/beta#no-screen">Set that up instead</a>.</p>
           </Disclosure>
         </div>
         <p class="small verify">Every file of a release, with its size, is listed on <a :href="RELEASES_URL">GitHub Releases</a>. The Windows and Mac installers are code-signed, and updates arrive the same way: signed installers on Windows and Mac, hash-verified packages on Linux.</p>
