@@ -19,6 +19,7 @@ export const docGroups: DocGroup[] = [
     { text: 'Whitelist and operators', desc: 'Control who joins and who can run commands.', link: '/guide/whitelist-and-operators' },
     { text: 'Customize your server', desc: 'MOTD, icon, difficulty, game mode and player limits.', link: '/guide/customize-your-server' },
     { text: 'Bring your world or server', desc: 'Import a map, or take over a server you already run.', link: '/guide/bring-your-world' },
+    { text: 'Import, export and switch worlds', desc: 'The Worlds tab and what a backup covers.', link: '/guide/manage-your-worlds' },
   ] },
   { label: 'Keep it healthy', title: 'Look after it.', items: [
     { text: 'Backups', desc: 'Snapshots, schedules, verification and restore.', link: '/guide/backups' },
@@ -28,6 +29,8 @@ export const docGroups: DocGroup[] = [
     { text: 'How much RAM it needs', desc: 'Memory starting points, and how to tell it is enough.', link: '/guide/how-much-ram' },
     { text: 'Fix a laggy server', desc: 'Read TPS and memory, then change one thing at a time.', link: '/guide/fix-a-laggy-server' },
     { text: 'Recover a damaged world', desc: 'Restore a snapshot, in the right order.', link: '/guide/recover-a-damaged-world' },
+    { text: 'Back up to a second drive', desc: 'A mirror, locked snapshots, and verification.', link: '/guide/back-up-to-a-second-drive' },
+    { text: 'Free up disk space', desc: 'Prune snapshots, or move servers and data to a bigger drive.', link: '/guide/free-up-disk-space' },
   ] },
   { label: 'Plugins, mods and updates', title: 'Change what it runs.', items: [
     { text: 'Paper, Fabric or NeoForge', desc: 'Pick the software by what you want to do.', link: '/guide/choose-software' },
@@ -49,6 +52,7 @@ export const docGroups: DocGroup[] = [
   { label: 'Get help', title: 'Understand it, fix it.', items: [
     { text: 'Troubleshooting', desc: 'Recognise the error. Find the next step.', link: '/guide/troubleshooting' },
     { text: 'Ask for help', desc: 'What to collect and where to post.', link: '/guide/ask-for-help' },
+    { text: 'Read the console', desc: 'Filter it, find the first error, and let SpawnLoft name the cause.', link: '/guide/read-the-console' },
     { text: 'Questions', desc: 'Straight answers to the things people ask.', link: '/guide/faq' },
     { text: 'Security', desc: 'What stays local, and why.', link: '/guide/security' },
     { text: 'How it works', desc: 'The engine underneath the control room.', link: '/guide/how-it-works' },
