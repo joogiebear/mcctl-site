@@ -7,10 +7,6 @@ description: SpawnLoft for Windows, Apple Silicon Mac, and Linux (.deb and .rpm,
 
 SpawnLoft ships for Windows, Apple Silicon Mac, and Linux on x64 and arm64. Every platform is built from one commit and installed and exercised on its own operating system before a release is published.
 
-::: warning SpawnLoft 2.0 is not published yet
-This page describes 2.0, which is finished on the development branch but has not been released. The installers the site's download button points at are the stable 1.5.0. The package names, platforms and update behaviour below are what 2.0 builds, so check the release page for what a given version includes. Intel Macs, the old Node and Electron runtime, and the Node-based command line are 1.x; they are covered in [what changes in 2.0](#what-changes-in-2-0).
-:::
-
 <PlatformPicker />
 
 | Platform | Package | Requirement |

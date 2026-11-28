@@ -152,12 +152,12 @@ function jumpTo(href: string) {
     <section class="section hairline" id="launcher">
       <div class="wrap two">
         <div class="words">
-          <div class="eyebrow-row"><Eyebrow accent>The game launcher</Eyebrow><Pill tone="warn">1.6 beta</Pill></div>
+          <div class="eyebrow-row"><Eyebrow accent>The game launcher</Eyebrow></div>
           <h2 class="h2">Press Play on your own server.</h2>
           <p class="body">A window for the real Minecraft client, already pointed at one of your SpawnLoft servers. It is a developer's tool that goes with the app: make a setup, press Play, test the plugin you are writing as a player. Nothing is drawn or patched by SpawnLoft; it downloads the client Mojang ships and runs it.</p>
           <ul class="ticks"><li v-for="point in launcher" :key="point">{{ point }}</li></ul>
-          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It ships in the 1.6 betas; 1.5 does not have it.</p>
-          <div class="links"><ArrowLink href="/guide/launcher">How the launcher works</ArrowLink><ArrowLink href="/guide/beta#automatic-updates-and-beta-builds">Get the beta builds</ArrowLink></div>
+          <p class="body">It is not a mods launcher, a news feed or a store, and it has no account system of its own. It is part of SpawnLoft 2.0.</p>
+          <div class="links"><ArrowLink href="/guide/launcher">How the launcher works</ArrowLink><ArrowLink href="/download">Download SpawnLoft</ArrowLink></div>
         </div>
         <div class="sketch-col" v-reveal>
           <AppFrame title="Game launcher" class="sketch">

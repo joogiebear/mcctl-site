@@ -13,6 +13,9 @@ const reference = [
 const useCases = [
   { text: 'Host for friends', link: '/guide/host-for-friends' },
   { text: 'Paper, Fabric or NeoForge', link: '/guide/choose-software' },
+  { text: 'Play on your home network', link: '/guide/play-on-your-network' },
+  { text: 'Bring your world or server', link: '/guide/bring-your-world' },
+  { text: 'Fix a laggy server', link: '/guide/fix-a-laggy-server' },
   { text: 'Try things safely', link: '/guide/try-it-safely' },
   { text: 'Run a modpack', link: '/guide/modpack-server' },
   { text: 'The game launcher', link: '/guide/launcher' },

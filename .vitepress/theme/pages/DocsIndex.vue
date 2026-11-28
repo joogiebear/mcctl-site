@@ -22,9 +22,12 @@ const library = [
   { label: 'Start something', title: 'Do more with it.', links: [
     ['Host for friends', 'From the first start to a server that looks after itself.', '/guide/host-for-friends'],
     ['Paper, Fabric or NeoForge', 'Pick the software by what you want to do.', '/guide/choose-software'],
+    ['Play on your home network', 'Friends on the same Wi-Fi, with no router changes.', '/guide/play-on-your-network'],
+    ['Bring your world or server', 'Import a map, or take over a server you already run.', '/guide/bring-your-world'],
+    ['Fix a laggy server', 'Read TPS and memory, then change one thing at a time.', '/guide/fix-a-laggy-server'],
     ['Try things safely', 'Test a plugin or an update on a copy first.', '/guide/try-it-safely'],
     ['Run a modpack', 'A whole modded server from one Modrinth pack.', '/guide/modpack-server'],
-    ['The game launcher', 'Play on your own server from a window, in the 1.6 betas.', '/guide/launcher'],
+    ['The game launcher', 'Play on your own server from a window.', '/guide/launcher'],
   ] },
   { label: 'Make it yours', title: 'Find your way around.', links: [
     ['The panel', 'Your console, plugins, worlds and backups.', '/guide/panel'],

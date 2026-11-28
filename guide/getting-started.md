@@ -6,10 +6,6 @@ description: "Install SpawnLoft, create or import a Minecraft server, and bring 
 
 Install SpawnLoft, create or import a Minecraft server, and bring your world online. Everything runs on your own PC.
 
-::: warning SpawnLoft 2.0 is not published yet
-These docs describe SpawnLoft 2.0. Until it is released, the download on this site is the stable 1.5.0, which is built on Electron with a bundled Node runtime and differs in the details: its look, its installer and updater, and how the command line is installed. See [Downloads & platforms](/guide/beta) for what 2.0 changes.
-:::
-
 <PlatformPicker />
 
 ## Three steps

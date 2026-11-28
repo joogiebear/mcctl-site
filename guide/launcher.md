@@ -7,10 +7,6 @@ description: Play on your own SpawnLoft server from the panel's Play page. Setup
 
 A launcher for the real Minecraft client, already pointed at one of your SpawnLoft servers. You make a **setup** (a Minecraft version, a mod loader if you want one, how much memory), press **Play**, and the game Mojang ships starts and joins the server. It is a developer's tool that goes with SpawnLoft: the quickest way to stand in the world you are hosting, or to test the plugin you are writing as a player.
 
-::: warning SpawnLoft 2.0
-The launcher is part of 2.0, which is not published yet; the stable download on this site is 1.5.0, which does not have it. See [Downloads & platforms](/guide/beta).
-:::
-
 Nothing is drawn or patched by SpawnLoft. It downloads the client from Mojang's own servers, the way Prism and MultiMC do, and runs it. It is not a mods bundle, a news feed or a store, and it has no account system of its own: you sign in with Microsoft, on Microsoft's page, or play offline on a test server.
 
 ## Opening it
