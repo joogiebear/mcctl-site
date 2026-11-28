@@ -15,7 +15,7 @@ The rule for a server people play on is to break things somewhere else first. Sp
 
 ## The snapshot before every install
 
-Installing or updating a plugin from the **Plugins** tool takes a snapshot of your plugins first, and checks the download. If the new plugin misbehaves, stop the server, open **Backups**, and restore the snapshot that begins `pre-install`. Restore puts the files back and deletes nothing else, so your world and everything you added since stay where they are.
+Installing or updating a plugin from the **Plugins** tool takes a snapshot of your plugins first, and checks the download. If the new plugin misbehaves, stop the server, open **Backups**, and restore the snapshot that begins `pre-install`. Restore puts the files back and deletes nothing else, so your world and everything you added since stay where they are. Because the snapshot predates the new plugin, also disable or delete that plugin in **Plugins**.
 
 Restore is refused while the server is running, on purpose, because extracting over files a live server holds open can corrupt a world.
 
