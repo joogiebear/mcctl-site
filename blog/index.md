@@ -1,6 +1,6 @@
 ---
 title: Blog
-description: "Notes on building SpawnLoft in the open: how it works, how it looks, and the decisions behind both."
+description: "Practical guides for running a server on your own PC, release notes, and how SpawnLoft is built, in the open."
 layout: page
 search: false
 sidebar: false

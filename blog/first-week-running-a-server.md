@@ -4,6 +4,7 @@ description: "A seven-day plan for a new SpawnLoft server: install, play on your
 date: 2026-11-28
 author: joogiebear
 tags: [Guide, Beginner]
+featured: true
 lastUpdated: false
 sidebar: false
 aside: false
