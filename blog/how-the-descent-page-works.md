@@ -3,7 +3,7 @@ title: How the Descent page works
 description: A scroll-driven dive through the SpawnLoft island, built from one scroll value, a camera on rails and three layers that move at different speeds.
 date: 2026-10-06
 author: joogiebear
-tags: [Web, three.js, Motion]
+tags: [Design, Web, three.js, Motion]
 lastUpdated: false
 sidebar: false
 aside: false

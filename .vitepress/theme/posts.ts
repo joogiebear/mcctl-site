@@ -7,6 +7,7 @@ export interface Post {
   author: string
   tags: string[]
   minutes: number
+  featured: boolean
 }
 
 interface RawPost { url: string; src?: string; frontmatter: Record<string, unknown> }
@@ -29,6 +30,7 @@ export function toPost(raw: RawPost): Post {
     author: String(front.author ?? 'joogiebear'),
     tags: Array.isArray(front.tags) ? front.tags.map(String) : [],
     minutes: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
+    featured: front.featured === true,
   }
 }
 

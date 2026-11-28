@@ -3,54 +3,9 @@ import path from 'node:path'
 import { createContentLoader, defineConfig, type HeadConfig } from 'vitepress'
 import { cardSlug } from '../tools/social-cards/slug.mjs'
 import { isPost, newestFirst, toPost } from './theme/posts'
+import { docGroups } from './docs-nav'
 
 // The project site: a landing page plus the docs, both in the app's own palette.
-const reference = [
-  { text: 'Commands', link: '/reference/commands' },
-  { text: 'Server software', link: '/reference/servers' },
-]
-// Task-shaped pages, for someone who has the app and a goal.
-const useCases = [
-  { text: 'Host for friends', link: '/guide/host-for-friends' },
-  { text: 'Paper, Fabric or NeoForge', link: '/guide/choose-software' },
-  { text: 'Play on your home network', link: '/guide/play-on-your-network' },
-  { text: 'Bring your world or server', link: '/guide/bring-your-world' },
-  { text: 'Fix a laggy server', link: '/guide/fix-a-laggy-server' },
-  { text: 'How much RAM it needs', link: '/guide/how-much-ram' },
-  { text: 'Whitelist and operators', link: '/guide/whitelist-and-operators' },
-  { text: 'Customize your server', link: '/guide/customize-your-server' },
-  { text: 'Schedule restarts and backups', link: '/guide/schedule-restarts-and-backups' },
-  { text: 'Restart after a crash', link: '/guide/crash-recovery' },
-  { text: 'Update Minecraft safely', link: '/guide/update-minecraft-version' },
-  { text: 'Recover a damaged world', link: '/guide/recover-a-damaged-world' },
-  { text: 'Windows, Mac or Linux', link: '/guide/run-a-server-on-your-pc' },
-  { text: 'Discord crash alerts', link: '/guide/discord-alerts' },
-  { text: 'Connect an AI assistant', link: '/guide/connect-an-ai-assistant' },
-  { text: 'Add a database', link: '/guide/add-a-database' },
-  { text: 'Fabric or NeoForge with mods', link: '/guide/run-a-fabric-or-neoforge-server' },
-  { text: 'Ask for help', link: '/guide/ask-for-help' },
-  { text: 'Command line basics', link: '/guide/command-line-basics' },
-  { text: 'Try things safely', link: '/guide/try-it-safely' },
-  { text: 'Run a modpack', link: '/guide/modpack-server' },
-  { text: 'The game launcher', link: '/guide/launcher' },
-]
-const guide = [
-  { text: 'Getting started', link: '/guide/getting-started' },
-  { text: 'The panel', link: '/guide/panel' },
-  { text: 'Plugins and mods', link: '/guide/plugins' },
-  { text: 'Backups', link: '/guide/backups' },
-  { text: 'Sharing your server', link: '/guide/sharing' },
-  { text: 'The desktop app', link: '/guide/desktop' },
-  { text: 'Downloads & platforms', link: '/guide/beta' },
-  { text: 'Databases', link: '/guide/databases' },
-  { text: 'AI assistants', link: '/guide/ai-assistants' },
-  { text: 'Compare', link: '/guide/compare' },
-  { text: 'How it works', link: '/guide/how-it-works' },
-  { text: 'Security', link: '/guide/security' },
-  { text: 'Troubleshooting', link: '/guide/troubleshooting' },
-  { text: 'Questions', link: '/guide/faq' },
-]
-
 // The canonical address, and the host the pages really resolve on. In Vercel, spawnloft.com,
 // spawnloft.app, spawnloft.dev and their www variants all redirect (308) to www.spawnloft.com, and
 // vercel.json sends mcctl-site.vercel.app there too. The .app and .dev zones are in Cloudflare, each
@@ -79,6 +34,8 @@ const SOFTWARE = {
   codeRepository: 'https://github.com/joogiebear/spawnloft',
   author: { '@type': 'Person', name: 'joogiebear', url: 'https://github.com/joogiebear' },
 }
+
+const sidebarGroups = () => docGroups.map(group => ({ text: group.label, collapsed: true, items: group.items.map(({ text, link }) => ({ text, link })) }))
 
 export default defineConfig({
   title: 'SpawnLoft',
@@ -181,10 +138,8 @@ ${items}
       { text: 'Docs', link: '/guide/', activeMatch: '^/(guide|reference)/' },
       { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },
     ],
-    sidebar: {
-      '/guide/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Do more with it', items: useCases }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
-      '/reference/': [{ text: 'Start here', items: guide.slice(0,9) }, { text: 'Do more with it', items: useCases }, { text: 'Understand & troubleshoot', items: guide.slice(9) }, { text: 'Reference', items: reference }],
-    },
+    // One group per goal, from the shared list in docs-nav.ts. Only the group holding the page you are on is open.
+    sidebar: { '/guide/': sidebarGroups(), '/reference/': sidebarGroups() },
     socialLinks: [{ icon: 'github', link: 'https://github.com/joogiebear/spawnloft' }],
     editLink: { pattern: 'https://github.com/joogiebear/mcctl-site/edit/main/:path', text: 'Edit this page' },
     search: { provider: 'local' },

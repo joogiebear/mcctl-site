@@ -5,6 +5,8 @@ import Button from '../components/Button.vue'
 import Eyebrow from '../components/Eyebrow.vue'
 import Figure from '../components/Figure.vue'
 import SectionHead from '../components/SectionHead.vue'
+import { computed, ref } from 'vue'
+import { docGroups } from '../../docs-nav'
 
 // The front of the docs: three ways in for the three reasons people arrive, then the library.
 const quick = [
@@ -12,54 +14,15 @@ const quick = [
   ['I want to do more with it', '/guide/panel'],
   ['Something needs a fix', '/guide/troubleshooting'],
 ]
-const library = [
-  { label: 'Start here', title: 'Get up and running.', links: [
-    ['Getting started', 'Install the app, check Java, and start a server.', '/guide/getting-started'],
-    ['The desktop app', 'Updates, data folders, and life outside the window.', '/guide/desktop'],
-    ['Downloads and platforms', 'Windows, Mac and Linux installers, and what each supports.', '/guide/beta'],
-    ['Server software', 'Understand the loaders and choose your setup.', '/reference/servers'],
-  ] },
-  { label: 'Start something', title: 'Do more with it.', links: [
-    ['Host for friends', 'From the first start to a server that looks after itself.', '/guide/host-for-friends'],
-    ['Paper, Fabric or NeoForge', 'Pick the software by what you want to do.', '/guide/choose-software'],
-    ['Play on your home network', 'Friends on the same Wi-Fi, with no router changes.', '/guide/play-on-your-network'],
-    ['Bring your world or server', 'Import a map, or take over a server you already run.', '/guide/bring-your-world'],
-    ['Fix a laggy server', 'Read TPS and memory, then change one thing at a time.', '/guide/fix-a-laggy-server'],
-    ['How much RAM it needs', 'Memory starting points, and how to tell it is enough.', '/guide/how-much-ram'],
-    ['Whitelist and operators', 'Control who joins and who can run commands.', '/guide/whitelist-and-operators'],
-    ['Customize your server', 'MOTD, icon, difficulty, game mode and player limits.', '/guide/customize-your-server'],
-    ['Schedule restarts and backups', 'Nightly backups and restarts that warn players.', '/guide/schedule-restarts-and-backups'],
-    ['Restart after a crash', 'Relaunch after a crash, with a loop limit.', '/guide/crash-recovery'],
-    ['Update Minecraft safely', 'Check, rehearse on a clone, then upgrade.', '/guide/update-minecraft-version'],
-    ['Recover a damaged world', 'Restore a snapshot, in the right order.', '/guide/recover-a-damaged-world'],
-    ['Windows, Mac or Linux', 'What differs on each system.', '/guide/run-a-server-on-your-pc'],
-    ['Discord crash alerts', 'Get a message when a server crashes.', '/guide/discord-alerts'],
-    ['Connect an AI assistant', 'Set up MCP, and know what leaves your PC.', '/guide/connect-an-ai-assistant'],
-    ['Add a database', 'MySQL or Redis for a plugin, with one click.', '/guide/add-a-database'],
-    ['Fabric or NeoForge with mods', 'Create a modded server and add mods safely.', '/guide/run-a-fabric-or-neoforge-server'],
-    ['Ask for help', 'What to collect and where to post.', '/guide/ask-for-help'],
-    ['Command line basics', 'The few commands most people use.', '/guide/command-line-basics'],
-    ['Try things safely', 'Test a plugin or an update on a copy first.', '/guide/try-it-safely'],
-    ['Run a modpack', 'A whole modded server from one Modrinth pack.', '/guide/modpack-server'],
-    ['The game launcher', 'Play on your own server from a window.', '/guide/launcher'],
-  ] },
-  { label: 'Make it yours', title: 'Find your way around.', links: [
-    ['The panel', 'Your console, plugins, worlds and backups.', '/guide/panel'],
-    ['Plugins and mods', 'Install, update and manage what your server loads.', '/guide/plugins'],
-    ['Backups', 'Snapshots, schedules, verification and restore.', '/guide/backups'],
-    ['Databases', 'Managed setup, connection details, and manual plugin configs.', '/guide/databases'],
-    ['How it works', 'The engine underneath the control room.', '/guide/how-it-works'],
-    ['Command reference', 'Commands, structured JSON, and performance exports.', '/reference/commands'],
-  ] },
-  { label: 'Get a hand', title: 'Keep things running.', links: [
-    ['Troubleshooting', 'Recognise the error. Find the next step.', '/guide/troubleshooting'],
-    ['Sharing your server', 'How friends join, and what to switch on first.', '/guide/sharing'],
-    ['Security', 'What stays local, and why.', '/guide/security'],
-    ['Questions', 'Straight answers to the things people ask.', '/guide/faq'],
-    ['Compare', 'SpawnLoft next to Aternos, Pterodactyl and Crafty.', '/guide/compare'],
-    ['AI assistants', 'Let an AI app you choose check on and run your servers.', '/guide/ai-assistants'],
-  ] },
-]
+const query = ref('')
+// A plain filter over the same list the sidebar uses: title and description, every word must match.
+const groups = computed(() => {
+  const words = query.value.toLowerCase().split(/\s+/).filter(Boolean)
+  if (!words.length) return docGroups
+  return docGroups
+    .map(group => ({ ...group, items: group.items.filter(item => words.every(word => `${item.text} ${item.desc}`.toLowerCase().includes(word))) }))
+    .filter(group => group.items.length)
+})
 </script>
 
 <template>
@@ -84,16 +47,18 @@ const library = [
         <SectionHead eyebrow="The library" title="A good place to find your feet.">
           <template #aside><p class="small">Guides and reference</p></template>
         </SectionHead>
+        <label class="filter"><span class="sr-only">Filter the guides</span><input v-model="query" type="search" placeholder="Filter the guides, for example backups or plugins" autocomplete="off" /></label>
         <div class="columns">
-          <div v-for="column in library" :key="column.label" class="column">
-            <Eyebrow>{{ column.label }}</Eyebrow>
-            <h3 class="h3">{{ column.title }}</h3>
-            <a v-for="[title, text, href] in column.links" :key="href" :href="href" class="entry">
-              <span class="entry-words"><b>{{ title }}</b><span class="small">{{ text }}</span></span>
+          <div v-for="group in groups" :key="group.label" class="column">
+            <Eyebrow>{{ group.label }}</Eyebrow>
+            <h3 class="h3">{{ group.title }}</h3>
+            <a v-for="item in group.items" :key="item.link" :href="item.link" class="entry">
+              <span class="entry-words"><b>{{ item.text }}</b><span class="small">{{ item.desc }}</span></span>
               <BrandIcon name="arrow" :size="16" />
             </a>
           </div>
         </div>
+        <p v-if="!groups.length" class="body empty" role="status">Nothing matches that. Try one word, or <a href="/guide/faq">read the questions page</a>.</p>
       </div>
     </section>
 
@@ -131,7 +96,12 @@ const library = [
 .quick a:last-child { border-bottom: 1px solid var(--line); }
 .quick a svg { color: var(--accent-text); transition: transform var(--d1) var(--ease); }
 .quick a:hover svg { transform: translateX(3px); }
-.columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s7) var(--s6); margin-top: var(--s7); }
+.filter { display: block; margin-top: var(--s6); }
+.filter input { width: 100%; max-width: 32rem; min-height: 44px; padding: 0 var(--s4); border: 1px solid var(--line-strong); border-radius: var(--r0); background: var(--bg-1); color: var(--fg); font: 400 var(--t-body)/1 var(--text); }
+.filter input:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.empty { margin-top: var(--s6); }
+.columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s7) var(--s6); margin-top: var(--s6); }
 .column { display: grid; align-content: start; }
 .column .h3 { margin: var(--s2) 0 var(--s4); }
 .entry { display: flex; align-items: center; gap: var(--s3); padding: var(--s4) 0; border-top: 1px solid var(--line); }
@@ -144,7 +114,7 @@ const library = [
 .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--s8); align-items: center; }
 .two .words { gap: var(--s4); }
 .links { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); }
-@media (max-width: 1100px) { .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1000px) { .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 980px) { .intro { grid-template-columns: minmax(0, 1fr); gap: var(--s7); } .two { grid-template-columns: minmax(0, 1fr); gap: var(--s6); } }
 @media (max-width: 640px) { .columns { grid-template-columns: minmax(0, 1fr); gap: var(--s6); } }
 </style>
